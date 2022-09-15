@@ -1,0 +1,117 @@
+.welcomeImg {
+    height: 100%;
+    width: 100%;
+    object-fit: fill;
+    opacity: 0.45;
+
+}
+
+.centered {
+    padding: 7%;
+    text-align: center;
+    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(15px);
+    border: 2px solid black;
+    border-radius: 8px;
+    position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.contact-form {
+    margin-top: 140px;
+    width: 600px;
+    height: 400px;
+    position: relative;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    max-width: 100%;
+    max-height: 100%;
+    overflow: auto;
+    padding: 1em 2em;
+    display: table;
+}
+
+.welcome-paslaugos {
+    height: 100%;
+    width: 100%;
+    margin-top: 2px;
+    object-fit: fill;
+    background-color: rgb(190, 216, 216);
+    border-radius: 20px;
+
+}
+
+.teikiamosPaslaugos {
+    padding-top: 15px;
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.repair-icon1 {
+    height: 10px;
+    width: 10px;
+}
+
+.card-img-top {
+    width: 100px !important;
+    height: 16vh;
+    object-fit: cover;
+
+}
+
+#card-img-computer {
+    width: 120px !important;
+    height: 16vh;
+}
+
+#card-img-console {
+    width: 130px !important;
+    height: 16vh;
+}
+
+.card-title {
+    text-align: center;
+}
+
+
+.arrow-down-btn {
+    background-color: transparent;
+    border: none;
+    color: none;
+}
+
+.profile_info div {
+	display: inline-block; 
+	margin: 5px;
+}
+
+#user_type {
+	height: 40px;
+	width: 98%;
+	padding: 5px 10px;
+	background: white;
+	font-size: 16px;
+	border-radius: 5px;
+	border: 1px solid gray;
+}
+
+.error {
+	width: 92%; 
+	margin: 0px auto; 
+	padding: 10px; 
+	border: 1px solid #a94442; 
+	color: #a94442; 
+	background: #f2dede; 
+	border-radius: 5px; 
+	text-align: left;
+}
+.success {
+	color: #3c763d; 
+	background: #dff0d8; 
+	border: 1px solid #3c763d;
+	margin-bottom: 20px;
+}
