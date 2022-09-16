@@ -46,9 +46,22 @@
             <div class="col">
                 <h1>Specialistai</h1>
                 <br>
-                <button>Pridėti</button>
+                <button id="btn-show">Rodyti formą</button>
             </div>
         </div>
+
+        <form id="form" class="pt-3 pb-3">
+            <label for="techn_name">Vardas Pavardė</label>
+            <input type="text" id="techn_name" class="me-3">
+
+            <label for="techn_email">El. paštas</label>
+            <input type="text" id = "techn_email" class="me-3">
+
+            <label for="techn_phone_num">Tel. nr.</label>
+            <input type="text" id="techn_phone_num" class="me-3">
+
+            <button type="submit">Pridėti</button>
+        </form>
         <div class="row">
             <div class="col">
                 <table class="table table-responsive">
@@ -87,6 +100,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="scripts/showHideForm.js"></script>
 </body>
 
 </html>

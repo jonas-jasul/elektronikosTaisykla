@@ -53,6 +53,18 @@
                     Taisymai
                 </a>
             </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link text-dark">
+                    Prietaisų kategorijos
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a href="#" class="nav-link text-dark">
+                    Prietaisai
+                </a>
+            </li>
         </ul>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.1/js/bootstrap.min.js"></script>

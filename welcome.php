@@ -65,7 +65,7 @@
                         <?php if (isLoggedIn(true)) { ?>
                             <div class="pirmyn"> 
                                 <span>
-                                <a href="#" class="pirmyn-link">Pirmyn! <i class="fa-solid fa-arrow-right"></i></a>
+                                <a href="userRepairPhone.php" class="pirmyn-link">Pirmyn! <i class="fa-solid fa-arrow-right"></i></a>
                                 
                                 </span>                                                           
                             </div>
