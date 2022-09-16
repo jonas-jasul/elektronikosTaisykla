@@ -112,6 +112,38 @@
 .success {
 	color: #3c763d; 
 	background: #dff0d8; 
+    width: 40%;
 	border: 1px solid #3c763d;
-	margin-bottom: 20px;
+	margin: auto;
+
+}
+
+.er-suc-log {
+        padding: 2%;
+        text-align: center;
+        -webkit-backdrop-filter: blur(15px);
+        backdrop-filter: blur(15px);
+        border: 2px solid black;
+        border-radius: 8px;
+        position: absolute;
+        top: 30%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    
+}
+
+.pirmyn {
+    text-align: center;
+}
+
+.pirmyn-link {
+    text-decoration: none;
+    color: black;
+    border: 3px solid rgb(190, 216, 216);
+    padding:4px;
+}
+
+.pirmyn-link:hover {
+    background-color: aqua;
+    color:black;
 }

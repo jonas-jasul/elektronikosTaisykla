@@ -31,9 +31,10 @@
             <div id="navbarSupportedContent" class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active"><a href="welcome.php" class="nav-link">Pagrindinis puslapis</a></li>
-                    <li class="nav-item"><a href="#paslaugos-div" class="nav-link">Paslaugos</a></li>
+                    <li class="nav-item"><a href="welcome.php#paslaugos-div" class="nav-link">Paslaugos</a></li>
                     <li class="nav-item"><a href="#" class="nav-link">Apie mus</a></li>
                     <li class="nav-item"><a href="kontaktai.php" class="nav-link">Kontaktai</a></li>
+                    <li class="nav-item"><a href="userPage.php" class="nav-link">Vartotojo panelė</a></li>
                     <!-- <li class="nav-item"><a href="registration.php" class="nav-link">Registruotis</a></li>
                     <li class="nav-item"><a href="login.php" class="nav-link">Prisijungti</a></li> -->
                 </ul>
@@ -58,7 +59,7 @@
         <div class="row">
             <div class="col-6">
                 <?php if (isset($_SESSION['success'])) : ?>
-                    <div class="error success">
+                    <div class="error success er-suc-log">
                         <h3>
                             <?php
                             echo $_SESSION['success'];

@@ -22,9 +22,10 @@
             <div id="navbarSupportedContent" class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
                     <li class="nav-item active"><a href="welcome.php" class="nav-link">Pagrindinis puslapis</a></li>
-                    <li class="nav-item"><a href="#paslaugos-div" class="nav-link">Paslaugos</a></li>
+                    <li class="nav-item"><a href="welcome.php#paslaugos-div" class="nav-link">Paslaugos</a></li>
                     <li class="nav-item"><a href="#" class="nav-link">Apie mus</a></li>
                     <li class="nav-item"><a href="kontaktai.php" class="nav-link">Kontaktai</a></li>
+                    <li class="nav-item"><a href="userPage.php" class="nav-link">Vartotojo panelė</a></li>
                     <li class="nav-item">
                         <div class="profile-info">
                             <div>

@@ -16,13 +16,12 @@
     <?php include("functions/functions.php"); ?>
 
     <?php session_start();
-    if(isLoggedIn(true)) {
-        include ("loggedInHeader.php");
-    }
-    else {
+    if (isLoggedIn(true)) {
+        include("loggedInHeader.php");
+    } else {
         include("welcomeHeader.php");
     }
-?>
+    ?>
     <div class="container">
         <div class="row">
             <div class="col">
@@ -63,7 +62,14 @@
                                 Atliekama techninė priežiūra.
                             </li>
                         </ul>
-
+                        <?php if (isLoggedIn(true)) { ?>
+                            <div class="pirmyn"> 
+                                <span>
+                                <a href="#" class="pirmyn-link">Pirmyn! <i class="fa-solid fa-arrow-right"></i></a>
+                                
+                                </span>                                                           
+                            </div>
+                        <?php }  ?>
                         </p>
                     </div>
                 </div>
@@ -85,6 +91,14 @@
                                 Keičiami komponentai.
                             </li>
                         </ul>
+                        <?php if (isLoggedIn(true)) { ?>
+                            <div class="pirmyn"> 
+                                <span>
+                                <a href="#" class="pirmyn-link">Pirmyn! <i class="fa-solid fa-arrow-right"></i></a>
+                                
+                                </span>                                                           
+                            </div>
+                        <?php }  ?>
                         </p>
                     </div>
                 </div>
@@ -103,6 +117,15 @@
                                 Keičiami konsolių kieteji diskai.
                             </li>
                         </ul>
+
+                        <?php if (isLoggedIn(true)) { ?>
+                            <div class="pirmyn"> 
+                                <span>
+                                <a href="#" class="pirmyn-link">Pirmyn! <i class="fa-solid fa-arrow-right"></i></a>
+                                
+                                </span>                                                           
+                            </div>
+                        <?php }  ?>
                         </p>
                     </div>
                 </div>
@@ -121,6 +144,14 @@
                                 Atliekama diagnostika.
                             </li>
                         </ul>
+                        <?php if (isLoggedIn(true)) { ?>
+                            <div class="pirmyn"> 
+                                <span>
+                                <a href="#" class="pirmyn-link">Pirmyn! <i class="fa-solid fa-arrow-right"></i></a>
+                                
+                                </span>                                                           
+                            </div>
+                        <?php }  ?>
                         </p>
                     </div>
                 </div>
