@@ -1,4 +1,4 @@
-<?php include('functions/functions.php')?>
+<?php include('functions/functions.php') ?>
 <!DOCTYPE html>
 <html lang="lt">
 
@@ -13,9 +13,9 @@
 
 <body>
     <?php include("welcomeHeader.php"); ?>
-    
+
     <form method="POST" action="registration.php">
-    <?php echo display_error(); ?>
+        <?php echo display_error(); ?>
         <div class="container register-cont">
             <h1>Registracija</h1>
             <label for="email">El. paštas</label>
