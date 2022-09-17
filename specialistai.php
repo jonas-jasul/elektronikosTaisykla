@@ -51,11 +51,11 @@ include("functions/selectSpecialization.php");
             <div class="col">
                 <h1>Specialistai</h1>
                 <br>
-                <button id="btn-show">Rodyti formą</button>
+                <button id="btn-show" class="mb-2">Rodyti formą</button>
             </div>
         </div>
 
-        <form action="functions/insertTechn.php" method="GET" id="form" class="pt-3 pb-3">
+        <form action="functions/insertTechn.php" method="GET" id="formInsertTechn" class="pt-3 pb-3">
             <label for="techn_name">Vardas Pavardė</label>
             <input type="text" name="techn_name" id="techn_name" class="me-3">
 
@@ -111,45 +111,48 @@ include("functions/selectSpecialization.php");
                                     <td><?php echo $data['techn_phone_num'] ?? ''; ?></td>
                                     <td><?php echo $data['techn_spec'] ?? ''; ?></td>
                                     <td><button type="button" data-bs-toggle="modal" data-bs-target="#editSpecModal" class="editBtn">Redaguoti</button></td>
+                                    
+                                    <form action="functions/updateTechn.php" method="POST" class="form">
+                                        <div class="modal fade" id="editSpecModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Redaguoti specialistą</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <input type="hidden" name="techn_id_edit" id="techn_id_edit">
+                                                        <label for="techn_name_edit">Vardas Pavardė</label>
+                                                        <br>
+                                                        <input type="text" name="techn_name_edit" id="techn_name_edit" class="me-3 mb-2">
+                                                        <br>
+                                                        <label for="techn_email_edit">El. paštas</label>
+                                                        <br>
+                                                        <input type="text" name="techn_email_edit" id="techn_email_edit" class="me-3 mb-2">
+                                                        <br>
+                                                        <label for="techn_phone_num_edit">Tel. nr.</label>
+                                                        <br>
+                                                        <input type="text" name="techn_phone_num_edit" id="techn_phone_num_edit" class="me-3 mb-2">
+                                                        <br>
+                                                        <label for="techn_spec_edit">Specializacija</label>
+                                                        <br>
+                                                        <select id="techn_spec_edit" name="techn_spec_edit">
+                                                            <?php foreach ($all_specializations as $techn_spec_edit) { ?>
+                                                                <option value="<?php echo $techn_spec_edit["specializ_name"] ?>"><?php echo $techn_spec_edit["specializ_name"] ?></option>
+                                                            <?php } ?>
 
-                                    <div class="modal fade" id="editSpecModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                        <div class="modal-dialog">
-                                            <div class="modal-content">
-                                                <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel">Redaguoti specialistą</h5>
-                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                </div>
-                                                <div class="modal-body">
-                                                    <label for="techn_name_edit">Vardas Pavardė</label>
-                                                    <br>
-                                                    <input type="text" name="techn_name_edit" id="techn_name_edit" class="me-3">
-                                                    <br>
-                                                    <label for="techn_email_edit">El. paštas</label>
-                                                    <br>
-                                                    <input type="text" name="techn_email_edit" id="techn_email_edit" class="me-3">
-                                                    <br>
-                                                    <label for="techn_phone_num_edit">Tel. nr.</label>
-                                                    <br>
-                                                    <input type="text" name="techn_phone_num_edit" id="techn_phone_num_edit" class="me-3">
-                                                    <br>
-                                                    <label for="techn_spec_edit">Specializacija</label>
-                                                    <br>
-                                                    <select id="techn_spec_edit" name="techn_spec_edit">
-                                                        <?php foreach ($all_specializations as $techn_spec_edit) { ?>
-                                                            <option value="<?php echo $techn_spec_edit["specializ_name"] ?>"><?php echo $techn_spec_edit["specializ_name"] ?></option>
-                                                        <?php } ?>
+                                                            </option>
 
-                                                        </option>
-
-                                                    </select>
-                                                </div>
-                                                <div class="modal-footer">
-                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Uždaryti</button>
-                                                    <button type="button" class="btn btn-primary">Išsaugoti</button>
+                                                        </select>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Uždaryti</button>
+                                                        <button type="submit" name="updateTechnBtn" class="btn btn-primary">Išsaugoti</button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </form>
                                 </tr>
                             <?php
                                 $num++;
@@ -186,7 +189,7 @@ include("functions/selectSpecialization.php");
 
 
 
-                $('#techn_id').val(data[0]);
+                $('#techn_id_edit').val(data[0]);
                 $('#techn_name_edit').val(data[1]);
                 $('#techn_email_edit').val(data[2]);
                 $('#techn_phone_num_edit').val(data[3]);

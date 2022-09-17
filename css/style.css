@@ -86,3 +86,9 @@
     width: 50%;
 }
 
+/* cia specialistu pridejimo forma
+    paslepiama uzloadinus puslapi
+*/
+#formInsertTechn {
+    display:none;
+}

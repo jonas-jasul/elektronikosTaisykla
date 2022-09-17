@@ -1,13 +1,13 @@
 const btn= document.getElementById('btn-show');
 
 btn.addEventListener('click', () => {
-    const form = document.getElementById('form');
+    const form = document.getElementById('formInsertTechn');
 
-    if(form.style.display==='none') {
-        form.style.display='block';
+    if(form.style.display==='block') {
+        form.style.display='none';
     }
 
     else {
-        form.style.display='none';
+        form.style.display='block';
     }
 });
