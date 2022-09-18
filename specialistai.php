@@ -96,6 +96,7 @@ include("functions/selectSpecialization.php");
                             <th scope="col">Kontaktinis numeris</th>
                             <th scope="col">Specializacija</th>
                             <th scope="col"></th>
+                            <th scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -111,7 +112,8 @@ include("functions/selectSpecialization.php");
                                     <td><?php echo $data['techn_phone_num'] ?? ''; ?></td>
                                     <td><?php echo $data['techn_spec'] ?? ''; ?></td>
                                     <td><button type="button" data-bs-toggle="modal" data-bs-target="#editSpecModal" class="editBtn">Redaguoti</button></td>
-                                    
+                                    <td><button type="button" data-bs-toggle="modal" data-bs-target="#removeSpecModal" class="removeBtn">Pašalinti</button></td>
+
                                     <form action="functions/updateTechn.php" method="POST" class="form">
                                         <div class="modal fade" id="editSpecModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
@@ -153,6 +155,29 @@ include("functions/selectSpecialization.php");
                                             </div>
                                         </div>
                                     </form>
+
+
+                                    <form action="functions/deleteTechn.php" method="POST" class="form">
+                                        <div class="modal fade" id="removeSpecModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">Pašalinti specialistą</h5>
+                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <input type="hidden" name="techn_id_remove" id="techn_id_remove">
+                                                        <h4>Ar tikrai norite pašalinti šį specialistą?</h4>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Atšaukti</button>
+                                                        <button type="submit" name="deleteTechnBtn" class="btn btn-primary">Pašalinti</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+
                                 </tr>
                             <?php
                                 $num++;
@@ -174,6 +199,29 @@ include("functions/selectSpecialization.php");
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="scripts/showHideForm.js"></script>
+
+    <script>
+        $(document).ready(function() {
+            $('.removeBtn').on('click', function() {
+                $('#removeSpecModal').modal('show');
+
+
+                $tr = $(this).closest('tr');
+
+                var data = $tr.children('td').map(function() {
+
+                    return $(this).text();
+                }).get();
+
+                $('#techn_id_remove').val(data[0]);
+
+            });
+        });
+    </script>
+
+
+
+
     <script>
         $(document).ready(function() {
             $('.editBtn').on('click', function() {
