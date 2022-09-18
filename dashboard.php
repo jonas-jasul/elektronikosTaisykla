@@ -14,6 +14,7 @@
 </head>
 
 <body>
+    <?php include("functions/functions.php")?>
     <h1 class="pb-2">Skydelis</h1>
     <div class="container">
         <div class="row">
@@ -21,7 +22,16 @@
                 <div class="card card-dash specialistCard">
                     <div class="card-body-dash text-center">
                         <h5 class="card-title">Iš viso specialistų:</h5>
-                        <p>5</p>
+                        <?php
+                            $dashboard_techn_query = "SELECT * FROM technicians";
+                            $dashboard_techn_query_run = mysqli_query($db, $dashboard_techn_query);
+                            if($techn_total = mysqli_num_rows($dashboard_techn_query_run)) {
+                                echo '<p>'.$techn_total.'</p>';
+                            }
+                            else {
+                                echo '<p>Nėra</p>';
+                            }
+                        ?>
                     </div>
                 </div>
             </div>
@@ -30,7 +40,16 @@
                 <div class="card card-dash clientCard">
                     <div class="card-body-dash text-center">
                         <h5 class="card-title">Iš viso klientų:</h5>
-                        <p>50</p>
+                        <?php
+                            $dashboard_users_query = "SELECT * FROM users";
+                            $dashboard_users_query_run = mysqli_query($db, $dashboard_users_query);
+                            if($users_total = mysqli_num_rows($dashboard_users_query_run)) {
+                                echo '<p>'.$users_total.'</p>';
+                            }
+                            else {
+                                echo '<p>Nėra</p>';
+                            }
+                        ?>
                     </div>
                 </div>
             </div>

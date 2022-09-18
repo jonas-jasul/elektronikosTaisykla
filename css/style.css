@@ -69,9 +69,10 @@
 }
 
 .activeRepairsCard {
-    border:2px solid orange;
+    border: 2px solid orange;
     background-color: rgb(236, 217, 183);
 }
+
 .card-dash {
     padding-top: 20px;
 }
@@ -90,5 +91,34 @@
     paslepiama uzloadinus puslapi
 */
 #formInsertTechn {
-    display:none;
+    display: none;
+}
+
+.editBtn {
+    background-color: rgb(152, 212, 255);
+    padding: 4px;
+    border: 1px solid black;
+}
+
+.editBtn:hover {
+    background-color: rgb(110, 193, 252);
+    padding: 4px;
+    border: 1px solid black;
+}
+
+.removeBtn {
+    background-color: rgb(252, 158, 158);
+    padding: 4px;
+    border: 1px solid black;
+}
+
+.removeBtn:hover {
+    background-color: rgb(255, 122, 122);
+    padding: 4px;
+    border: 1px solid black;
+}
+
+.modal-input-box {
+    width: 50%;
+    display: inline;
 }

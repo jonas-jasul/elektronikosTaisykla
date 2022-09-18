@@ -1,5 +1,5 @@
 <?php
-include("functions/selectTechn.php");
+include("functions/selectService.php");
 include("functions/selectSpecialization.php");
 ?>
 <!DOCTYPE html>
@@ -15,65 +15,29 @@ include("functions/selectSpecialization.php");
 </head>
 
 <body>
-
-    <!-- <div class="vertical-nav bg-white" id="sidebar">
-
-        <div class="media d-flex align-items-center"><img src="images/logo.png" alt="..." width="100">
-        </div>
-
-
-        <ul class="nav flex-column bg-white mb-0">
-            <li class="nav-item">
-                <a href="index.php" class="nav-link text-dark bg-light">
-                    Pagrindinis puslapis
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="specialistai.php" class="nav-link text-dark ">
-                    Specialistai
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link text-dark">
-                    Paslaugos
-                </a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link text-dark">
-                    Klientai
-                </a>
-            </li>
-        </ul>
-    </div> -->
     <?php include("head.php"); ?>
     <div class="page-content p-5" id="content">
         <div class="row">
             <div class="col">
-                <h1>Specialistai</h1>
+                <h1>Paslaugos</h1>
                 <br>
                 <button id="btn-show" class="mb-2">Rodyti formą</button>
             </div>
         </div>
 
-        <form action="functions/insertTechn.php" method="GET" id="formInsertTechn" class="pt-3 pb-3">
-            <label for="techn_name">Vardas Pavardė</label>
-            <input type="text" name="techn_name" id="techn_name" class="me-3">
+        <form action="functions/insertService.php" method="GET" id="formInsertTechn" class="pt-3 pb-3">
+            <label for="service_name">Paslauga</label>
+            <input type="text" name="service_name" id="service_name" class="me-3">
 
-            <label for="techn_email">El. paštas</label>
-            <input type="text" name="techn_email" id="techn_email" class="me-3">
-
-            <label for="techn_phone_num">Tel. nr.</label>
-            <input type="text" name="techn_phone_num" id="techn_phone_num" class="me-3">
-
-            <label for="techn_spec">Specializacija</label>
-            <select name="techn_spec">
+            <label for="service_specializ_id">Specializacija</label>
+            <select name="service_specializ_id" class="me-3">
                 <?php
                 while ($techn_spec = mysqli_fetch_array(
                     $all_specializations,
                     MYSQLI_ASSOC
                 )) :;
                 ?>
-                    <option value="<?php echo $techn_spec['specializ_name'];
+                    <option value="<?php echo $techn_spec['specializ_id'];
                                     ?>">
                         <?php echo $techn_spec["specializ_name"];
                         ?>
@@ -83,18 +47,21 @@ include("functions/selectSpecialization.php");
                 ?>
 
             </select>
+
+            <label for="description">Aprašymas</label>
+            <input type="text" name="description" id="description" class="me-3">
+            
+           
             <button type="submit">Pridėti</button>
         </form>
         <div class="row">
-            <div class="col">
+            <div class="col-6">
                 <table class="table table-responsive table-light table-striped">
-                    <thead class="table-info">
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Vardas Pavardė</th>
-                            <th scope="col">El. paštas</th>
-                            <th scope="col">Kontaktinis numeris</th>
+                    <thead class="table-primary">
+                        <tr>                            
+                            <th scope="col">Paslauga</th>
                             <th scope="col">Specializacija</th>
+                            <th scope="col">Aprašymas</th>
                             <th scope="col"></th>
                             <th scope="col"></th>
                         </tr>
@@ -106,11 +73,10 @@ include("functions/selectSpecialization.php");
                             foreach ($fetch_data as $data) {
                         ?>
                                 <tr>
-                                    <td><?php echo $data['techn_id'] ?? ''; ?></td>
-                                    <td><?php echo $data['techn_name'] ?? ''; ?></td>
-                                    <td><?php echo $data['techn_email'] ?? ''; ?></td>
-                                    <td><?php echo $data['techn_phone_num'] ?? ''; ?></td>
-                                    <td><?php echo $data['techn_spec'] ?? ''; ?></td>
+                                    <td style="display:none;"><?php echo $data['service_id'] ?? ''; ?></td>
+                                    <td><?php echo $data['service_name'] ?? ''; ?></td>
+                                    <td><?php echo $data['specializ_name'] ?? ''; ?></td>
+                                    <td><?php echo $data['description'] ?? ''; ?></td>
                                     <td><button type="button" data-bs-toggle="modal" data-bs-target="#editSpecModal" class="editBtn">Redaguoti</button></td>
                                     <td><button type="button" data-bs-toggle="modal" data-bs-target="#removeSpecModal" class="removeBtn">Pašalinti</button></td>
 
@@ -119,12 +85,12 @@ include("functions/selectSpecialization.php");
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
                                                     <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Redaguoti specialistą</h5>
+                                                        <h5 class="modal-title" id="exampleModalLabel">Redaguoti paslaugą</h5>
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
                                                         <input type="hidden" name="techn_id_edit" id="techn_id_edit">
-                                                        <label for="techn_name_edit">Vardas Pavardė</label>
+                                                        <label for="techn_name_edit">Paslauga</label>
                                                         <br>
                                                         <input type="text" name="techn_name_edit" id="techn_name_edit" class="me-3 mb-2 modal-input-box">
                                                         <br>

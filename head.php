@@ -38,7 +38,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link text-dark">
+                <a href="services.php" class="nav-link text-dark">
                     Paslaugos
                 </a>
             </li>
