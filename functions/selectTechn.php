@@ -11,7 +11,7 @@ if($cnn->connect_error) {
         . $cnn->connect_error);
 }
 $table_name = 'technicians';
-$columns=['techn_id', 'techn_name', 'techn_email', 'techn_phone_num', 'techn_spec'];
+$columns=['techn_id', 'techn_name', 'techn_email', 'techn_phone_num', 'techn_spec', 'user_techn_id'];
 
 $fetch_data = fetch_data($cnn, $table_name, $columns);
 

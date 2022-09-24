@@ -15,20 +15,24 @@
 //     const div = document.getElementById('welcomeDiv');
     
 // });
+
+
+
+
 $(document).ready(function() {
-    $('.welcomeText').mouseover(function() {
-        $('#welcomeDiv').animate({
-            bottom: '+=40px'            
-        },1400);
-        $('#welcomeDiv').animate( {
-            bottom: '-=40px'            
-        }, 1400);  
-    });
+    // $('.welcomeText').mouseover(function() {
+    //     $('#welcomeDiv').animate({
+    //         bottom: '+=10px'            
+    //     },1400);
+    //     $('#welcomeDiv').animate( {
+    //         bottom: '-=10px'            
+    //     }, 1400);  
+    // });
     
 
     $('#arrow-down-btn').mouseenter(function() {
         $('#arrow-down-btn').animate({
-            "padding-top": "50px"
+            "padding-top": "40px"
         }, 2000);
 
     });
@@ -39,8 +43,5 @@ $(document).ready(function() {
         }, 2000);
 
     });
-    // $('.welcomeText').mouseout(function() {
-    //     $('#welcomeDiv').stop();
-    // });
     
 });

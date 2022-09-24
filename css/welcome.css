@@ -7,16 +7,16 @@
 }
 
 .centered {
-    padding: 7%;
+    padding: 3%;
     text-align: center;
     -webkit-backdrop-filter: blur(15px);
     backdrop-filter: blur(15px);
     border: 2px solid black;
     border-radius: 8px;
-    position: absolute;
+    /* position: absolute;
     top: 60%;
     left: 50%;
-    transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%); */
 }
 
 .contact-form {
@@ -111,24 +111,27 @@
 }
 .success {
 	color: #3c763d; 
+    margin-top: 20%;
 	background: #dff0d8; 
-    width: 40%;
 	border: 1px solid #3c763d;
-	margin: auto;
+	margin: auto; 
 
 }
 
 .er-suc-log {
         padding: 2%;
         text-align: center;
+        width: 50%;
         -webkit-backdrop-filter: blur(15px);
         backdrop-filter: blur(15px);
         border: 2px solid black;
         border-radius: 8px;
-        position: absolute;
+        /* position: absolute;
         top: 30%;
         left: 50%;
-        transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%); */
+        z-index: 100;
+        margin: auto;
     
 }
 
@@ -146,4 +149,8 @@
 .pirmyn-link:hover {
     background-color: aqua;
     color:black;
+}
+
+h2 {
+    text-align: center;
 }

@@ -22,13 +22,13 @@
         include("welcomeHeader.php");
     }
     ?>
-    <div class="container">
+    <div class="container position-relative">
         <div class="row">
             <div class="col">
                 <img src="images/welcomeImage2.jpg" class="img-responsive welcomeImg">
             </div>
         </div>
-        <div class="centered" id="welcomeDiv">
+        <div class="centered position-absolute top-50 start-50 translate-middle" id="welcomeDiv">
             <h1 class="welcomeText">Elektronikos taisymo paslaugos Vilkaviškyje!</h1>
             <a href="#paslaugos-div"><button id="arrow-down-btn" class="arrow-down-btn"><i class="fa-solid fa-arrow-down fa-3x pt-2"></i></button></a>
         </div>

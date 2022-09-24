@@ -1,4 +1,6 @@
 <?php
+session_start();
+$_SESSION['userSelectRepairID'] = null;
 include("functions/selectService.php");
 include("functions/selectSpecialization.php");
 ?>
@@ -32,6 +34,7 @@ include("functions/selectSpecialization.php");
             <label for="service_specializ_id">Specializacija</label>
             <select name="service_specializ_id" class="me-3">
                 <?php
+
                 while ($techn_spec = mysqli_fetch_array(
                     $all_specializations,
                     MYSQLI_ASSOC
@@ -50,15 +53,15 @@ include("functions/selectSpecialization.php");
 
             <label for="description">Aprašymas</label>
             <input type="text" name="description" id="description" class="me-3">
-            
-           
+
+
             <button type="submit">Pridėti</button>
         </form>
         <div class="row">
             <div class="col-6">
                 <table class="table table-responsive table-light table-striped">
                     <thead class="table-primary">
-                        <tr>                            
+                        <tr>
                             <th scope="col">Paslauga</th>
                             <th scope="col">Specializacija</th>
                             <th scope="col">Aprašymas</th>
@@ -80,7 +83,7 @@ include("functions/selectSpecialization.php");
                                     <td><button type="button" data-bs-toggle="modal" data-bs-target="#editSpecModal" class="editBtn">Redaguoti</button></td>
                                     <td><button type="button" data-bs-toggle="modal" data-bs-target="#removeSpecModal" class="removeBtn">Pašalinti</button></td>
 
-                                    <form action="functions/updateTechn.php" method="POST" class="form">
+                                    <form action="functions/updateService.php" method="POST" class="form">
                                         <div class="modal fade" id="editSpecModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                             <div class="modal-dialog">
                                                 <div class="modal-content">
@@ -89,33 +92,31 @@ include("functions/selectSpecialization.php");
                                                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                     </div>
                                                     <div class="modal-body">
-                                                        <input type="hidden" name="techn_id_edit" id="techn_id_edit">
-                                                        <label for="techn_name_edit">Paslauga</label>
+                                                        <input type="hidden" name="service_id_edit" id="service_id_edit">
+                                                        <label for="service_name_edit">Paslauga</label>
                                                         <br>
-                                                        <input type="text" name="techn_name_edit" id="techn_name_edit" class="me-3 mb-2 modal-input-box">
+                                                        <input type="text" name="service_name_edit" id="service_name_edit" class="me-3 mb-2 modal-input-box">
                                                         <br>
-                                                        <label for="techn_email_edit">El. paštas</label>
+                                                        <label for="service_spec_edit">Specializacija</label>
                                                         <br>
-                                                        <input type="text" name="techn_email_edit" id="techn_email_edit" class="me-3 mb-2 modal-input-box">
-                                                        <br>
-                                                        <label for="techn_phone_num_edit">Tel. nr.</label>
-                                                        <br>
-                                                        <input type="text" name="techn_phone_num_edit" id="techn_phone_num_edit" class="me-3 mb-2 modal-input-box">
-                                                        <br>
-                                                        <label for="techn_spec_edit">Specializacija</label>
-                                                        <br>
-                                                        <select id="techn_spec_edit" name="techn_spec_edit" class="modal-input-box">
-                                                            <?php foreach ($all_specializations as $techn_spec_edit) { ?>
-                                                                <option value="<?php echo $techn_spec_edit["specializ_name"] ?>"><?php echo $techn_spec_edit["specializ_name"] ?></option>
-                                                            <?php } ?>
-
-                                                            </option>
+                                                        <select id="service_spec_edit" name="service_spec_edit" class="modal-input-box">
+                                                            <?php foreach ($all_specializations as $service_spec_edit_new) {
+                                                                
+                                                                $special_id[]=$service_spec_edit_new['specializ_id']?>
+                                                            <option id="<?php echo $service_spec_edit_new['specializ_id']?>" value="<?php echo $service_spec_edit_new["specializ_id"] ?>"><?php echo $service_spec_edit_new["specializ_name"] ?></option>
+                                                            
+                                                            <?php } ?>                                                            
 
                                                         </select>
+                                                        <br>
+                                                        <label for="service_desc_edit">Aprašymas</label>
+                                                        <br>
+                                                        <input type="text" name="service_desc_edit" id="service_desc_edit" class="me-3 mb-2 modal-input-box">
+                                                        <br>
                                                     </div>
                                                     <div class="modal-footer">
                                                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Uždaryti</button>
-                                                        <button type="submit" name="updateTechnBtn" class="btn btn-primary">Išsaugoti</button>
+                                                        <button type="submit" name="updateServiceBtn" class="btn btn-primary">Išsaugoti</button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -191,23 +192,19 @@ include("functions/selectSpecialization.php");
     <script>
         $(document).ready(function() {
             $('.editBtn').on('click', function() {
+                
                 $('#editSpecModal').modal('show');
-
-
                 $tr = $(this).closest('tr');
 
                 var data = $tr.children('td').map(function() {
 
                     return $(this).text();
                 }).get();
-
-
-
-                $('#techn_id_edit').val(data[0]);
-                $('#techn_name_edit').val(data[1]);
-                $('#techn_email_edit').val(data[2]);
-                $('#techn_phone_num_edit').val(data[3]);
-                $('#techn_spec_edit').val(data[4]);
+                var jsvar = <?php echo json_encode($special_id); ?>;
+                $('#service_id_edit').val(data[0]);
+                $('#service_name_edit').val(data[1]);
+                $('#service_spec_edit').val(jsvar);
+                $('#service_desc_edit').val(data[3]);
 
             });
         });

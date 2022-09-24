@@ -56,34 +56,69 @@ include("functions/selectSpecialization.php");
         </div>
 
         <form action="functions/insertTechn.php" method="GET" id="formInsertTechn" class="pt-3 pb-3">
-            <label for="techn_name">Vardas Pavardė</label>
-            <input type="text" name="techn_name" id="techn_name" class="me-3">
 
-            <label for="techn_email">El. paštas</label>
-            <input type="text" name="techn_email" id="techn_email" class="me-3">
+            <div class="row d-none">
+                <label class="col-sm-2" for="techn_id">id</label>
+                <div class="col-sm-10">
+                    <input type="text" name="techn_id" id="techn_id" class="form-control w-auto me-3">
+                </div>
+            </div>
 
-            <label for="techn_phone_num">Tel. nr.</label>
-            <input type="text" name="techn_phone_num" id="techn_phone_num" class="me-3">
+            <div class="row">
+                <label class="col-sm-2" for="techn_name">Vardas Pavardė</label>
+                <div class="col-sm-10">
+                    <input type="text" name="techn_name" id="techn_name" class="form-control w-auto me-3">
+                </div>
+            </div>
 
-            <label for="techn_spec">Specializacija</label>
-            <select name="techn_spec">
-                <?php
-                while ($techn_spec = mysqli_fetch_array(
-                    $all_specializations,
-                    MYSQLI_ASSOC
-                )) :;
-                ?>
-                    <option value="<?php echo $techn_spec['specializ_name'];
-                                    ?>">
-                        <?php echo $techn_spec["specializ_name"];
+            <div class="row">
+                <label class="col-sm-2" for="techn_email">El. paštas</label>
+                <div class="col-sm-10">
+                    <input type="text" name="techn_email" id="techn_email" class="form-control w-auto me-3">
+                </div>
+            </div>
+
+            <div class="row">
+                <label class="col-sm-2" for="techn_phone_num">Tel. nr.</label>
+                <div class="col-sm-10">
+                    <input type="text" name="techn_phone_num" id="techn_phone_num" class="form-control w-auto me-3">
+                </div>
+            </div>
+
+            <div class="row">
+                <label class="col-sm-2" for="techn_spec">Specializacija</label>
+                <div class="col-sm-4">
+                    <select class="form-select w-auto" name="techn_spec">
+                        <?php
+                        while ($techn_spec = mysqli_fetch_array(
+                            $all_specializations,
+                            MYSQLI_ASSOC
+                        )) :;
                         ?>
-                    </option>
-                <?php
-                endwhile;
-                ?>
+                            <option value="<?php echo $techn_spec['specializ_name'];
+                                            ?>">
+                                <?php echo $techn_spec["specializ_name"];
+                                ?>
+                            </option>
+                        <?php
+                        endwhile;
+                        ?>
+                    </select>
+                </div>
+            </div>
 
-            </select>
-            <button type="submit">Pridėti</button>
+            <div class="row">
+                <label class="col-sm-2" for="techn_reg_passw">Slaptažodis</label>
+                <div class="col-sm-10">
+                    <input type="password" name="techn_reg_passw" id="techn_reg_passw" class="form-control w-auto">
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-sm-2">
+                    <button class="btn btn-primary" type="submit">Pridėti</button>
+                </div>
+            </div>
         </form>
         <div class="row">
             <div class="col">

@@ -1,4 +1,4 @@
-<?php
+<?php 
 $server_name = 'localhost';
 $username = 'root';
 $password= '';
@@ -13,8 +13,10 @@ if($cnn->connect_error) {
 $table_name = 'services';
 $columns=['service_id', 'service_name', 'service_specializ_id', 'description'];
 
+$service_specializ_id_select = $_SESSION['userSelectRepairID'];
+$all_services = mysqli_query($cnn, "SELECT * FROM services WHERE service_specializ_id='".$service_specializ_id_select."'");
 $fetch_data = fetch_data($cnn, $table_name, $columns);
-
+session_unset();
 function fetch_data($cnn, $table_name, $columns) {
     if(empty($cnn)) {
         $msg = "Duombazės prisijungimo klaida";

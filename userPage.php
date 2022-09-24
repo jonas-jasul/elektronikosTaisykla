@@ -13,10 +13,10 @@
 </head>
 
 <body>
-    <?php include("functions/functions.php"); 
+    <?php include("functions/functions.php");
     if (!isLoggedIn()) {
         $_SESSION['msg'] = "Jūs turite pirmiau prisijungti";
-        header('location: login.php');  
+        header('location: login.php');
     }
     ?>
     <nav class="navbar navbar-expand-lg py-3 navbar-light bg-light shadow-sm">
@@ -57,7 +57,7 @@
 
     <div class="container log-success">
         <div class="row">
-            <div class="col-6">
+            <div class="col">
                 <?php if (isset($_SESSION['success'])) : ?>
                     <div class="error success er-suc-log">
                         <h3>
@@ -71,6 +71,102 @@
             </div>
         </div>
     </div>
+
+    <div class="container">
+        <h2>Vartotojo panelė</h2>
+        <div class="row">
+            <h5>Paslaugos pasirinkimas</h5>
+            <div class="col">
+                <div class="card h-100">
+                    <img src="images/cell-phone.png" class="card-img-top mx-auto pt-2" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Telefonų taisymas</h5>
+                        <p class="card-text">
+
+                            <?php if (isLoggedIn(true)) { ?>
+                        <div class="pirmyn">
+                            <span>
+                                <a href="userRepairPhone.php" class="pirmyn-link">Pasirinkti <i class="fa-solid fa-arrow-right"></i></a>
+
+                            </span>
+                        </div>
+                    <?php }  ?>
+                    </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card h-100">
+                    <img src="images/computer.png" class="card-img-top mx-auto" id="card-img-computer" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Stacionarių kompiuterių taisymas</h5>
+                        <p class="card-text">
+                            <?php if (isLoggedIn(true)) { ?>
+                        <div class="pirmyn">
+                            <span>
+                                <a href="#" class="pirmyn-link">Pasirinkti <i class="fa-solid fa-arrow-right"></i></a>
+
+                            </span>
+                        </div>
+                    <?php }  ?>
+                    </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col">
+                <div class="card h-100">
+                    <img src="images/console.png" class="card-img-top mx-auto" id="card-img-console" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Žaidimų konsolių taisymas</h5>
+                        <p class="card-text">
+
+                            <?php if (isLoggedIn(true)) { ?>
+                        <div class="pirmyn">
+                            <span>
+                                <a href="#" class="pirmyn-link">Pasirinkti <i class="fa-solid fa-arrow-right"></i></a>
+
+                            </span>
+                        </div>
+                    <?php }  ?>
+                    </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col">
+                <div class="card h-100">
+                    <img src="images/laptop.png" class="card-img-top mx-auto" alt="...">
+                    <div class="card-body">
+                        <h5 class="card-title">Nešiojamų kompiuterių taisymas</h5>
+                        <p class="card-text">
+
+                            <?php if (isLoggedIn(true)) { ?>
+                        <div class="pirmyn">
+                            <span>
+                                <a href="#" class="pirmyn-link">Pasirinkti <i class="fa-solid fa-arrow-right"></i></a>
+
+                            </span>
+                        </div>
+                    <?php }  ?>
+                    </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col">
+                <h5 class="pt-2">Mano taisymo paslaugų užsakymai</h5>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
 </body>
 
 </html>
