@@ -12,7 +12,8 @@
 </head>
 
 <body>
-    <nav class="navbar fixed-top navbar-expand-lg py-3 navbar-dark bg-dark shadow-sm">
+    <?php include("functions/functions.php"); ?>
+    <nav class="navbar fixed-top navbar-expand-lg py-0 navbar-dark bg-dark shadow-sm">
         <div class="container">
             <a href="welcome.php" class="navbar-brand">
                 <img src="images/logo.png" alt="" class="img-responsive d-inline-block align-middle" width="80">
@@ -23,17 +24,18 @@
 
             <div id="navbarSupportedContent" class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active"><a href="welcome.php" class="nav-link">Placeholder</a></li>
-                    <li class="nav-item"><a href="welcome.php#paslaugos-div" class="nav-link">Užsakymai</a></li>
-                    <li class="nav-item"><a href="userPage.php" class="nav-link">Darbuotojo panelė</a></li>
+
+                    <li class="nav-item"><a href="employeePage.php" class="nav-link">Darbuotojo panelė</a></li>
+                </ul>
+                <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <div class="profile-info">
                             <div>
-                                <?php if (isset($_SESSION['user'])) : ?>
-                                    <strong><?php echo $_SESSION['user']['name']; ?></strong>
+                                <?php if (isEmployee()) : ?>
+                                    <strong style="color:white;"><?php echo $_SESSION['user']['name']; ?></strong>
 
                                     <small>
-                                        <i style="color: #888;">(<?php echo ucfirst($_SESSION['user']['user_type']); ?>)</i>
+                                        <i style="color: white;">(<?php echo ucfirst($_SESSION['user']['user_type']); ?>)</i>
                                         <br>
                                         <a href="login.php?logout='1'" style="color: red;">atsijungti</a>
                                     </small>
@@ -42,6 +44,7 @@
                         </div>
                     </li>
                 </ul>
+
             </div>
         </div>
     </nav>

@@ -8,18 +8,26 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="https://kit.fontawesome.com/20bfdee84e.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/welcome.css" type="text/css">
     <title>Document</title>
 </head>
 
 <body>
     <?php include("functions/functions.php");
+    include("functions/selectServiceUser.php");
+    include("functions/selectUserOrders.php");
     if (!isLoggedIn()) {
         $_SESSION['msg'] = "Jūs turite pirmiau prisijungti";
         header('location: login.php');
     }
+
+    if (isEmployee()) {
+        header('location: employeePage.php');
+    }
     ?>
-    <nav class="navbar navbar-expand-lg py-3 navbar-light bg-light shadow-sm">
+    <nav class="navbar navbar-expand-lg py-0 navbar-light bg-light shadow-sm">
         <div class="container">
             <a href="welcome.php" class="navbar-brand">
                 <img src="images/logo.png" alt="" class="img-responsive d-inline-block align-middle" width="80">
@@ -38,19 +46,21 @@
                     <!-- <li class="nav-item"><a href="registration.php" class="nav-link">Registruotis</a></li>
                     <li class="nav-item"><a href="login.php" class="nav-link">Prisijungti</a></li> -->
                 </ul>
-                <div class="profile-info">
-                    <div>
-                        <?php if (isset($_SESSION['user'])) : ?>
-                            <strong><?php echo $_SESSION['user']['name']; ?></strong>
+                <ul class="navbar-nav ms-auto">
+                    <div class="profile-info">
+                        <div>
+                            <?php if (isset($_SESSION['user'])) : ?>
+                                <strong><?php echo $_SESSION['user']['name']; ?></strong>
 
-                            <small>
-                                <i style="color: #888;">(<?php echo ucfirst($_SESSION['user']['user_type']); ?>)</i>
-                                <br>
-                                <a href="login.php?logout='1'" style="color: red;">atsijungti</a>
-                            </small>
-                        <?php endif ?>
+                                <small>
+                                    <i style="color: #888;">(<?php echo ucfirst($_SESSION['user']['user_type']); ?>)</i>
+                                    <br>
+                                    <a href="login.php?logout='1'" style="color: red;">atsijungti</a>
+                                </small>
+                            <?php endif ?>
+                        </div>
                     </div>
-                </div>
+                </ul>
             </div>
         </div>
     </nav>
@@ -72,13 +82,346 @@
         </div>
     </div>
 
+    <form action="functions/insertOrder.php" method="POST">
+
+        <div class="modal fade" id="phoneRepairModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Telefonų taisymas</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="hidden" name="order_item_specializ" value=1>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="hidden" name="order_user_id" value="<?php echo $_SESSION['user']['id'] ?>">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="hidden" name="order_amount_to_pay">
+                        </div>
+                        <div class="form-group">
+                            <label class="">Telefono gamintojas</label>
+                            <select name="order_item_manufact" class="form-select" aria-label="Default select example">
+                                <option value="Samsung">Samsung</option>
+                                <option value="Apple">Apple</option>
+                                <option value="Xiaomi">Xiaomi</option>
+                                <option value="Huawei">Huawei</option>
+                                <option value="Realme">Realme</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <br>
+                            <label class="">Telefono modelis</label>
+                            <input name="order_item_model" required="required" type="text" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <br>
+                            <label class="">Pageidaujama paslauga</label>
+                            <select class="form-select" id="order_service_id_phone" name="order_service_id" required>
+                                <option value="" selected disabled>--</option>
+                                <?php
+                                while ($service = mysqli_fetch_array(
+                                    $phone_services,
+                                    MYSQLI_ASSOC
+                                )) :;
+                                ?>
+                                    <option value="<?php echo $service['service_id'];
+                                                    ?>">
+                                        <?php echo $service["service_name"];
+                                        ?>
+                                    </option>
+                                <?php
+                                endwhile;
+                                ?>
+                            </select>
+                        </div>
+
+
+                        <div class="form-group">
+                            <br>
+                            <label class="">Paslaugos kaina</label>
+                            <br>
+                            <div class="input-group">
+                                <input id="order_item_price_phone" name="order_item_price" type="text" class="form-control" aria-describedby="basic-addon" readonly>
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon">€</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Uždaryti</button>
+                        <button type="submit" name="sendPhoneOrderRequest" class="btn btn-primary">Užsakyti</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form action="functions/insertOrder.php" method="POST">
+
+        <div class="modal fade" id="desktopRepairModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Stacionarių kompiuterių taisymas</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="hidden" name="order_item_specializ" value=1>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="hidden" name="order_user_id" value="<?php echo $_SESSION['user']['id'] ?>">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="hidden" name="order_amount_to_pay" value="100">
+                        </div>
+                        <div class="form-group">
+                            <label class="">Kompiuterio gamintojas</label>
+                            <select name="order_item_manufact" class="form-select" aria-label="Default select example">
+                                <option value="Dell">Dell</option>
+                                <option value="Hp">HP</option>
+                                <option value="Apple">Apple</option>
+                                <option value="Microsoft">Microsoft</option>
+                                <option value="Acer">Acer</option>
+                                <option value="Lenovo">Lenovo</option>
+                                <option value="Asus">Asus</option>
+                                <option value="Asus">Kitas</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <br>
+                            <label class="">Kompiuterio modelis</label>
+                            <input name="order_item_model" required="required" type="text" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <br>
+                            <label class="">Pageidaujama paslauga</label>
+                            <select id="order_service_id_desktop" class="form-select" name="order_service_id" required>
+                                <option value="" selected disabled>--</option>
+                                <?php
+                                while ($service = mysqli_fetch_array(
+                                    $desktop_services,
+                                    MYSQLI_ASSOC
+                                )) :;
+                                ?>
+                                    <option value="<?php echo $service['service_id'];
+                                                    ?>">
+                                        <?php echo $service["service_name"];
+                                        ?>
+                                    </option>
+                                <?php
+                                endwhile;
+                                ?>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <br>
+                            <label class="">Paslaugos kaina</label>
+                            <br>
+                            <div class="input-group">
+                                <input id="order_item_price_desktop" name="order_item_price" type="text" class="form-control" aria-describedby="basic-addon" readonly>
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon">€</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Uždaryti</button>
+                        <button type="submit" name="sendDesktopOrderRequest" class="btn btn-primary">Užsakyti</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form action="functions/insertOrder.php" method="POST">
+
+        <div class="modal fade" id="consoleRepairModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Žaidimų konsolių taisymas</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="hidden" name="order_item_specializ" value=1>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="hidden" name="order_user_id" value="<?php echo $_SESSION['user']['id'] ?>">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="hidden" name="order_amount_to_pay" value="100">
+                        </div>
+                        <div class="form-group">
+                            <label class="">Konsolės gamintojas</label>
+                            <select name="order_item_manufact" class="form-select" aria-label="Default select example">
+                                <option value="Sony">Sony</option>
+                                <option value="Microsoft">Microsoft</option>
+                                <option value="Nintendo">Nintendo</option>
+                                <option value="Kita">Kita</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <br>
+                            <label class="">Konsolės modelis</label>
+                            <input name="order_item_model" required="required" type="text" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <br>
+                            <label class="">Pageidaujama paslauga</label>
+                            <select id="order_service_id_console" class="form-select" name="order_service_id" required>
+                                <option value="" selected disabled>--</option>
+
+                                <?php
+                                while ($service = mysqli_fetch_array(
+                                    $console_services,
+                                    MYSQLI_ASSOC
+                                )) :;
+                                ?>
+                                    <option value="<?php echo $service['service_id'];
+                                                    ?>">
+                                        <?php echo $service["service_name"];
+                                        ?>
+                                    </option>
+                                <?php
+                                endwhile;
+                                ?>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <br>
+                            <label class="">Paslaugos kaina</label>
+                            <br>
+                            <div class="input-group">
+                                <input id="order_item_price_console" name="order_item_price" type="text" class="form-control" aria-describedby="basic-addon" readonly>
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon">€</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Uždaryti</button>
+                        <button type="submit" name="sendConsoleOrderRequest" class="btn btn-primary">Užsakyti</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form action="functions/insertOrder.php" method="POST">
+
+        <div class="modal fade" id="laptopRepairModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Nešiojamų kompiuterių taisymas</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <input type="hidden" name="order_item_specializ" value=1>
+                        </div>
+
+                        <div class="form-group">
+                            <input type="hidden" name="order_user_id" value="<?php echo $_SESSION['user']['id'] ?>">
+                        </div>
+
+                        <div class="form-group">
+                            <input type="hidden" name="order_amount_to_pay" value="100">
+                        </div>
+                        <div class="form-group">
+                            <label class="">Nešiojamo kompiuterio gamintojas</label>
+                            <select name="order_item_manufact" class="form-select" aria-label="Default select example">
+                                <option value="Apple">Apple</option>
+                                <option value="Hp">HP</option>
+                                <option value="Samsung">Samsung</option>
+                                <option value="Dell">Dell</option>
+                                <option value="Microsoft">Microsoft</option>
+                                <option value="Lenovo">Lenovo</option>
+                                <option value="Kita">Kita</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <br>
+                            <label class="">Nešiojamo kompiuterio modelis</label>
+                            <input name="order_item_model" required="required" type="text" class="form-control">
+                        </div>
+
+                        <div class="form-group">
+                            <br>
+                            <label class="">Pageidaujama paslauga</label>
+                            <select class="form-select" id="order_service_id_laptop" name="order_service_id">
+                                <option value="" selected disabled>--</option>
+                                <?php
+                                while ($service = mysqli_fetch_array(
+                                    $laptop_services,
+                                    MYSQLI_ASSOC
+                                )) :;
+                                ?>
+                                    <option value="<?php echo $service['service_id'];
+                                                    ?>">
+                                        <?php echo $service["service_name"];
+                                        ?>
+                                    </option>
+                                <?php
+                                endwhile;
+                                ?>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <br>
+                            <label class="">Paslaugos kaina</label>
+                            <br>
+                            <div class="input-group">
+                                <input id="order_item_price_laptop" name="order_item_price" type="text" class="form-control" aria-describedby="basic-addon" readonly>
+                                <div class="input-group-append">
+                                    <span class="input-group-text" id="basic-addon">€</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Uždaryti</button>
+                        <button type="submit" name="sendConsoleOrderRequest" class="btn btn-primary">Užsakyti</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+
     <div class="container">
         <h2>Vartotojo panelė</h2>
         <div class="row">
             <h5>Paslaugos pasirinkimas</h5>
             <div class="col">
                 <div class="card h-100">
-                    <img src="images/cell-phone.png" class="card-img-top mx-auto pt-2" alt="...">
+                    <div class="svgImg">
+                        <img src="images/phone-svgrepo-com.svg" class="card-img-top mx-auto pt-2" alt="...">
+                    </div>
                     <div class="card-body">
                         <h5 class="card-title">Telefonų taisymas</h5>
                         <p class="card-text">
@@ -86,8 +429,7 @@
                             <?php if (isLoggedIn(true)) { ?>
                         <div class="pirmyn">
                             <span>
-                                <a href="userRepairPhone.php" class="pirmyn-link">Pasirinkti <i class="fa-solid fa-arrow-right"></i></a>
-
+                                <a data-bs-toggle="modal" href="#phoneRepairModal" class="pirmyn-link">Pasirinkti <i class="fa-solid fa-arrow-right"></i></a>
                             </span>
                         </div>
                     <?php }  ?>
@@ -98,14 +440,16 @@
 
             <div class="col">
                 <div class="card h-100">
-                    <img src="images/computer.png" class="card-img-top mx-auto" id="card-img-computer" alt="...">
+                    <div class="svgImg">
+                        <img src="images/pc-svgrepo-com.svg" class="card-img-top mx-auto" id="card-img-computer" alt="...">
+                    </div>
                     <div class="card-body">
                         <h5 class="card-title">Stacionarių kompiuterių taisymas</h5>
                         <p class="card-text">
                             <?php if (isLoggedIn(true)) { ?>
                         <div class="pirmyn">
                             <span>
-                                <a href="#" class="pirmyn-link">Pasirinkti <i class="fa-solid fa-arrow-right"></i></a>
+                                <a data-bs-toggle="modal" href="#desktopRepairModal" class="pirmyn-link">Pasirinkti <i class="fa-solid fa-arrow-right"></i></a>
 
                             </span>
                         </div>
@@ -119,7 +463,9 @@
         <div class="row">
             <div class="col">
                 <div class="card h-100">
-                    <img src="images/console.png" class="card-img-top mx-auto" id="card-img-console" alt="...">
+                    <div class="svgImg">
+                        <img src="images/game-console-svgrepo-com.svg" class="card-img-top mx-auto" id="card-img-console" alt="...">
+                    </div>
                     <div class="card-body">
                         <h5 class="card-title">Žaidimų konsolių taisymas</h5>
                         <p class="card-text">
@@ -127,7 +473,7 @@
                             <?php if (isLoggedIn(true)) { ?>
                         <div class="pirmyn">
                             <span>
-                                <a href="#" class="pirmyn-link">Pasirinkti <i class="fa-solid fa-arrow-right"></i></a>
+                                <a data-bs-toggle="modal" href="#consoleRepairModal" class="pirmyn-link">Pasirinkti <i class="fa-solid fa-arrow-right"></i></a>
 
                             </span>
                         </div>
@@ -139,7 +485,9 @@
 
             <div class="col">
                 <div class="card h-100">
-                    <img src="images/laptop.png" class="card-img-top mx-auto" alt="...">
+                    <div class="svgImg">
+                        <img src="images/laptop-svgrepo-com.svg" class="card-img-top mx-auto" alt="...">
+                    </div>
                     <div class="card-body">
                         <h5 class="card-title">Nešiojamų kompiuterių taisymas</h5>
                         <p class="card-text">
@@ -147,7 +495,7 @@
                             <?php if (isLoggedIn(true)) { ?>
                         <div class="pirmyn">
                             <span>
-                                <a href="#" class="pirmyn-link">Pasirinkti <i class="fa-solid fa-arrow-right"></i></a>
+                                <a data-bs-toggle="modal" href="#laptopRepairModal" class="pirmyn-link">Pasirinkti <i class="fa-solid fa-arrow-right"></i></a>
 
                             </span>
                         </div>
@@ -158,15 +506,289 @@
             </div>
         </div>
     </div>
-    <div class="container">
+    <div class="container pb-5">
         <div class="row">
             <div class="col">
-                <h5 class="pt-2">Mano taisymo paslaugų užsakymai</h5>
+                <h5 class="pt-3">Mano taisymo paslaugų užsakymai</h5>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-12">
+                <table class="table table-primary table-responsive table-bordered table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Kodas</th>
+                            <th scope="col">Sukūrimo data</th>
+                            <th scope="col">Specializacija</th>
+                            <th scope="col">Gamintojas</th>
+                            <th scope="col">Modelis</th>
+                            <th scope="col">Paslauga</th>
+                            <th style="display:none;" scope="col">Specialistas</th>
+                            <th scope="col">Statusas</th>
+                            <th style="display:none;" scope="col">Numatoma pabaigimo data</th>
+                            <th scope="col">Mokama kaina</th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+                            <th scope="col"></th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        while ($user_orders = mysqli_fetch_array(
+                            $all_user_orders,
+                            MYSQLI_ASSOC
+                        )) :;
+                        ?>
+                            <tr>
+                                <td><?php echo $user_orders['order_id'] ?? ''; ?></th>
+                                <td><?php echo $user_orders['order_code'] ?? ''; ?></td>
+                                <td><?php echo $user_orders['order_request_date'] ?? ''; ?></td>
+                                <td><?php echo $user_orders['specializ_name'] ?? ''; ?></td>
+                                <td><?php echo $user_orders['order_item_manufact'] ?? ''; ?></td>
+                                <td><?php echo $user_orders['order_item_model'] ?? ''; ?></td>
+                                <td><?php echo $user_orders['service_name'] ?? ''; ?></td>
+                                <td style="display: none;"><?php echo $user_orders['techn_name'] ?? ''; ?></td>
+                                <td><?php echo $user_orders['order_status'] == "Aktyvus" ? ' <span class="badge bg-success">Aktyvus</span>' : ($user_orders['order_status'] == "Pabaigtas" ? ' <span class="badge bg-info">Pabaigtas</span>' : '<span class="badge bg-danger">Neaktyvus</span>') ?></td>
+                                <td style="display: none;"><?php echo $user_orders['order_complet_date_est'] ?? ''; ?></td>
+                                <td><?php echo $user_orders['order_amount_to_pay'] ?? ''; ?></td>
+                                <td style="display: none;"><?php echo $user_orders['order_descrip'] ?? ''; ?></td>
+                                <td><button data-bs-toggle="modal" data-bs-target="#cancelOrderUser" class="cancelOrderBtn btn btn-warning">Atšaukti</button></td>
+                                <td><button data-bs-toggle="modal" data-bs-target="#moreInfoUserOrder" class="morInfoBtn btn btn-primary">Daugiau info</button></td>
+                                <td><button class="btn btn-primary">Apmokėti</button></td>
+                            </tr>
+
+                            <form action="functions/cancelOrder.php" method="POST" class="form">
+                                <div class="modal fade" id="cancelOrderUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Atšaukti užsakymą</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <input type="hidden" name="order_id_cancel" id="order_id_cancel">
+                                                <h4>Ar tikrai norite atšaukti šį užsakymą?</h4>
+                                                <label for="cancelOrderCode">Užsakymo kodas</label>
+                                                <br>
+                                                <input class="form-control modal-input-box" type="text" name="cancelOrderCode" id="cancelOrderCode" readonly>
+                                                <label for="cancelOrderDate">Sukūrimo data</label>
+                                                <br>
+                                                <input class="form-control modal-input-box" type="text" name="cancelOrderDate" id="cancelOrderDate" readonly>
+                                                <label for="cancelOrderManufac">Gamintojas</label>
+                                                <br>
+                                                <input class="form-control modal-input-box" type="text" name="cancelOrderManufac" id="cancelOrderManufac" readonly>
+                                                <label for="cancelOrderModel">Modelis</label>
+                                                <br>
+                                                <input class="form-control modal-input-box" type="text" name="cancelOrderModel" id="cancelOrderModel" readonly>
+                                                <label for="cancelOrderService">Paslauga</label>
+                                                <br>
+                                                <input class="form-control" type="text" name="cancelOrderService" id="cancelOrderService" readonly>
+
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Grįžti</button>
+                                                <button type="submit" name="acceptOrderCancellationBtn" class="btn btn-primary">Patvirtinti atšaukimą</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+
+                            <div class="modal fade" id="moreInfoUserOrder" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog modal-lg">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Daugiau apie užsakymą</h5>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            <input type="hidden" name="order_more_info_id" id="order_more_info_id">
+                                            <label for="oder_more_info_code">Užsakymo kodas</label>
+                                            <br>
+                                            <input class="form-control modal-input-box" type="text" name="oder_more_info_code" id="oder_more_info_code" readonly>
+                                            <label for="order_more_info_creat_date">Sukūrimo data</label>
+                                            <br>
+                                            <input class="form-control modal-input-box" type="text" name="order_more_info_creat_date" id="order_more_info_creat_date" readonly>
+
+                                            <label for="order_more_info_specializ">Specializacija</label>
+                                            <br>
+                                            <input class="form-control modal-input-box" type="text" name="order_more_info_specializ" id="order_more_info_specializ" readonly>
+
+                                            <label for="order_more_info_manufac">Gamintojas</label>
+                                            <br>
+                                            <input class="form-control modal-input-box" type="text" name="order_more_info_manufac" id="order_more_info_manufac" readonly>
+                                            <label for="order_more_info_model">Modelis</label>
+                                            <br>
+                                            <input class="form-control modal-input-box" type="text" name="order_more_info_model" id="order_more_info_model" readonly>
+                                            <label for="order_more_info_service">Paslauga</label>
+                                            <br>
+                                            <input class="form-control" type="text" name="order_more_info_service" id="order_more_info_service" readonly>
+
+                                            <label for="order_more_info_techn">Specialistas</label>
+                                            <br>
+                                            <input class="form-control modal-input-box" type="text" name="order_more_info_techn" id="order_more_info_techn" readonly>
+
+                                            <label for="order_more_info_est_compl_date">Numatoma pabaigimo data</label>
+                                            <br>
+                                            <input class="form-control" type="text" name="order_more_info_est_compl_date" id="order_more_info_est_compl_date" readonly>
+
+                                            <label for="order_more_info_descrip">Pastabos/Aprašymas</label>
+                                            <br>
+                                            <textarea class="form-control" name="order_more_info_descrip" id="order_more_info_descrip" readonly></textarea>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Grįžti</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php
+                        endwhile;
+                        ?>
+
+                        <?php
+                        if(mysqli_num_rows($all_user_orders)==0) {
+                            echo '<td colspan=12><b>Užsakymų nėra!</b></td>';
+                        }
+                        ?>
+                    </tbody>
+                </table>
             </div>
         </div>
     </div>
     </div>
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.morInfoBtn').on('click', function() {
+                //$('#acceptOrderModal').modal('show');
+
+                $tr = $(this).closest('tr');
+                var data = $tr.children('td').map(function() {
+
+                    return $(this).text();
+                }).get();
+
+                $("#oder_more_info_code").val(data[1]);
+                // var orderCreatDatFirst=new Date(data[2]);
+                // var correctedDate=orderCreatDatFirst.toLocaleDateString();
+                $("#order_more_info_creat_date").val(data[2]);
+                $("#order_more_info_specializ").val(data[3]);
+                $("#order_more_info_manufac").val(data[4]);
+                $("#order_more_info_model").val(data[5]);
+                $("#order_more_info_service").val(data[6]);
+                $("#order_more_info_techn").val(data[7]);
+                $("#order_more_info_est_compl_date").val(data[9]);
+                $("#order_more_info_descrip").val(data[11]);
+            });
+
+            $('.cancelOrderBtn').on('click', function() {
+                $tr = $(this).closest('tr');
+                var data = $tr.children('td').map(function() {
+                    return $(this).text();
+                }).get();
+                $("#order_id_cancel").val(data[0]);
+                $("#cancelOrderCode").val(data[1]);
+                $("#cancelOrderDate").val(data[2]);
+                $("#cancelOrderManufac").val(data[4]);
+                $("#cancelOrderModel").val(data[5]);
+                $("#cancelOrderService").val(data[6]);
+            });
+
+            function getPrice(typeId, typePrice) {
+                $(typeId).on('change', function() {
+
+                    $.ajax({
+                        url: "functions/getServicePrice.php",
+                        type: "POST",
+                        dataType: "json",
+                        data: {
+                            'order_service_id': $(typeId).val()
+                        },
+                        success: function(data) {
+                            $(typePrice).val(data[0].price);
+                        }
+                    });
+                });
+            }
+
+            getPrice('#order_service_id_phone', '#order_item_price_phone');
+            getPrice('#order_service_id_console', '#order_item_price_console');
+            getPrice('#order_service_id_desktop', '#order_item_price_desktop');
+            getPrice('#order_service_id_laptop', '#order_item_price_laptop');
+
+
+            //--Pakeista su getPrice() funkcija (kad nesikartotu)--
+
+            // var service_id = $('#order_service_id_phone');
+            // $("#order_service_id_phone").on('change', function() {
+
+            //     $.ajax({
+            //         url: "functions/getServicePrice.php",
+            //         type: "POST",
+            //         dataType: "json",
+            //         data: {
+            //             'order_service_id': $('#order_service_id_phone').val()
+            //         },
+            //         success: function(data) {
+            //             $('#order_item_price_phone').val(data[0].price);
+            //         }
+            //     });
+            // });
+
+            // $("#order_service_id_console").on('change', function() {
+            //     $.ajax({
+            //         url: "functions/getServicePrice.php",
+            //         type: "POST",
+            //         dataType: "json",
+            //         data: {
+            //             'order_service_id': $('#order_service_id_console').val()
+            //         },
+            //         success: function(data) {
+            //             $('#order_item_price_console').val(data[0].price);
+            //         }
+            //     });
+            // });
+
+            // $("#order_service_id_desktop").on('change', function() {
+            //     $.ajax({
+            //         url: "functions/getServicePrice.php",
+            //         type: "POST",
+            //         dataType: "json",
+            //         data: {
+            //             'order_service_id': $('#order_service_id_desktop').val()
+            //         },
+            //         success: function(data) {
+            //             $('#order_item_price_desktop').val(data[0].price);
+            //         }
+            //     });
+            // });
+
+            // $("#order_service_id_laptop").on('change', function() {
+            //     $.ajax({
+            //         url: "functions/getServicePrice.php",
+            //         type: "POST",
+            //         dataType: "json",
+            //         data: {
+            //             'order_service_id': $('#order_service_id_laptop').val()
+            //         },
+            //         success: function(data) {
+            //             $('#order_item_price_laptop').val(data[0].price);
+            //         }
+            //     });
+            // });
+
+        });
+    </script>
+    <?php include("footer.php")?>
 </body>
 
 </html>

@@ -17,8 +17,9 @@ if (isset($_POST['updateServiceBtn'])) {
     $service_name = $_POST['service_name_edit'];
     $service_spec = $_POST['service_spec_edit'];
     $service_desc = $_POST['service_desc_edit'];
+    $service_price = $_POST['servicePriceEdit'];
 
-    $query = "UPDATE services SET service_name='$service_name', service_specializ_id='$service_spec', description='$service_desc' WHERE service_id='$id' ";
+    $query = "UPDATE services SET service_name='$service_name', service_specializ_id='$service_spec', price='$service_price', description='$service_desc' WHERE service_id='$id' ";
 
     $execute_query = mysqli_query($cnn, $query);
 

@@ -86,16 +86,16 @@ include("functions/selectSpecialization.php");
             </div>
 
             <div class="row">
-                <label class="col-sm-2" for="techn_spec">Specializacija</label>
+                <label class="col-sm-2" for="techn_spec_id">Specializacija</label>
                 <div class="col-sm-4">
-                    <select class="form-select w-auto" name="techn_spec">
+                    <select class="form-select w-auto" name="techn_spec_id">
                         <?php
                         while ($techn_spec = mysqli_fetch_array(
                             $all_specializations,
                             MYSQLI_ASSOC
                         )) :;
                         ?>
-                            <option value="<?php echo $techn_spec['specializ_name'];
+                            <option value="<?php echo $techn_spec['specializ_id'];
                                             ?>">
                                 <?php echo $techn_spec["specializ_name"];
                                 ?>
@@ -122,7 +122,7 @@ include("functions/selectSpecialization.php");
         </form>
         <div class="row">
             <div class="col">
-                <table class="table table-responsive table-light table-striped">
+                <table class="table table-responsive table-light table-striped table-hover">
                     <thead class="table-info">
                         <tr>
                             <th scope="col">#</th>
@@ -136,95 +136,88 @@ include("functions/selectSpecialization.php");
                     </thead>
                     <tbody>
                         <?php
-                        if (is_array($fetch_data)) {
-                            $num = 1;
-                            foreach ($fetch_data as $data) {
+                        while ($techn = mysqli_fetch_array(
+                            $all_technicians,
+                            MYSQLI_ASSOC
+                        )) :;
                         ?>
-                                <tr>
-                                    <td><?php echo $data['techn_id'] ?? ''; ?></td>
-                                    <td><?php echo $data['techn_name'] ?? ''; ?></td>
-                                    <td><?php echo $data['techn_email'] ?? ''; ?></td>
-                                    <td><?php echo $data['techn_phone_num'] ?? ''; ?></td>
-                                    <td><?php echo $data['techn_spec'] ?? ''; ?></td>
-                                    <td><button type="button" data-bs-toggle="modal" data-bs-target="#editSpecModal" class="editBtn">Redaguoti</button></td>
-                                    <td><button type="button" data-bs-toggle="modal" data-bs-target="#removeSpecModal" class="removeBtn">Pašalinti</button></td>
+                            <tr>
+                                <td><?php echo $techn['techn_id'] ?? ''; ?></td>
+                                <td><?php echo $techn['techn_name'] ?? ''; ?></td>
+                                <td><?php echo $techn['techn_email'] ?? ''; ?></td>
+                                <td><?php echo $techn['techn_phone_num'] ?? ''; ?></td>
+                                <td style="display: none;"><?php echo $techn['specializ_id'] ?? ''; ?></td>
+                                <td><?php echo $techn['specializ_name'] ?? ''; ?></td>
+                                <td><button type="button" data-bs-toggle="modal" data-bs-target="#editSpecModal" class="editBtn btn btn-primary">Redaguoti</button></td>
+                                <td><button type="button" data-bs-toggle="modal" data-bs-target="#removeSpecModal" class="removeBtn btn btn-danger">Pašalinti</button></td>
 
-                                    <form action="functions/updateTechn.php" method="POST" class="form">
-                                        <div class="modal fade" id="editSpecModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Redaguoti specialistą</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <input type="hidden" name="techn_id_edit" id="techn_id_edit">
-                                                        <label for="techn_name_edit">Vardas Pavardė</label>
-                                                        <br>
-                                                        <input type="text" name="techn_name_edit" id="techn_name_edit" class="me-3 mb-2 modal-input-box">
-                                                        <br>
-                                                        <label for="techn_email_edit">El. paštas</label>
-                                                        <br>
-                                                        <input type="text" name="techn_email_edit" id="techn_email_edit" class="me-3 mb-2 modal-input-box">
-                                                        <br>
-                                                        <label for="techn_phone_num_edit">Tel. nr.</label>
-                                                        <br>
-                                                        <input type="text" name="techn_phone_num_edit" id="techn_phone_num_edit" class="me-3 mb-2 modal-input-box">
-                                                        <br>
-                                                        <label for="techn_spec_edit">Specializacija</label>
-                                                        <br>
-                                                        <select id="techn_spec_edit" name="techn_spec_edit" class="modal-input-box">
+                                <form action="functions/updateTechn.php" method="POST" class="form">
+                                    <div class="modal fade" id="editSpecModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Redaguoti specialistą</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <input type="hidden" name="techn_id_edit" id="techn_id_edit">
+                                                    <label for="techn_name_edit">Vardas Pavardė</label>
+                                                    <br>
+                                                    <input type="text" name="techn_name_edit" id="techn_name_edit" class="form-control me-3 mb-2 modal-input-box">
+                                                    <br>
+                                                    <label for="techn_email_edit">El. paštas</label>
+                                                    <br>
+                                                    <input type="text" name="techn_email_edit" id="techn_email_edit" class="form-control me-3 mb-2 modal-input-box">
+                                                    <br>
+                                                    <label for="techn_phone_num_edit">Tel. nr.</label>
+                                                    <br>
+                                                    <input type="text" name="techn_phone_num_edit" id="techn_phone_num_edit" class="form-control me-3 mb-2 modal-input-box">
+                                                    <br>
+                                                    <label for="techn_spec_edit">Specializacija</label>
+                                                    <br>
+                                                    <div class="form-group">
+                                                        <select id="techn_spec_edit" name="techn_spec_edit" class="form-select modal-input-box">
                                                             <?php foreach ($all_specializations as $techn_spec_edit) { ?>
-                                                                <option value="<?php echo $techn_spec_edit["specializ_name"] ?>"><?php echo $techn_spec_edit["specializ_name"] ?></option>
+                                                                <option value="<?php echo $techn_spec_edit["specializ_id"] ?>"><?php echo $techn_spec_edit["specializ_name"] ?></option>
                                                             <?php } ?>
-
-                                                            </option>
-
                                                         </select>
                                                     </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Uždaryti</button>
-                                                        <button type="submit" name="updateTechnBtn" class="btn btn-primary">Išsaugoti</button>
-                                                    </div>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Uždaryti</button>
+                                                    <button type="submit" name="updateTechnBtn" class="btn btn-primary">Išsaugoti</button>
                                                 </div>
                                             </div>
                                         </div>
-                                    </form>
+                                    </div>
+                                </form>
 
 
-                                    <form action="functions/deleteTechn.php" method="POST" class="form">
-                                        <div class="modal fade" id="removeSpecModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                            <div class="modal-dialog">
-                                                <div class="modal-content">
-                                                    <div class="modal-header">
-                                                        <h5 class="modal-title" id="exampleModalLabel">Pašalinti specialistą</h5>
-                                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                                    </div>
-                                                    <div class="modal-body">
-                                                        <input type="hidden" name="techn_id_remove" id="techn_id_remove">
-                                                        <h4>Ar tikrai norite pašalinti šį specialistą?</h4>
-                                                    </div>
-                                                    <div class="modal-footer">
-                                                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Atšaukti</button>
-                                                        <button type="submit" name="deleteTechnBtn" class="btn btn-primary">Pašalinti</button>
-                                                    </div>
+                                <form action="functions/deleteTechn.php" method="POST" class="form">
+                                    <div class="modal fade" id="removeSpecModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title" id="exampleModalLabel">Pašalinti specialistą</h5>
+                                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <input type="hidden" name="techn_id_remove" id="techn_id_remove">
+                                                    <h4>Ar tikrai norite pašalinti šį specialistą?</h4>
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Atšaukti</button>
+                                                    <button type="submit" name="deleteTechnBtn" class="btn btn-primary">Pašalinti</button>
                                                 </div>
                                             </div>
                                         </div>
-                                    </form>
+                                    </div>
+                                </form>
 
-                                </tr>
-                            <?php
-                                $num++;
-                            }
-                        } else { ?>
-                            <tr>
-                                <td colspan="4">
-                                    <?php echo $fetch_data; ?>
-                                </td>
-                            <tr>
-                            <?php
-                        } ?>
+                            </tr>
+                        <?php
+                        endwhile;
+                        ?>
                     </tbody>
                 </table>
             </div>
@@ -269,8 +262,6 @@ include("functions/selectSpecialization.php");
 
                     return $(this).text();
                 }).get();
-
-
 
                 $('#techn_id_edit').val(data[0]);
                 $('#techn_name_edit').val(data[1]);

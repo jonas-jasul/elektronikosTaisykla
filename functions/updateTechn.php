@@ -19,7 +19,7 @@ if (isset($_POST['updateTechnBtn'])) {
     $techn_phone_num = $_POST['techn_phone_num_edit'];
     $techn_spec = $_POST['techn_spec_edit'];
 
-    $query = "UPDATE technicians SET techn_name='$techn_name', techn_email='$techn_email', techn_phone_num='$techn_phone_num', techn_spec='$techn_spec' WHERE techn_id='$id' ";
+    $query = "UPDATE technicians SET techn_name='$techn_name', techn_email='$techn_email', techn_phone_num='$techn_phone_num', techn_spec_id='$techn_spec' WHERE techn_id='$id' ";
 
     $execute_query = mysqli_query($cnn, $query);
 

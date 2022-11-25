@@ -1,3 +1,4 @@
+<?php include("functions/functions.php"); ?>
 <!DOCTYPE html>
 <html lang="lt">
 
@@ -11,11 +12,14 @@
 </head>
 
 <body>
-    <?php include("welcomeHeader.php"); ?>
-    <?php include("functions/functions.php"); ?>
-    <form method="POST" action="login.php">
-    <?php echo display_error(); ?>
+<?php 
+include("welcomeHeader.php"); 
+
+?>
+    
+    <form method="POST" action="login.php"> 
         <div class="container register-cont">
+        <?php echo display_error(); ?>
             <h1>Prisijungimas</h1>
             <label for="email">El. paštas</label>
             <input type="text" placeholder="Įveskite el. paštą" name="email" id="email" required>
@@ -23,7 +27,7 @@
             <label for="password">Slaptažodis</label>
             <input type="password" placeholder="Įveskite slaptažodį" name="password" id="password" required>
             <br>
-            <button type="submit" class="login-btn" name="login-btn">Prisijungti</button>
+            <button type="submit" class="button btn btn-primary login-btn" name="login-btn">Prisijungti</button>
             <br>
             <p id="noReg">Neturite paskyros? <a id="noRegRegister" href="registration.php">Registruokitės!</a></p>
         </div>

@@ -1,8 +1,9 @@
 .welcomeImg {
     height: 100%;
     width: 100%;
-    object-fit: fill;
     opacity: 0.45;
+    max-height: 97%;
+    overflow: hidden;
 
 }
 
@@ -19,10 +20,18 @@
     transform: translate(-50%, -50%); */
 }
 
+.flex-wrapper {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+
 .contact-form {
-    margin-top: 140px;
+    margin-top: 8px;
     width: 600px;
-    height: 400px;
+    height: 40px;
     position: relative;
     left: 0;
     right: 0;
@@ -35,18 +44,50 @@
     display: table;
 }
 
-.welcome-paslaugos {
+.kontakt-info {
+    margin-top: 140px;
+    width: 90%;
+    position: relative;
+    left: 0;
+    right: 0;
+    top: 0;
+    max-width: 90%;
+    overflow: auto;
+    padding: 1em 2em;
+    display: table;
+    border-radius: 10px;
+    border: 2px solid rgb(130, 153, 153);
+}
+
+.contacts {
+    border: 2px solid rgb(130, 153, 153);
+    padding-top: 1.5em;
+    background-color: rgb(200, 221, 221);
+    border-radius: 10px;
+}
+
+.contacts h3 {
+    text-align: center;
+}
+
+/* .welcome-paslaugos {
     height: 100%;
     width: 100%;
-    margin-top: 2px;
+    margin-top: 0px;
     object-fit: fill;
     background-color: rgb(190, 216, 216);
     border-radius: 20px;
+    padding-top: 5px;
 
+} */
+
+.welcome-paslaugos {
+    padding-top: 100px;
+    margin-top: -100px;
 }
 
 .teikiamosPaslaugos {
-    padding-top: 15px;
+    padding-top: 0px;
     padding-bottom: 10px;
     text-align: center;
 }
@@ -56,14 +97,14 @@
     width: 10px;
 }
 
-.card-img-top {
+/* .card-img-top {
     width: 100px !important;
     height: 16vh;
     object-fit: cover;
 
-}
+} */
 
-#card-img-computer {
+/* #card-img-computer {
     width: 120px !important;
     height: 16vh;
 }
@@ -71,12 +112,16 @@
 #card-img-console {
     width: 130px !important;
     height: 16vh;
-}
+} */
 
 .card-title {
     text-align: center;
 }
 
+.svgImg {
+    width: 110px;
+    align-self: center;
+}
 
 .arrow-down-btn {
     background-color: transparent;
@@ -85,54 +130,55 @@
 }
 
 .profile_info div {
-	display: inline-block; 
-	margin: 5px;
+    display: inline-block;
+    margin: 5px;
 }
 
 #user_type {
-	height: 40px;
-	width: 98%;
-	padding: 5px 10px;
-	background: white;
-	font-size: 16px;
-	border-radius: 5px;
-	border: 1px solid gray;
+    height: 40px;
+    width: 98%;
+    padding: 5px 10px;
+    background: white;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid gray;
 }
 
 .error {
-	width: 92%; 
-	margin: 0px auto; 
-	padding: 10px; 
-	border: 1px solid #a94442; 
-	color: #a94442; 
-	background: #f2dede; 
-	border-radius: 5px; 
-	text-align: left;
+    width: 92%;
+    margin: 0px auto;
+    padding: 10px;
+    border: 1px solid #a94442;
+    color: #a94442;
+    background: #f2dede;
+    border-radius: 5px;
+    text-align: center;
 }
+
 .success {
-	color: #3c763d; 
+    color: #3c763d;
     margin-top: 20%;
-	background: #dff0d8; 
-	border: 1px solid #3c763d;
-	margin: auto; 
+    background: #dff0d8;
+    border: 1px solid #3c763d;
+    margin: auto;
 
 }
 
 .er-suc-log {
-        padding: 2%;
-        text-align: center;
-        width: 50%;
-        -webkit-backdrop-filter: blur(15px);
-        backdrop-filter: blur(15px);
-        border: 2px solid black;
-        border-radius: 8px;
-        /* position: absolute;
+    padding: 2%;
+    text-align: center;
+    width: 50%;
+    -webkit-backdrop-filter: blur(15px);
+    backdrop-filter: blur(15px);
+    border: 2px solid black;
+    border-radius: 8px;
+    /* position: absolute;
         top: 30%;
         left: 50%;
         transform: translate(-50%, -50%); */
-        z-index: 100;
-        margin: auto;
-    
+    z-index: 100;
+    margin: auto;
+
 }
 
 .pirmyn {
@@ -142,15 +188,48 @@
 .pirmyn-link {
     text-decoration: none;
     color: black;
-    border: 3px solid rgb(190, 216, 216);
-    padding:4px;
+    border: 3px solid rgb(172, 197, 197);
+    padding: 4px;
 }
 
 .pirmyn-link:hover {
-    background-color: aqua;
-    color:black;
+    background-color: rgb(58, 209, 209);
+    color: black;
 }
 
 h2 {
     text-align: center;
+}
+
+#aboutUsDiv {
+    background-color: rgb(166, 194, 194);
+    border-radius: 4px;
+    padding: 10px;
+}
+
+#aboutUsH {
+    background-color: rgb(130, 153, 153);
+    background-image: linear-gradient(rgb(156, 180, 180), rgb(166, 194, 194));
+    padding: 11px;
+    padding-top: 17px;
+}
+
+#aboutUsDiv h3,
+p {
+    text-align: center;
+}
+
+/* .hammerIcon {
+    --fa-animation-duration: 2s;
+} */
+
+.card-body {
+    background-color: rgb(217, 229, 229);
+}
+
+#gmap1,
+#gmap2,
+#gmap3,
+#gmap4 {
+    display: none;
 }

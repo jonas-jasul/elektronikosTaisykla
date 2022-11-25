@@ -1,3 +1,4 @@
+<?php include("functions/functions.php") ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,7 +15,7 @@
 </head>
 
 <body>
-    <?php include("functions/functions.php")?>
+
     <h1 class="pb-2">Skydelis</h1>
     <div class="container">
         <div class="row">
@@ -23,14 +24,13 @@
                     <div class="card-body-dash text-center">
                         <h5 class="card-title">Iš viso specialistų:</h5>
                         <?php
-                            $dashboard_techn_query = "SELECT * FROM technicians";
-                            $dashboard_techn_query_run = mysqli_query($db, $dashboard_techn_query);
-                            if($techn_total = mysqli_num_rows($dashboard_techn_query_run)) {
-                                echo '<p>'.$techn_total.'</p>';
-                            }
-                            else {
-                                echo '<p>Nėra</p>';
-                            }
+                        $dashboard_techn_query = "SELECT * FROM technicians";
+                        $dashboard_techn_query_run = mysqli_query($db, $dashboard_techn_query);
+                        if ($techn_total = mysqli_num_rows($dashboard_techn_query_run)) {
+                            echo '<p>' . $techn_total . '</p>';
+                        } else {
+                            echo '<p>Nėra</p>';
+                        }
                         ?>
                     </div>
                 </div>
@@ -39,16 +39,15 @@
             <div class="col-md-3">
                 <div class="card card-dash clientCard">
                     <div class="card-body-dash text-center">
-                        <h5 class="card-title">Iš viso klientų:</h5>
+                        <h5 class="card-title">Iš viso vartotojų:</h5>
                         <?php
-                            $dashboard_users_query = "SELECT * FROM users";
-                            $dashboard_users_query_run = mysqli_query($db, $dashboard_users_query);
-                            if($users_total = mysqli_num_rows($dashboard_users_query_run)) {
-                                echo '<p>'.$users_total.'</p>';
-                            }
-                            else {
-                                echo '<p>Nėra</p>';
-                            }
+                        $dashboard_users_query = "SELECT * FROM users WHERE user_type='Vartotojas'";
+                        $dashboard_users_query_run = mysqli_query($db, $dashboard_users_query);
+                        if ($users_total = mysqli_num_rows($dashboard_users_query_run)) {
+                            echo '<p>' . $users_total . '</p>';
+                        } else {
+                            echo '<p>Nėra</p>';
+                        }
                         ?>
                     </div>
                 </div>
@@ -58,7 +57,15 @@
                 <div class="card card-dash activeRepairsCard">
                     <div class="card-body-dash text-center">
                         <h5 class="card-title">Aktyvių taisymų kiekis:</h5>
-                        <p>25</p>
+                        <?php
+                        $dashboard_active_orders = "SELECT * FROM orders where order_status='Aktyvus'";
+                        $dashboard_act_order_query_run = mysqli_query($db, $dashboard_active_orders);
+                        if($active_order_total = mysqli_num_rows($dashboard_act_order_query_run)) {
+                            echo '<p>' . $active_order_total . '</p>';
+                        } else {
+                            echo '<p>Nėra</p>';
+                        }
+                        ?>
                     </div>
                 </div>
             </div>
@@ -67,72 +74,69 @@
                 <div class="card card-dash inactiveRepairsCard">
                     <div class="card-body-dash text-center">
                         <h5 class="card-title">Neaktyvių taisymų kiekis:</h5>
-                        <p>20</p>
+                        <?php
+                        $dashboard_inactive_orders = "SELECT * FROM orders WHERE order_status='Neaktyvus'";
+                        $dashboard_inac_order_query_run = mysqli_query($db, $dashboard_inactive_orders);
+                        if($inact_order_total = mysqli_num_rows($dashboard_inac_order_query_run)) {
+                            echo '<p>' . $inact_order_total . '</p>';
+                        } else {
+                            echo '<p>Nėra</p>';
+                        }
+                        ?>
                     </div>
                 </div>
             </div>
         </div>
-    <div id="chart-wrapper">
-        <canvas id="myChart"></canvas>
+        <div id="chart-wrapper">
+            <canvas id="myChart"></canvas>
         </div>
     </div>
+
+    <?php
+    $dashboard_inactive_orders = "SELECT * FROM orders WHERE order_status='Neaktyvus'";
+    $dashboard_inac_order_query_run = mysqli_query($db, $dashboard_inactive_orders);
+    $inact_order_total = mysqli_num_rows($dashboard_inac_order_query_run);
+
+    $dashboard_active_orders = "SELECT * FROM orders where order_status='Aktyvus'";
+    $dashboard_act_order_query_run = mysqli_query($db, $dashboard_active_orders);
+    $active_order_total = mysqli_num_rows($dashboard_act_order_query_run);
+
+    $dashboard_complete_orders = "SELECT * FROM orders WHERE order_status='Pabaigtas'";
+    $dashboard_compl_order_query_run = mysqli_query($db, $dashboard_complete_orders);
+    $complete_order_total = mysqli_num_rows($dashboard_compl_order_query_run);
+    ?>
     <script>
-        // var ctx = document.getElementById("examChart").getContext("2d");
-
-        // var myChart = new Chart(ctx, {
-        //     type: 'line',
-        //     options: {
-        //         scales: {
-        //             xAxes: [{
-        //                 type: 'time',
-        //             }]
-        //         }
-        //     },
-        //     data: {
-        //         labels: [moment().subtract(730, 'days').format("YYYY-MM-DD"), moment().subtract(365, 'days').format("YYYY-MM-DD"), moment().format("YYYY-MM-DD")],
-        //         datasets: [{
-        //             label: 'Taisymai',
-        //             data: [
-        //                 20,
-        //                 5,
-        //                 122,
-        //             ],
-        //             borderWidth: 1
-        //         }]
-        //     }
-        // });
-
-
-        
         let myChart = document.getElementById('myChart').getContext('2d');
+
         let newChart = new Chart(myChart, {
-            type:'pie',
-            data:{
-                labels:['Aktyvus', 'Neaktyvus', 'Pabaigti'],
-                datasets:[{
-                    label:'Taisymu kiekis',
-                    data:[
-                        25,
-                        20,
-                        100
+
+            type: 'pie',
+            data: {
+                labels: ['Aktyvus', 'Neaktyvus', 'Pabaigti'],
+                datasets: [{
+                    label: 'Taisymu kiekis',
+                    data: [
+                        <?php echo $active_order_total ?>,
+                        <?php echo $inact_order_total ?>,
+                        <?php echo $complete_order_total ?>
                     ],
-                    backgroundColor:[
+                    backgroundColor: [
                         'rgb(236, 217, 183)',
                         'rgb(253, 165, 165)',
                         'rgb(194, 238, 129)'
                     ],
-                    borderWidth:1,
-                    borderColor:'black'
+                    borderWidth: 1,
+                    borderColor: 'black'
                 }]
             },
-            options:{
-                plugins:{
-                    title:{
-                        display:true,
-                        text:"Taisymai"
+            options: {
+                plugins: {
+                    title: {
+                        display: true,
+                        text: "Taisymai"
                     }
                 },
-                responsive:true
+                responsive: true
             }
         });
     </script>

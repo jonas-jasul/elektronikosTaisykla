@@ -17,60 +17,23 @@
     <?php include("functions/selectServiceUser.php"); ?>
 
     <?php
-    
-    if (isLoggedIn(true)) {       
+
+    if (isLoggedIn(true)) {
         include("loggedInHeader.php");
     } else {
         include("welcomeHeader.php");
     }
     ?>
-    <div class="container phone-form-div">
+    <div class="container">
         <div class="row">
             <div class="col">
-                <h3 class="h3">Telefonų taisymas</h3>
+                <h3 class="h3 pb-2">Telefonų taisymas</h3>
             </div>
         </div>
         <div class="row">
-            <div class="col-2 phone-form">
-                <form action="" method="POST">
-                    <div class="form-group">
-                        <label class="">Telefono gamintojas</label>
-                        <select class="form-select" aria-label="Default select example">
-                            <option value="1">Samsung</option>
-                            <option value="2">Apple</option>
-                            <option value="3">Xiaomi</option>
-                            <option value="4">Huawei</option>
-                            <option value="5">Realme</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <br>
-                        <label class="">Telefono modelis</label>
-                        <input type="text" class="form-control">
-                    </div>
-
-                    <div class="form-group">
-                        <br>
-                        <label class="">Pageidaujama paslauga</label>
-                        <select class="form-select" name="service">
-                            <?php                            
-                            while ($service = mysqli_fetch_array(
-                                $phone_services,
-                                MYSQLI_ASSOC
-                            )) :;
-                            ?>
-                                <option value="<?php echo $service['service_name'];
-                                                ?>">
-                                    <?php echo $service["service_name"];
-                                    ?>
-                                </option>
-                            <?php
-                            endwhile;
-                            ?>
-                        </select>
-                    </div>
-                    <button type="submit" name="submit" class="btn btn-primary mt-2">Siųsti užklausą
-                </form>
+            <div class="morePhone col">
+                <img class="rounded mx-auto d-block" src="images/phoneRepair.jpg">
+                <p>Taisomi įvairių gamintojų telefonai</p>
             </div>
         </div>
 

@@ -15,8 +15,9 @@ if($cnn->connect_error) {
 $service_name = $_GET['service_name'];
 $service_specializ_id = $_GET['service_specializ_id'];
 $description = $_GET['description'];
+$service_price= $_GET['servicePrice'];
 
-$query = "INSERT INTO services VALUES (NULL, '$service_name', '$service_specializ_id', '$description')";
+$query = "INSERT INTO services VALUES (NULL, '$service_name', '$service_specializ_id','$service_price', '$description')";
 
 if(mysqli_query($cnn, $query)) {
     header('location: ../services.php');

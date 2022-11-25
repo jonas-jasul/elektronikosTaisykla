@@ -43,28 +43,28 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a href="#" class="nav-link text-dark">
+                <a href="adminUsers.php" class="nav-link text-dark">
                     Vartotojai
                 </a>
             </li>
 
             <li class="nav-item">
-                <a href="#" class="nav-link text-dark">
+                <a href="adminOrders.php" class="nav-link text-dark">
                     Taisymai
                 </a>
             </li>
 
             <li class="nav-item">
                 <a href="#" class="nav-link text-dark">
-                    Prietaisų kategorijos
+                    Apmokėjimai
                 </a>
             </li>
-
+<!-- 
             <li class="nav-item">
                 <a href="#" class="nav-link text-dark">
                     Prietaisai
                 </a>
-            </li>
+            </li> -->
         </ul>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.1/js/bootstrap.min.js"></script>

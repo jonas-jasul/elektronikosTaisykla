@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <nav class="navbar fixed-top navbar-expand-lg py-3 navbar-light bg-light shadow-sm">
+    <nav class="navbar fixed-top navbar-expand-lg py-0 navbar-light bg-light shadow-sm">
         <div class="container">
             <a href="welcome.php" class="navbar-brand">
                 <img src="images/logo.png" alt="" class="img-responsive d-inline-block align-middle" width="80">
@@ -20,15 +20,17 @@
             <button type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"><span class="navbar-toggler-icon"></span></button>
 
             <div id="navbarSupportedContent" class="collapse navbar-collapse">
-                <ul class="navbar-nav ml-auto">
+                <ul class="navbar-nav me-auto">
                     <li class="nav-item active"><a href="welcome.php" class="nav-link">Pagrindinis puslapis</a></li>
                     <li class="nav-item"><a href="welcome.php#paslaugos-div" class="nav-link">Paslaugos</a></li>
-                    <li class="nav-item"><a href="#" class="nav-link">Apie mus</a></li>
+                    <li class="nav-item"><a href="welcome.php#aboutUsDiv" class="nav-link">Apie mus</a></li>
                     <li class="nav-item"><a href="kontaktai.php" class="nav-link">Kontaktai</a></li>
                     <li class="nav-item"><a href="userPage.php" class="nav-link">Vartotojo panelė</a></li>
+                </ul>
+
+                <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <div class="profile-info">
-                            <div>
                                 <?php if (isset($_SESSION['user'])) : ?>
                                     <strong><?php echo $_SESSION['user']['name']; ?></strong>
 
@@ -37,11 +39,11 @@
                                         <br>
                                         <a href="login.php?logout='1'" style="color: red;">atsijungti</a>
                                     </small>
-                                <?php endif ?>
-                            </div>
+                                <?php endif ?>                            
                         </div>
                     </li>
                 </ul>
+
             </div>
         </div>
     </nav>

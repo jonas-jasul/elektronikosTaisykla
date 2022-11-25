@@ -39,15 +39,22 @@ function register()
         //     header('location: userPage.php');
         // } else {
         $user_type = e($_POST['user_type']);
-        $query = "INSERT INTO users (email, user_type, phone, name, password)
+        $checkIfExistsSql = "SELECT * FROM users WHERE email='$email'";
+        $ifExistsQuery = mysqli_query($db, $checkIfExistsSql);
+
+        if (mysqli_num_rows($ifExistsQuery) >= 1) {
+            array_push($errors, "Toks el. paštas jau egzistuoja!");
+        } else {
+            $query = "INSERT INTO users (email, user_type, phone, name, password)
                 VALUES('$email', 'Vartotojas', '$phone', '$name', '$password')";
-        mysqli_query($db, $query);
+            mysqli_query($db, $query);
 
-        $logged_in_user_id = mysqli_insert_id($db);
+            $logged_in_user_id = mysqli_insert_id($db);
 
-        $_SESSION['user'] = getUserById($logged_in_user_id);
-        $_SESSION['success'] = "Jūs sėkmingai prisijungėte!";
-        header('location: userPage.php');
+            $_SESSION['user'] = getUserById($logged_in_user_id);
+            $_SESSION['success'] = "Jūs sėkmingai prisijungėte!";
+            header('location: userPage.php');
+        }
     }
 }
 
@@ -88,6 +95,15 @@ function isLoggedIn()
     }
 }
 
+function isEmployee()
+{
+    if (isset($_SESSION['user']) && $_SESSION['user']['user_type'] == "Darbuotojas") {
+        return true;
+    } else {
+        return false;
+    }
+}
+
 if (isset($_GET['logout'])) {
     session_destroy();
     unset($_SESSION['user']);
@@ -114,10 +130,10 @@ function login()
 
         if (mysqli_num_rows($results) == 1) {
             $logged_in_user = mysqli_fetch_assoc($results);
-            if ($logged_in_user['user_type'] == 'admin') {
+            if ($logged_in_user['user_type'] == 'Darbuotojas') {
                 $_SESSION['user'] = $logged_in_user;
                 $_SESSION['success'] = "Jūs prisijungėte sėkmingai";
-                header('location: index.php');
+                header('location: employeePage.php');
             } else {
                 $_SESSION['user'] = $logged_in_user;
                 $_SESSION['success'] = "Jūs prisijungėte sėkmingai";
