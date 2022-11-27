@@ -33,7 +33,7 @@
         <div class="row">
             <div class="morePhone col">
                 <img class="rounded mx-auto d-block" src="images/phoneRepair.jpg">
-                <p>Taisomi įvairių gamintojų telefonai</p>
+                <p>Taisomi įvairių gamintojų telefonai</p>  
             </div>
         </div>
 
