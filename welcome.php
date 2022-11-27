@@ -108,14 +108,14 @@
                                     Atliekama techninė priežiūra.
                                 </li>
                             </ul>
-                            <?php if (isLoggedIn(true)) { ?>
+                            <!-- <?php if (isLoggedIn(true)) { ?>
                                 <div class="pirmyn">
                                     <span>
                                         <a href="userRepairPhone.php" class="pirmyn-link">Daugiau! <i class="fa-solid fa-arrow-right"></i></a>
 
                                     </span>
                                 </div>
-                            <?php }  ?>
+                            <?php }  ?> -->
                             </p>
                         </div>
                     </div>
@@ -139,14 +139,14 @@
                                     Keičiami komponentai.
                                 </li>
                             </ul>
-                            <?php if (isLoggedIn(true)) { ?>
+                            <!-- <?php if (isLoggedIn(true)) { ?>
                                 <div class="pirmyn">
                                     <span>
                                         <a href="#" class="pirmyn-link">Daugiau! <i class="fa-solid fa-arrow-right"></i></a>
 
                                     </span>
                                 </div>
-                            <?php }  ?>
+                            <?php }  ?> -->
                             </p>
                         </div>
                     </div>
@@ -168,14 +168,14 @@
                                 </li>
                             </ul>
 
-                            <?php if (isLoggedIn(true)) { ?>
+                            <!-- <?php if (isLoggedIn(true)) { ?>
                                 <div class="pirmyn">
                                     <span>
                                         <a href="#" class="pirmyn-link">Daugiau! <i class="fa-solid fa-arrow-right"></i></a>
 
                                     </span>
                                 </div>
-                            <?php }  ?>
+                            <?php }  ?> -->
                             </p>
                         </div>
                     </div>
@@ -196,14 +196,14 @@
                                     Atliekama diagnostika.
                                 </li>
                             </ul>
-                            <?php if (isLoggedIn(true)) { ?>
+                            <!-- <?php if (isLoggedIn(true)) { ?>
                                 <div class="pirmyn">
                                     <span>
                                         <a href="#" class="pirmyn-link">Daugiau! <i class="fa-solid fa-arrow-right"></i></a>
 
                                     </span>
                                 </div>
-                            <?php }  ?>
+                            <?php }  ?> -->
                             </p>
                         </div>
                     </div>
@@ -242,29 +242,27 @@
                                     <b>Kaunas</b>
                                     <button class="btn btn-primary" id="btn-show-map1"><i class="fa-fw fa-solid fa-location-dot"></i></button></p>
                                     <div id="gmap1">
-                                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3616.59200545304!2d23.893931170267294!3d54.88853497766663!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46e722147f481a21%3A0xdbd50df600de1c70!2zVUFCIMWgbWl0byBkaXJidHV2xJc!5e0!3m2!1sen!2slt!4v1668444702067!5m2!1sen!2slt" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3616.59200545304!2d23.893931170267294!3d54.88853497766663!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46e722147f481a21%3A0xdbd50df600de1c70!2zVUFCIMWgbWl0byBkaXJidHV2xJc!5e0!3m2!1sen!2slt!4v1668444702067!5m2!1sen!2slt" width="300" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <b>Vilnius</b>
                                     <button class="btn btn-primary" id="btn-show-map2"><i class="fa-fw fa-solid fa-location-dot"></i></button></p>
                                     <div id="gmap2">
-                                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24254.432250170474!2d25.238269821693795!3d54.72152987216756!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46dd919d6fedc4b1%3A0x54791611bd50813f!2sLidl!5e0!3m2!1sen!2slt!4v1668447760199!5m2!1sen!2slt" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d24254.432250170474!2d25.238269821693795!3d54.72152987216756!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46dd919d6fedc4b1%3A0x54791611bd50813f!2sLidl!5e0!3m2!1sen!2slt!4v1668447760199!5m2!1sen!2slt" width="300" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
                                     </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <b>Marijampolė</b>
-                                    <button class="btn btn-primary"><i class="fa-fw fa-solid fa-location-dot"></i></button></p>
+                                    <button class="btn btn-primary" id="btn-show-map3"><i class="fa-fw fa-solid fa-location-dot"></i></button></p>
                                     <div id="gmap3">
-                                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3616.59200545304!2d23.893931170267294!3d54.88853497766663!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46e722147f481a21%3A0xdbd50df600de1c70!2zVUFCIMWgbWl0byBkaXJidHV2xJc!5e0!3m2!1sen!2slt!4v1668444702067!5m2!1sen!2slt" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                                    </div>
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7084.56144620135!2d23.338407103244272!3d54.559430627310064!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46e12a2f31e11b97%3A0x90ca391779c771c3!2sDar%C5%BEo%2C%20Mi%C5%A1ko%20technika%20ir%20remontas!5e0!3m2!1sen!2slt!4v1669575830093!5m2!1sen!2slt" width="300" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>                                    </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <b>Vilkaviškis</b>
-                                    <button class="btn btn-primary"><i class="fa-fw fa-solid fa-location-dot"></i></button></p>
+                                    <button class="btn btn-primary" id="btn-show-map4"><i class="fa-fw fa-solid fa-location-dot"></i></button></p>
                                     <div id="gmap4">
-                                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3616.59200545304!2d23.893931170267294!3d54.88853497766663!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46e722147f481a21%3A0xdbd50df600de1c70!2zVUFCIMWgbWl0byBkaXJidHV2xJc!5e0!3m2!1sen!2slt!4v1668444702067!5m2!1sen!2slt" width="400" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
-                                    </div>
+                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2056.6839996463636!2d23.010726277070244!3d54.64715091678666!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46e135efbef6d739%3A0x3704e18c9b8ae00f!2sKOMPIUTERI%C5%B2%20TELEFON%C5%B2%20AUDIO%20APARAT%C5%AAROS%20GPS%20NAVIGACIJ%C5%B2%20REMONTAS!5e0!3m2!1sen!2slt!4v1669575953573!5m2!1sen!2slt" width="300" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>                                    </div>
                                 </div>
                             </div>
                         </div>

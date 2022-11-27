@@ -23,7 +23,7 @@ function phoneNumValidation() {
         // alert("Neteisingas tel. nr.");
         document.getElementById('tel_error').style.cssText+= 'display:inline';
         document.getElementById('tel_error').innerHTML="Neteisingas tel. nr. formatas";
-        document.getElementById('tel_error').style.cssText+= 'border: 2px solid red; background-color:red';
+        document.getElementById('tel_error').style.cssText+= 'border-radius: 5px; color: #a94442; border:1px solid #a94442; background-color:#f2dede';
         return false;
     }
     else {
@@ -54,7 +54,7 @@ function emailValidation() {
     if(emailResult==false) {
         document.getElementById('email_error').style.cssText+= 'display:inline';
         document.getElementById('email_error').innerHTML="Neteisingas el. paštas";
-        document.getElementById('email_error').style.cssText+= 'border: 2px solid red; background-color:red';
+        document.getElementById('email_error').style.cssText+= 'border-radius: 5px; color: #a94442; border:1px solid #a94442; background-color:#f2dede';
         return false;
     }
     else {
