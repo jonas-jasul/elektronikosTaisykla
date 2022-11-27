@@ -27,7 +27,9 @@ $result=mysqli_query($cnn, $total_pages_query);
 $total_rows=mysqli_fetch_array($result)[0];
 $total_pages=ceil($total_rows/$records_per_page);
 
-$sql = "SELECT * FROM users WHERE user_type='Vartotojas' LIMIT $offset, $records_per_page";
+//Alternatyvi paginacija
+//$sql = "SELECT * FROM users WHERE user_type='Vartotojas' LIMIT $offset, $records_per_page";
+$sql = "SELECT * FROM users WHERE user_type='Vartotojas'";
 
 $all_users= mysqli_query($cnn, $sql);
 

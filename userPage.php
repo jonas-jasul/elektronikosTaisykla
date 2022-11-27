@@ -11,7 +11,8 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/welcome.css" type="text/css">
-    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+    <title>Vartotojo panelė</title>
 </head>
 
 <body>
@@ -516,7 +517,7 @@
 
         <div class="row">
             <div class="col-sm-12">
-                <table class="table table-primary table-responsive table-bordered table-striped table-hover">
+                <table id="userOrdersTable" class="table table-primary table-responsive table-bordered table-striped table-hover">
                     <thead>
                         <tr id="userTableTitleRow">
                             <th scope="col">#</th>
@@ -533,7 +534,7 @@
                             <th scope="col"></th>
                             <th scope="col"></th>
                             <th scope="col"></th>
-
+                            <th style="display:none;"scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -559,45 +560,8 @@
                                 <td><button data-bs-toggle="modal" data-bs-target="#cancelOrderUser" class="cancelOrderBtn btn btn-warning">Atšaukti</button></td>
                                 <td><button data-bs-toggle="modal" data-bs-target="#moreInfoUserOrder" class="morInfoBtn btn btn-primary">Daugiau info</button></td>
                                 <td><button class="btn btn-primary">Apmokėti</button></td>
+                                
                             </tr>
-
-                            <form action="functions/cancelOrder.php" method="POST" class="form">
-                                <div class="modal fade" id="cancelOrderUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Atšaukti užsakymą</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <input type="hidden" name="order_id_cancel" id="order_id_cancel">
-                                                <h4>Ar tikrai norite atšaukti šį užsakymą?</h4>
-                                                <label for="cancelOrderCode">Užsakymo kodas</label>
-                                                <br>
-                                                <input class="form-control modal-input-box" type="text" name="cancelOrderCode" id="cancelOrderCode" readonly>
-                                                <label for="cancelOrderDate">Sukūrimo data</label>
-                                                <br>
-                                                <input class="form-control modal-input-box" type="text" name="cancelOrderDate" id="cancelOrderDate" readonly>
-                                                <label for="cancelOrderManufac">Gamintojas</label>
-                                                <br>
-                                                <input class="form-control modal-input-box" type="text" name="cancelOrderManufac" id="cancelOrderManufac" readonly>
-                                                <label for="cancelOrderModel">Modelis</label>
-                                                <br>
-                                                <input class="form-control modal-input-box" type="text" name="cancelOrderModel" id="cancelOrderModel" readonly>
-                                                <label for="cancelOrderService">Paslauga</label>
-                                                <br>
-                                                <input class="form-control" type="text" name="cancelOrderService" id="cancelOrderService" readonly>
-
-
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Grįžti</button>
-                                                <button type="submit" name="acceptOrderCancellationBtn" class="btn btn-primary">Patvirtinti atšaukimą</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </form>
 
 
                             <div class="modal fade" id="moreInfoUserOrder" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -652,15 +616,49 @@
                         endwhile;
                         ?>
 
-                        <?php
-                        if(mysqli_num_rows($all_user_orders)==0) {
-                            echo '<td colspan=12><b>Užsakymų nėra!</b></td>';
-                        }
-                        ?>
                     </tbody>
                 </table>
 
-                <div class="pagination">
+
+                <form action="functions/cancelOrder.php" method="POST" class="form">
+                                <div class="modal fade" id="cancelOrderUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h5 class="modal-title" id="exampleModalLabel">Atšaukti užsakymą</h5>
+                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            </div>
+                                            <div class="modal-body">
+                                                <input type="hidden" name="order_id_cancel" id="order_id_cancel">
+                                                <h4>Ar tikrai norite atšaukti šį užsakymą?</h4>
+                                                <label for="cancelOrderCode">Užsakymo kodas</label>
+                                                <br>
+                                                <input class="form-control modal-input-box" type="text" name="cancelOrderCode" id="cancelOrderCode" readonly>
+                                                <label for="cancelOrderDate">Sukūrimo data</label>
+                                                <br>
+                                                <input class="form-control modal-input-box" type="text" name="cancelOrderDate" id="cancelOrderDate" readonly>
+                                                <label for="cancelOrderManufac">Gamintojas</label>
+                                                <br>
+                                                <input class="form-control modal-input-box" type="text" name="cancelOrderManufac" id="cancelOrderManufac" readonly>
+                                                <label for="cancelOrderModel">Modelis</label>
+                                                <br>
+                                                <input class="form-control modal-input-box" type="text" name="cancelOrderModel" id="cancelOrderModel" readonly>
+                                                <label for="cancelOrderService">Paslauga</label>
+                                                <br>
+                                                <input class="form-control" type="text" name="cancelOrderService" id="cancelOrderService" readonly>
+
+
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Grįžti</button>
+                                                <button type="submit" name="acceptOrderCancellationBtn" class="btn btn-primary">Patvirtinti atšaukimą</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+
+                <!-- <div class="pagination">
                     <?php
                     $pageLink = "";
                     if($pageNr>=2) {
@@ -681,7 +679,7 @@
                         echo "<a href='userPage.php?pageNr=".($pageNr+1)."'>Sekantis</a>";
                     }
                     ?>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
@@ -690,8 +688,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script>
         $(document).ready(function() {
+
             $('.morInfoBtn').on('click', function() {
                 //$('#acceptOrderModal').modal('show');
 
@@ -748,6 +748,34 @@
             getPrice('#order_service_id_console', '#order_item_price_console');
             getPrice('#order_service_id_desktop', '#order_item_price_desktop');
             getPrice('#order_service_id_laptop', '#order_item_price_laptop');
+
+            $("#userOrdersTable").DataTable({
+                "language": {
+                    "decimal": "",
+                    "emptyTable": "Įrašų nėra",
+                    "info": "Rodoma nuo _START_ iki _END_ iš _TOTAL_ įrašų",
+                    "infoEmpty": "Rodoma nuo 0 iki 0 iš 0 įrašų  ",
+                    "infoFiltered": "(Išfiltruota iš _MAX_ įrašų)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Rodyti _MENU_ įrašų",
+                    "loadingRecords": "Kraunama...",
+                    "processing": "",
+                    "search": "Ieškoti:",
+                    "zeroRecords": "Ieškomų įrašų nerasta",
+                    "paginate": {
+                        "first": '<i class="fa fa-step-backward"></i>',
+                        "last": '<i class="fa fa-step-forward"></i>',
+                        "next": '<i class="fa fa-forward"></i>',
+                        "previous": '<i class="fa fa-backward"></i>'
+                    },
+                    "aria": {
+                        "sortAscending": ": activate to sort column ascending",
+                        "sortDescending": ": activate to sort column descending"
+                    }
+                },
+                lengthMenu: [5, 10, 15, 20, 50],
+            });
 
 
             //--Pakeista su getPrice() funkcija (kad nesikartotu)--

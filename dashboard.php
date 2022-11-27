@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.4/moment.min.js"></script>
-    <title>Document</title>
+    <title>Prietaisų skydelis</title>
 
 </head>
 

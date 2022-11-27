@@ -34,9 +34,14 @@ $result=mysqli_query($cnn, $total_pages_query);
 $total_rows=mysqli_fetch_array($result)[0];
 $total_pages=ceil($total_rows/$records_per_page);
 
+//Aternative 
+// $sql1 = "SELECT * FROM orders INNER JOIN services ON orders.order_service_id=services.service_id 
+// INNER JOIN order_detaliz ON orders.order_id=order_detaliz.order_id 
+// INNER JOIN users ON orders.order_user_id=users.id WHERE orders.order_status='Neaktyvus' LIMIT $offset, $records_per_page";
+
 $sql1 = "SELECT * FROM orders INNER JOIN services ON orders.order_service_id=services.service_id 
 INNER JOIN order_detaliz ON orders.order_id=order_detaliz.order_id 
-INNER JOIN users ON orders.order_user_id=users.id WHERE orders.order_status='Neaktyvus' LIMIT $offset, $records_per_page";
+INNER JOIN users ON orders.order_user_id=users.id WHERE orders.order_status='Neaktyvus'";
 $all_inactive_techn_orders= mysqli_query($cnn, $sql1);
 
 $techn_id= $_SESSION['user']['id'];

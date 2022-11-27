@@ -10,7 +10,9 @@ include('functions/selectAdminOrders.php');
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css" type="text/css">
-    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+    <title>Visi taisymai</title>
 </head>
 
 <body>
@@ -76,7 +78,7 @@ include('functions/selectAdminOrders.php');
                     </tbody>
                 </table>
 
-                <div class="pagination">
+                <!-- <div class="pagination">
                     <?php
                     $pageLink = "";
                     if($pageNr>=2) {
@@ -97,17 +99,44 @@ include('functions/selectAdminOrders.php');
                         echo "<a href='adminOrders.php?pageNr=".($pageNr+1)."'>Sekantis</a>";
                     }
                     ?>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
     <script src="scripts/showHideForm.js"></script>
 
     <script>
         $(document).ready(function() {
+            $("#adminOrdersTable").DataTable({
+                "language": {
+                    "decimal": "",
+                    "emptyTable": "Įrašų nėra",
+                    "info": "Rodoma nuo _START_ iki _END_ iš _TOTAL_ įrašų",
+                    "infoEmpty": "Rodoma nuo 0 iki 0 iš 0 įrašų  ",
+                    "infoFiltered": "(Išfiltruota iš _MAX_ total įrašų)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "Rodyti _MENU_ įrašų",
+                    "loadingRecords": "Kraunama...",
+                    "processing": "",
+                    "search": "Ieškoti:",
+                    "zeroRecords": "Ieškomų įrašų nerasta",
+                    "paginate": {
+                        "first": '<i class="fa fa-step-backward"></i>',
+                        "last": '<i class="fa fa-step-forward"></i>',
+                        "next": '<i class="fa fa-forward"></i>',
+                        "previous": '<i class="fa fa-backward"></i>'
+                    },
+                    "aria": {
+                        "sortAscending": ": activate to sort column ascending",
+                        "sortDescending": ": activate to sort column descending"
+                    }
+                }
+            });
             $('.removeBtn').on('click', function() {
                 $('#removeSpecModal').modal('show');
 

@@ -36,9 +36,13 @@ $total_pages=ceil($total_rows/$records_per_page);
 //$sql = "SELECT * FROM orders INNER JOIN specializations ON technicians.techn_spec_id=specializations.specializ_id";
 
 // SQL INJECTION!!!!
+//alternatyti paginacija
+// $sql = "SELECT * FROM orders LEFT JOIN services ON orders.order_service_id=services.service_id 
+// LEFT JOIN order_detaliz ON orders.order_id=order_detaliz.order_id 
+// LEFT JOIN specializations ON services.service_specializ_id=specializations.specializ_id 
+// LEFT JOIN technicians ON orders.order_techn_id=technicians.techn_id WHERE orders.order_user_id='$ord_usr_id' LIMIT $offset, $records_per_page";
 $sql = "SELECT * FROM orders LEFT JOIN services ON orders.order_service_id=services.service_id 
 LEFT JOIN order_detaliz ON orders.order_id=order_detaliz.order_id 
 LEFT JOIN specializations ON services.service_specializ_id=specializations.specializ_id 
-LEFT JOIN technicians ON orders.order_techn_id=technicians.techn_id WHERE orders.order_user_id='$ord_usr_id' LIMIT $offset, $records_per_page";
-
+LEFT JOIN technicians ON orders.order_techn_id=technicians.techn_id WHERE orders.order_user_id='$ord_usr_id'";
 $all_user_orders= mysqli_query($cnn, $sql);
