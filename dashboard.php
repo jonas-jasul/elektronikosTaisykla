@@ -112,9 +112,9 @@
 
             type: 'pie',
             data: {
-                labels: ['Aktyvus', 'Neaktyvus', 'Pabaigti'],
+                labels: ['Aktyvūs', 'Neaktyvūs', 'Pabaigti'],
                 datasets: [{
-                    label: 'Taisymu kiekis',
+                    label: 'Taisymų kiekis',
                     data: [
                         <?php echo $active_order_total ?>,
                         <?php echo $inact_order_total ?>,

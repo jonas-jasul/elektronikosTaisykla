@@ -15,7 +15,8 @@ $table_name = 'services';
 $columns=['service_id', 'service_name', 'service_specializ_id', 'description'];
 
 //
-$sql = "SELECT * FROM services INNER JOIN specializations ON services.service_specializ_id=specializations.specializ_id";
+include_once("functions/pagination.php");
+$sql = "SELECT * FROM services INNER JOIN specializations ON services.service_specializ_id=specializations.specializ_id LIMIT $offset, $records_per_page";
 $all_services = mysqli_query($cnn, $sql);
 
 // $service_specializ_id_select = $_SESSION['userSelectRepairID'];

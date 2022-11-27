@@ -15,7 +15,9 @@ include('functions/selectAdminOrders.php');
 
 <body>
 
-    <?php include("head.php"); ?>
+    <?php include("head.php"); 
+    include_once("functions/pagination.php");
+    ?>
     <div class="page-content p-5" id="content">
         <div class="row">
             <div class="col">
@@ -27,11 +29,11 @@ include('functions/selectAdminOrders.php');
 
         <div class="row">
             <div class="col">
-                <table class="table table-responsive table-light table-striped table-hover">
-                <thead class="table-success">
+                <table id="adminOrdersTable" class="table table-responsive table-light table-striped table-hover">
+                    <thead class="table-success">
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Užsakymo kodas</th>
+                            <th scope="col">Kodas</th>
                             <th scope="col">Sukūrimo data</th>
                             <th scope="col">Specializacija</th>
                             <th scope="col">Gamintojas</th>
@@ -73,6 +75,29 @@ include('functions/selectAdminOrders.php');
                     </tbody>
                     </tbody>
                 </table>
+
+                <div class="pagination">
+                    <?php
+                    $pageLink = "";
+                    if($pageNr>=2) {
+                        echo "<a href='adminOrders.php?pageNr=".($pageNr-1)."'>  Ankstenis </a>";   
+                    }
+
+                    for ($i=1; $i<=$total_pages; $i++) {
+                        if($i==$pageNr) {
+                            $pageLink.="<a class='active' href='adminOrders.php?pageNr=".$i."'>".$i."</a>";
+                        }
+                        else {
+                            $pageLink.= "<a href='adminOrders.php?pageNr=".$i."'>".$i."</a>"; 
+                        }
+                    };
+                    echo $pageLink;
+
+                    if ($pageNr<$total_pages){
+                        echo "<a href='adminOrders.php?pageNr=".($pageNr+1)."'>Sekantis</a>";
+                    }
+                    ?>
+                </div>
             </div>
         </div>
     </div>
@@ -97,6 +122,7 @@ include('functions/selectAdminOrders.php');
                 $('#techn_id_remove').val(data[0]);
 
             });
+
         });
     </script>
 

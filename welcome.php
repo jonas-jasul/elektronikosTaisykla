@@ -13,13 +13,16 @@
 </head>
 
 <body>
-    <?php include("functions/functions.php"); ?>
+    <?php include_once("functions/functions.php"); ?>
 
     <?php session_start();
     if (isLoggedIn(true) && !(isEmployee())) {
-        include("loggedInHeader.php");
-    } else {
-        include("welcomeHeader.php");
+        include_once("loggedInHeader.php");
+    } else if(isLoggedIn(true) ) {
+        include_once("employeeHeader.php");
+    }
+    else {
+        include_once("welcomeHeader.php");
     }
     ?>
     <div class="flex-wrapper">

@@ -45,7 +45,7 @@ include("functions/selectSpecialization.php");
             </li>
         </ul>
     </div> -->
-    <?php include("head.php"); ?>
+    <?php include_once("head.php"); ?>
     <div class="page-content p-5" id="content">
         <div class="row">
             <div class="col">
@@ -67,21 +67,21 @@ include("functions/selectSpecialization.php");
             <div class="row">
                 <label class="col-sm-2" for="techn_name">Vardas Pavardė</label>
                 <div class="col-sm-10">
-                    <input type="text" name="techn_name" id="techn_name" class="form-control w-auto me-3">
+                    <input required type="text" name="techn_name" id="techn_name" class="form-control w-auto me-3">
                 </div>
             </div>
 
             <div class="row">
                 <label class="col-sm-2" for="techn_email">El. paštas</label>
                 <div class="col-sm-10">
-                    <input type="text" name="techn_email" id="techn_email" class="form-control w-auto me-3">
+                    <input required type="text" name="techn_email" id="techn_email" class="form-control w-auto me-3">
                 </div>
             </div>
 
             <div class="row">
                 <label class="col-sm-2" for="techn_phone_num">Tel. nr.</label>
                 <div class="col-sm-10">
-                    <input type="text" name="techn_phone_num" id="techn_phone_num" class="form-control w-auto me-3">
+                    <input required type="text" name="techn_phone_num" id="techn_phone_num" class="form-control w-auto me-3">
                 </div>
             </div>
 
@@ -110,7 +110,7 @@ include("functions/selectSpecialization.php");
             <div class="row">
                 <label class="col-sm-2" for="techn_reg_passw">Slaptažodis</label>
                 <div class="col-sm-10">
-                    <input type="password" name="techn_reg_passw" id="techn_reg_passw" class="form-control w-auto">
+                    <input required type="password" name="techn_reg_passw" id="techn_reg_passw" class="form-control w-auto">
                 </div>
             </div>
             <br>

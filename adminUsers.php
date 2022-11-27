@@ -15,12 +15,14 @@ include('functions/selectUsers.php');
 
 <body>
 
-    <?php include("head.php"); ?>
+    <?php include("head.php");
+    
+    ?>
     <div class="page-content p-5" id="content">
         <div class="row">
             <div class="col">
                 <h1>Vartotojai</h1>
-                
+
             </div>
         </div>
 
@@ -79,6 +81,27 @@ include('functions/selectUsers.php');
                         ?>
                     </tbody>
                 </table>
+                <div class="pagination">
+                    <?php
+                    $pageLink = "";
+                    if ($pageNr >= 2) {
+                        echo "<a href='adminUsers.php?pageNr=" . ($pageNr - 1) . "'>  Ankstenis </a>";
+                    }
+
+                    for ($i = 1; $i <= $total_pages; $i++) {
+                        if ($i == $pageNr) {
+                            $pageLink .= "<a class='active' href='adminUsers.php?pageNr=" . $i . "'>" . $i . "</a>";
+                        } else {
+                            $pageLink .= "<a href='adminUsers.php?pageNr=" . $i . "'>" . $i . "</a>";
+                        }
+                    };
+                    echo $pageLink;
+
+                    if ($pageNr < $total_pages) {
+                        echo "<a href='adminUsers.php?pageNr=" . ($pageNr + 1) . "'>Sekantis</a>";
+                    }
+                    ?>
+                </div>
             </div>
         </div>
     </div>
@@ -106,7 +129,7 @@ include('functions/selectUsers.php');
         });
     </script>
 
-<!-- 
+    <!-- 
     <script>
         $(document).ready(function() {
             $('.editBtn').on('click', function() {

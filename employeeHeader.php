@@ -12,7 +12,7 @@
 </head>
 
 <body>
-    <?php include("functions/functions.php"); ?>
+    <?php include_once("functions/functions.php"); ?>
     <nav class="navbar fixed-top navbar-expand-lg py-0 navbar-dark bg-dark shadow-sm">
         <div class="container">
             <a href="welcome.php" class="navbar-brand">

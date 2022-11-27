@@ -99,3 +99,14 @@ f
     width: 50%;
     display: inline;
 }
+
+.pagination a {
+    text-decoration: none;
+    padding: 10px;
+    border: 2px solid black;
+    color: black;
+}
+
+.pagination .active {
+    background-color: rgb(217, 229, 229)
+}

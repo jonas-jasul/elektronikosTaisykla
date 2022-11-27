@@ -12,12 +12,31 @@ if($cnn->connect_error) {
 }
 // $table_name = 'technicians';
 // $columns=['techn_id', 'techn_name', 'techn_email', 'techn_phone_num', 'techn_spec_id', 'user_techn_id'];
-
+//include_once('functions/pagination.php');
 
 //$sql = "SELECT * FROM orders INNER JOIN specializations ON technicians.techn_spec_id=specializations.specializ_id";
 //$ord_usr_id=$_SESSION['user']['id'];
 // SQL INJECTION!!!!
-$sql1 = "SELECT * FROM orders INNER JOIN services ON orders.order_service_id=services.service_id INNER JOIN order_detaliz ON orders.order_id=order_detaliz.order_id INNER JOIN users ON orders.order_user_id=users.id WHERE orders.order_status='Neaktyvus'";
+
+if (isset($_GET['pageNr'])) {
+
+    $pageNr = $_GET['pageNr'];
+} else {
+    $pageNr =1;
+}
+
+$records_per_page=7;
+$offset = ($pageNr-1)*$records_per_page;
+
+$total_pages_query = "SELECT COUNT(*) FROM orders WHERE orders.order_status='Neaktyvus'";
+
+$result=mysqli_query($cnn, $total_pages_query);
+$total_rows=mysqli_fetch_array($result)[0];
+$total_pages=ceil($total_rows/$records_per_page);
+
+$sql1 = "SELECT * FROM orders INNER JOIN services ON orders.order_service_id=services.service_id 
+INNER JOIN order_detaliz ON orders.order_id=order_detaliz.order_id 
+INNER JOIN users ON orders.order_user_id=users.id WHERE orders.order_status='Neaktyvus' LIMIT $offset, $records_per_page";
 $all_inactive_techn_orders= mysqli_query($cnn, $sql1);
 
 $techn_id= $_SESSION['user']['id'];

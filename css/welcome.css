@@ -190,6 +190,7 @@
     color: black;
     border: 3px solid rgb(172, 197, 197);
     padding: 4px;
+    background-color: white;
 }
 
 .pirmyn-link:hover {
@@ -232,4 +233,19 @@ p {
 #gmap3,
 #gmap4 {
     display: none;
+}
+
+#userTableTitleRow th{
+    background-color: #d1e2f0 !important;
+}
+
+.pagination a {
+    text-decoration: none;
+    padding: 10px;
+    border: 2px solid black;
+    color: black;
+}
+
+.pagination .active {
+    background-color: rgb(217, 229, 229);
 }

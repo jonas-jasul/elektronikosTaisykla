@@ -17,7 +17,8 @@ include("functions/selectSpecialization.php");
 </head>
 
 <body>
-    <?php include("head.php"); ?>
+    <?php include_once("head.php"); ?>
+    <?php include_once("functions/pagination.php");?>
     <div class="page-content p-5" id="content">
         <div class="row">
             <div class="col">
@@ -29,10 +30,10 @@ include("functions/selectSpecialization.php");
 
         <form action="functions/insertService.php" method="GET" id="formInsertTechn" class="pt-3 pb-3">
             <label for="service_name">Paslauga</label>
-            <input type="text" name="service_name" id="service_name" class="me-3 form-control w-auto">
+            <input required type="text" name="service_name" id="service_name" class="me-3 form-control w-auto">
 
             <label for="service_specializ_id">Specializacija</label>
-            <select name="service_specializ_id" class="me-3 form-select w-auto">
+            <select required name="service_specializ_id" class="me-3 form-select w-auto">
                 <?php
 
                 while ($techn_spec = mysqli_fetch_array(
@@ -52,7 +53,7 @@ include("functions/selectSpecialization.php");
             </select>
 
             <label for="servicePrice">Paslaugos kaina</label>
-            <input type="text" name="servicePrice" id="servicePrice" class="me-3 form-control w-auto">
+            <input required type="text" name="servicePrice" id="servicePrice" class="me-3 form-control w-auto">
             <label for="description">Aprašymas</label>
             <input type="text" name="description" id="description" class="me-3 form-control w-auto">
 
@@ -161,6 +162,40 @@ include("functions/selectSpecialization.php");
                         ?>
                     </tbody>
                 </table>
+                <!-- <ul class="pagination">
+                    <li><a href="?pageNr=1">Pirmas</a></li>
+                    
+                    <li class="<?php if($pageNr <=1){echo 'disabled';}?>">
+                        <a href="<?php if($pageNr<=1){echo '#';} else {echo "?pageNr=".($pageNr-1);}?>">Ankstesnis</a>
+                    </li>
+                    <li class="<?php if($pageNr >= $total_pages) {echo 'disabled';}?>">
+                        <a href="<?php if($pageNr >= $total_pages){echo '#';} else {echo "?pageNr=".($pageNr+1);} ?>">Sekantis</a>
+                    </li>
+                    <li><a href="?pageNr=<?php echo $total_pages;?>">Paskutinis</a></li>
+                </ul> -->
+
+                <div class="pagination">
+                    <?php
+                    $pageLink = "";
+                    if($pageNr>=2) {
+                        echo "<a href='services.php?pageNr=".($pageNr-1)."'>  Ankstenis </a>";   
+                    }
+
+                    for ($i=1; $i<=$total_pages; $i++) {
+                        if($i==$pageNr) {
+                            $pageLink.="<a class='active' href='services.php?pageNr=".$i."'>".$i."</a>";
+                        }
+                        else {
+                            $pageLink.= "<a href='services.php?pageNr=".$i."'>".$i."</a>"; 
+                        }
+                    };
+                    echo $pageLink;
+
+                    if ($pageNr<$total_pages){
+                        echo "<a href='services.php?pageNr=".($pageNr+1)."'>Sekantis</a>";
+                    }
+                    ?>
+                </div>
             </div>
         </div>
     </div>

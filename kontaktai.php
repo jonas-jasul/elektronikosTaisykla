@@ -14,9 +14,9 @@
 
 <body>
     <?php if (isLoggedIn()) {
-        include("loggedInHeader.php");
+        include_once("loggedInHeader.php");
     } else
-        include("welcomeHeader.php"); ?>
+        include_once("welcomeHeader.php"); ?>
     <div class="flex-wrapper">
         <div class="container kontakt-info">
             <div class="row">

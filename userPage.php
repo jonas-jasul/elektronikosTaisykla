@@ -15,9 +15,10 @@
 </head>
 
 <body>
-    <?php include("functions/functions.php");
+    <?php include_once("functions/functions.php");
     include("functions/selectServiceUser.php");
     include("functions/selectUserOrders.php");
+    //include_once("functions/pagination.php");
     if (!isLoggedIn()) {
         $_SESSION['msg'] = "Jūs turite pirmiau prisijungti";
         header('location: login.php');
@@ -509,7 +510,7 @@
     <div class="container pb-5">
         <div class="row">
             <div class="col">
-                <h5 class="pt-3">Mano taisymo paslaugų užsakymai</h5>
+                <h5 id="manoTaisymuPaslaug" class="pt-3">Mano taisymo paslaugų užsakymai</h5>
             </div>
         </div>
 
@@ -517,7 +518,7 @@
             <div class="col-sm-12">
                 <table class="table table-primary table-responsive table-bordered table-striped table-hover">
                     <thead>
-                        <tr>
+                        <tr id="userTableTitleRow">
                             <th scope="col">#</th>
                             <th scope="col">Kodas</th>
                             <th scope="col">Sukūrimo data</th>
@@ -658,6 +659,29 @@
                         ?>
                     </tbody>
                 </table>
+
+                <div class="pagination">
+                    <?php
+                    $pageLink = "";
+                    if($pageNr>=2) {
+                        echo "<a href='userPage.php?pageNr=".($pageNr-1)."'>  Ankstenis </a>";   
+                    }
+
+                    for ($i=1; $i<=$total_pages; $i++) {
+                        if($i==$pageNr) {
+                            $pageLink.="<a class='active' href='userPage.php?pageNr=".$i."'>".$i."</a>";
+                        }
+                        else {
+                            $pageLink.= "<a href='userPage.php?pageNr=".$i."'>".$i."</a>"; 
+                        }
+                    };
+                    echo $pageLink;
+
+                    if ($pageNr<$total_pages){
+                        echo "<a href='userPage.php?pageNr=".($pageNr+1)."'>Sekantis</a>";
+                    }
+                    ?>
+                </div>
             </div>
         </div>
     </div>

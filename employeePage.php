@@ -17,6 +17,7 @@
     include('employeeHeader.php');
     include('functions/selectTechnOrders.php');
     include('functions/getDateFromDatetime.php');
+    
     //if (!isLoggedIn() && !isEmployee() || isLoggedIn() &&!isEmployee())
     if (!isLoggedIn()) {
         $_SESSION['msg'] = "Jūs turite pirmiau prisijungti";
@@ -124,6 +125,28 @@
                             ?>
                         </tbody>
                     </table>
+                    <div class="pagination">
+                    <?php
+                    $pageLink = "";
+                    if($pageNr>=2) {
+                        echo "<a href='employeePage.php?pageNr=".($pageNr-1)."'>  Ankstenis </a>";   
+                    }
+
+                    for ($i=1; $i<=$total_pages; $i++) {
+                        if($i==$pageNr) {
+                            $pageLink.="<a class='active' href='employeePage.php?pageNr=".$i."'>".$i."</a>";
+                        }
+                        else {
+                            $pageLink.= "<a href='employeePage.php?pageNr=".$i."'>".$i."</a>"; 
+                        }
+                    };
+                    echo $pageLink;
+
+                    if ($pageNr<$total_pages){
+                        echo "<a href='employeePage.php?pageNr=".($pageNr+1)."'>Sekantis</a>";
+                    }
+                    ?>
+                </div>
                 </div>
             </div>
 
@@ -286,16 +309,16 @@
         // $ordersQuery = "SELECT * FROM orders WHERE order_request_date BETWEEN '2022-01-01 00:00:00' AND '2022-11-23 00:00:00'";
         // $ordersQuery = "SELECT COUNT(*), MONTH(order_request_date),  YEAR(order_request_date) FROM orders GROUP BY MONTH(order_request_date), YEAR(order_request_date)";
         // $ordersQuery = "SELECT (DATE_FORMAT(order_request_date, '%M')) AS 'Month', COUNT(*) AS number_of_orders FROM orders GROUP BY (DATE_FORMAT(order_request_date,'%M')) ORDER BY 'Month' ASC";
-        $ordersQuery = "select derived.mm as month, count(u.order_request_date) as count from (
+        $ordersQuery = "SELECT derived.mm AS month, count(ord.order_request_date) AS count FROM (
             SELECT 1 mm UNION ALL SELECT 2 UNION ALL SELECT 3 
             UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7  
             UNION ALL SELECT 8 UNION ALL SELECT 9 UNION ALL SELECT 10 UNION ALL SELECT 11 
             UNION ALL SELECT 12
         ) derived
-        left join orders u
-        on derived.mm = month(order_request_Date) 
-            and u.order_request_date > LAST_DAY(DATE_SUB(curdate(),INTERVAL 1 YEAR))
-        group by derived.mm";
+        LEFT JOIN orders ord
+        ON derived.mm = month(order_request_Date) 
+            AND ord.order_request_date > LAST_DAY(DATE_SUB(curdate(),INTERVAL 1 YEAR))
+        GROUP BY derived.mm";
         $executeOrderQuery = mysqli_query($db, $ordersQuery);
         // $numRows = mysqli_num_rows($executeOrderQuery);
         //$arrayMonth = mysqli_fetch_array($executeOrderQuery);
