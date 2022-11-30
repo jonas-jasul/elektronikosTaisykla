@@ -55,7 +55,7 @@
             </li>
 
             <li class="nav-item">
-                <a href="#" class="nav-link text-dark">
+                <a href="adminPayments.php" class="nav-link text-dark">
                     Apmokėjimai
                 </a>
             </li>

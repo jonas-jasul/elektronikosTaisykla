@@ -515,7 +515,7 @@
 
         <div class="row">
             <div class="col-sm-12">
-                <table id="userOrdersTable" class="table table-primary table-responsive table-bordered table-striped table-hover">
+                <table id="userOrdersTable" class="table table-responsive table-bordered table-striped table-hover">
                     <thead>
                         <tr id="userTableTitleRow">
                             <th scope="col">#</th>
@@ -529,6 +529,7 @@
                             <th scope="col">Statusas</th>
                             <th style="display:none;" scope="col">Numatoma pabaigimo data</th>
                             <th scope="col">Mokama kaina</th>
+                            <th scope="col">Apmokėjimo statusas</th>
                             <th scope="col"></th>
                             <th scope="col"></th>
                             <th scope="col"></th>
@@ -542,7 +543,7 @@
                             MYSQLI_ASSOC
                         )) :;
                         ?>
-                            <tr>
+                            <tr id="userTableDataRow">
                                 <td><?php echo $user_orders['order_id'] ?? ''; ?></th>
                                 <td><?php echo $user_orders['order_code'] ?? ''; ?></td>
                                 <td><?php echo $user_orders['order_request_date'] ?? ''; ?></td>
@@ -551,13 +552,16 @@
                                 <td><?php echo $user_orders['order_item_model'] ?? ''; ?></td>
                                 <td><?php echo $user_orders['service_name'] ?? ''; ?></td>
                                 <td style="display: none;"><?php echo $user_orders['techn_name'] ?? ''; ?></td>
-                                <td><?php echo $user_orders['order_status'] == "Aktyvus" ? ' <span class="badge bg-success">Aktyvus</span>' : ($user_orders['order_status'] == "Pabaigtas" ? ' <span class="badge bg-info">Pabaigtas</span>' : '<span class="badge bg-danger">Neaktyvus</span>') ?></td>
+                                <td><?php echo $user_orders['order_status'] == "Aktyvus" ? ' <span class="badge bg-success">Aktyvus</span>' : ($user_orders['order_status'] == "Pabaigtas" ? ' <span class="badge bg-secondary">Pabaigtas</span>' : '<span class="badge bg-danger">Neaktyvus</span>') ?></td>
                                 <td style="display: none;"><?php echo $user_orders['order_complet_date_est'] ?? ''; ?></td>
                                 <td><?php echo $user_orders['order_amount_to_pay'] ?? ''; ?></td>
+                                <td><?php 
+                                    echo $user_orders['is_paid'] == "0"? '<span class="badge rounded-pill bg-warning text-dark">Neapmokėtas</span>': '<span class="badge rounded-pill text-dark bg-info">Apmokėtas</span>'; ?>
+                                </td>
                                 <td style="display: none;"><?php echo $user_orders['order_descrip'] ?? ''; ?></td>
                                 <td><button data-bs-toggle="modal" data-bs-target="#cancelOrderUser" class="cancelOrderBtn btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i></button></td>
                                 <td><button data-bs-toggle="modal" data-bs-target="#moreInfoUserOrder" class="morInfoBtn btn btn-primary"><i class="fa fa-info-circle" aria-hidden="true"></i></button></td>
-                                <td><button data-bs-toggle="modal" data-bs-target="#payOrderUser" class="btn btn-success"><i class="fa fa-money" aria-hidden="true"></i></button></td>
+                                <td><button data-bs-toggle="modal" data-bs-target="#payOrderUser" class="btn btn-success"><i class="fas fa-euro-sign"></i></button></td>
 
                             </tr>
 

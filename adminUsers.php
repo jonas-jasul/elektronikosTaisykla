@@ -54,7 +54,7 @@ include('functions/selectUsers.php');
                                 <td><?php echo $user['email'] ?? ''; ?></td>
                                 <td><?php echo $user['phone'] ?? ''; ?></td>
                                 <td><?php echo $user['name'] ?? ''; ?></td>
-                                <td><button type="button" data-bs-toggle="modal" data-bs-target="#removeUserModal" class="btn btn-danger removeBtn">Pašalinti</button></td>
+                                <td><button type="button" data-bs-toggle="modal" data-bs-target="#removeUserModal" class="btn btn-danger removeBtn"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
 
                             </tr>
                         <?php

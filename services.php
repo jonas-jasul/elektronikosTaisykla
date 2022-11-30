@@ -93,8 +93,8 @@ include("functions/selectSpecialization.php");
                                 <td><?php echo $service['specializ_name'] ?? ''; ?></td>
                                 <td><?php echo $service['price'] ?? ''; ?></td>
                                 <td><?php echo $service['description'] ?? ''; ?></td>
-                                <td><button type="button" data-bs-toggle="modal" data-bs-target="#editSpecModal" class="editBtn btn btn-primary">Redaguoti</button></td>
-                                <td><button type="button" data-bs-toggle="modal" data-bs-target="#removeServiceModal" class="removeBtn btn btn-danger">Pašalinti</button></td>
+                                <td><button type="button" data-bs-toggle="modal" data-bs-target="#editSpecModal" class="editBtn btn btn-primary"><i class="fas fa-edit"></i></button></td>
+                                <td><button type="button" data-bs-toggle="modal" data-bs-target="#removeServiceModal" class="removeBtn btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
 
                             </tr>
                         <?php

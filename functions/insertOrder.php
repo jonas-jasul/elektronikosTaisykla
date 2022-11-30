@@ -41,6 +41,9 @@ mysqli_query($cnn, $query2);
 $lastid=mysqli_insert_id($cnn);
 $query1 = "INSERT INTO order_detaliz VALUES (NULL, '$lastid', '$order_item_manufact', '$order_item_model', '$order_amount_to_pay', NULL)";
 mysqli_query($cnn, $query1);
+
+$query3= "INSERT INTO payments VALUES (NULL, '$lastid', '0', NULL, NULL)";
+mysqli_query($cnn, $query3);
 header('location: ../userPage.php');
 
 

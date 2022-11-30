@@ -73,7 +73,7 @@
                                     <td><?php echo $inactive_techn_orders['order_status'] ?? ''; ?></td>
                                     <td><?php echo $inactive_techn_orders['order_complet_date_est'] ?? ''; ?></td>
                                     <!-- <td><?php echo $inactive_techn_orders['order_techn_id'] ?? ''; ?></td> -->
-                                    <td><button data-bs-toggle="modal" data-bs-target="#acceptOrderModal" class="acceptBtn button btn btn-light">Priimti</button></td>
+                                    <td><button data-bs-toggle="modal" data-bs-target="#acceptOrderModal" class="acceptBtn button btn btn-light"><i class="fa-solid fa-circle-check"></i></button></td>
 
                                 </tr>
                             <?php
@@ -188,7 +188,7 @@
                                     <td><?php echo $active_techn_orders['order_status'] ?? ''; ?></td>
                                     <td><?php echo $active_techn_orders['order_complet_date_est'] ?? ''; ?></td>
                                     <!-- <td><?php echo $active_techn_orders['order_techn_id'] ?? ''; ?></td> -->
-                                    <td><button data-bs-toggle="modal" data-bs-target="#editOrderModal" class="button btn btn-light editBtn">Redaguoti</button></td>
+                                    <td><button data-bs-toggle="modal" data-bs-target="#editOrderModal" class="button btn btn-light editBtn"><i class="fas fa-edit"></i></button></td>
                                     <td style="display: none;"><?php echo $active_techn_orders['order_descrip'] ?? ''; ?></td>
 
                                 </tr>

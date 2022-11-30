@@ -226,7 +226,7 @@ p {
 } */
 
 .card-body {
-    background-color: rgb(217, 229, 229);
+    background-color: rgb(247, 247, 247);
 }
 
 #gmap1,
@@ -237,9 +237,13 @@ p {
 }
 
 #userTableTitleRow th{
-    background-color: #d1e2f0 !important;
+    background-color: #ebf1f1 !important;
+    border: 1px solid black;
 }
 
+#userTableDataRow td {
+background-color: rgb(217, 229, 229 !important;
+}
 .pagination a {
     text-decoration: none;
     padding: 10px;
