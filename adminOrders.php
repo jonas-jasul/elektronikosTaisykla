@@ -1,5 +1,6 @@
 <?php
 include('functions/selectAdminOrders.php');
+include_once('functions/selectTechn.php');
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -12,13 +13,14 @@ include('functions/selectAdminOrders.php');
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <title>Visi taisymai</title>
 </head>
 
 <body>
 
-    <?php include("head.php"); 
-    include_once("functions/pagination.php");
+    <?php include("head.php");
+    //include_once("functions/pagination.php");
     ?>
     <div class="page-content p-5" id="content">
         <div class="row">
@@ -46,7 +48,9 @@ include('functions/selectAdminOrders.php');
                             <th scope="col">Statusas</th>
                             <th scope="col">Numatoma pabaigimo data</th>
                             <th scope="col">Mokama kaina</th>
-                            <th scope="col"></th>
+                            <th style="display: none;" scope="col"></th>
+                            <th style="display: none;" scope="col">Aprašas</th>
+                            <!-- <th scope="col"></th> -->
                         </tr>
                     </thead>
                     <tbody>
@@ -56,8 +60,8 @@ include('functions/selectAdminOrders.php');
                             MYSQLI_ASSOC
                         )) :;
                         ?>
-                            <tr>
-                                <th scope="row"><?php echo $admin_orders['order_id'] ?? ''; ?></th>
+                            <tr class="clickable-row" data-bs-toggle="modal" data-bs-target="#editOrderModal">
+                                <td><?php echo $admin_orders['order_id'] ?? ''; ?></th>
                                 <td><?php echo $admin_orders['order_code'] ?? ''; ?></td>
                                 <td><?php echo $admin_orders['order_request_date'] ?? ''; ?></td>
                                 <td><?php echo $admin_orders['specializ_name'] ?? ''; ?></td>
@@ -69,34 +73,91 @@ include('functions/selectAdminOrders.php');
                                 <td><?php echo $admin_orders['order_status'] ?? ''; ?></td>
                                 <td><?php echo $admin_orders['order_complet_date_est'] ?? ''; ?></td>
                                 <td><?php echo $admin_orders['order_amount_to_pay'] ?? ''; ?></td>
-                                <td><button class="btn btn-primary">Redaguoti</button></td>
+                                <td style="display: none;"><?php echo $admin_orders['techn_id'] ?? ''; ?></td>
+                                <td style="display: none;"><?php echo $admin_orders['order_descrip'] ?? ''; ?></td>
+
+                                <!-- <td data-bs-toggle="modal" data-bs-target="#editOrderModal"><button class="btn btn-primary editBtn">Redaguoti</button></td> -->
                             </tr>
                         <?php
                         endwhile;
                         ?>
                     </tbody>
-                    </tbody>
+
                 </table>
+
+                <form action="functions/editOrderAdmin.php" method="POST" class="form">
+                    <div class="modal fade" id="editOrderModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Redaguoti užsakymą</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="hidden" name="order_id_edit" id="order_id_edit">
+                                    <label for="editOrderCode">Užsakymo kodas</label>
+                                    <br>
+                                    <input class="form-control modal-input-box" type="text" name="editOrderCode" id="editOrderCode">
+                                    <label for="editOrderDate">Sukūrimo data</label>
+                                    <br>
+                                    <input data-date-format="yyyy/mm/dd" data-provide="datepicker" class="form-control" type="text" name="editOrderDate" id="editOrderDate">
+                                    <!-- <label for="editOrderManufac">Gamintojas</label>
+                                    <br>
+                                    <input class="form-control modal-input-box" type="text" name="editOrderManufac" id="editOrderManufac" readonly> -->
+                                    <label for="editOrderModel">Modelis</label>
+                                    <br>
+                                    <input class="form-control modal-input-box" type="text" name="editOrderModel" id="editOrderModel" readonly>
+                                    <label for="editOrderService">Paslauga</label>
+                                    <br>
+                                    <input class="form-control" type="text" name="editOrderService" id="editOrderService" readonly>
+                                    <label for="editOrderEstComplDate">Numatoma pabaigimo data</label>
+                                    <br>
+                                    <input data-date-format="yyyy/mm/dd" data-provide="datepicker" class="form-control" type="text" name="editOrderEstComplDate" id="editOrderEstComplDate" min="2000-01-01" required>
+                                    <input type="hidden" name="order_edit_techn" id="order_edit_techn" value="<?php echo $_SESSION['user']['id'] ?>">
+                                    <label for="editOrderDesc">Pastabos/Aprašymas</label>
+                                    <textarea class="form-control" name="editOrderDesc" id="editOrderDesc"></textarea>
+                                    <label for="editOrderAdminTechn">Specialistas</label>
+                                    <br>
+                                    <select class="js-example-responsive form-select" style="width: 100%;" id="editOrderAdminTechn" name="editOrderAdminTechn">
+                                        <?php foreach ($all_technicians as $techn_select) { ?>
+                                            <option value="<?php echo $techn_select["techn_id"] ?>"><?php echo $techn_select["techn_name"] ?></option>
+                                        <?php } ?>
+                                    </select>
+                                    <label for="editOrderAdminStatus">Statusas</label>
+                                    <select class="form-control" id="editOrderAdminStatus" name="editOrderAdminStatus">
+                                        <option value="Neaktyvus">Neaktyvus</option>
+                                        <option value="Aktyvus">Aktyvus</option>
+                                        <option value="Pabaigtas">Pabaigtas</option>
+                                    </select>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Atšaukti</button>
+                                    <button type="submit" name="editOrderBtn" class="btn btn-primary">Redaguoti</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
 
                 <!-- <div class="pagination">
                     <?php
                     $pageLink = "";
-                    if($pageNr>=2) {
-                        echo "<a href='adminOrders.php?pageNr=".($pageNr-1)."'>  Ankstenis </a>";   
+                    if ($pageNr >= 2) {
+                        echo "<a href='adminOrders.php?pageNr=" . ($pageNr - 1) . "'>  Ankstenis </a>";
                     }
 
-                    for ($i=1; $i<=$total_pages; $i++) {
-                        if($i==$pageNr) {
-                            $pageLink.="<a class='active' href='adminOrders.php?pageNr=".$i."'>".$i."</a>";
-                        }
-                        else {
-                            $pageLink.= "<a href='adminOrders.php?pageNr=".$i."'>".$i."</a>"; 
+                    for ($i = 1; $i <= $total_pages; $i++) {
+                        if ($i == $pageNr) {
+                            $pageLink .= "<a class='active' href='adminOrders.php?pageNr=" . $i . "'>" . $i . "</a>";
+                        } else {
+                            $pageLink .= "<a href='adminOrders.php?pageNr=" . $i . "'>" . $i . "</a>";
                         }
                     };
                     echo $pageLink;
 
-                    if ($pageNr<$total_pages){
-                        echo "<a href='adminOrders.php?pageNr=".($pageNr+1)."'>Sekantis</a>";
+                    if ($pageNr < $total_pages) {
+                        echo "<a href='adminOrders.php?pageNr=" . ($pageNr + 1) . "'>Sekantis</a>";
                     }
                     ?>
                 </div> -->
@@ -107,17 +168,63 @@ include('functions/selectAdminOrders.php');
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.standalone.min.css" integrity="sha512-TQQ3J4WkE/rwojNFo6OJdyu6G8Xe9z8rMrlF9y7xpFbQfW5g8aSWcygCQ4vqRiJqFsDsE1T6MoAOMJkFXlrI9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="scripts/showHideForm.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <script>
         $(document).ready(function() {
+
+
+            $('.clickable-row').on('click', function() {
+                $('#editOrderModal').modal('show');
+
+                $tr = $(this).closest('tr');
+                var data = $tr.children('td').map(function() {
+
+                    return $(this).text();
+                }).get();
+
+                $("#order_id_edit").val(data[0]);
+                $("#editOrderCode").val(data[1]);
+                var orderCreatDatFirst = new Date(data[2]);
+                var correctedDate = orderCreatDatFirst.toLocaleDateString();
+                //console.log(correctedDate);
+                $("#editOrderDate").datepicker('update', orderCreatDatFirst);
+                $("#editOrderManufac").val(data[4]);
+                $("#editOrderModel").val(data[5]);
+                $("#editOrderService").val(data[6]);
+                var orderEstComplDatFirst = new Date(data[10]);
+                //var correctedDate2 = orderEstComplDatFirst.toLocaleDateString();
+                //console.log(correctedDate2);
+                $("#editOrderEstComplDate").datepicker('update', orderEstComplDatFirst);
+                $("#editOrderDesc").val(data[13]);
+                $("#editOrderAdminStatus").val(data[9]);
+                //$("#editOrderAdminTechn").val(data[12]);
+                var testing = data[12];
+                $('.js-example-responsive').val(data[12]);
+                $('.js-example-responsive').select2();
+                console.log(testing);
+                $('.js-example-responsive').select2({
+                    dropdownParent: $('#editOrderModal'),
+                    language: {
+                        noResults: function() {
+                            return "Specialistų nerasta";
+                        }
+                    }
+                });
+
+            });
+
+
             $("#adminOrdersTable").DataTable({
                 "language": {
                     "decimal": "",
                     "emptyTable": "Įrašų nėra",
                     "info": "Rodoma nuo _START_ iki _END_ iš _TOTAL_ įrašų",
                     "infoEmpty": "Rodoma nuo 0 iki 0 iš 0 įrašų  ",
-                    "infoFiltered": "(Išfiltruota iš _MAX_ total įrašų)",
+                    "infoFiltered": "(Išfiltruota iš _MAX_ įrašų)",
                     "infoPostFix": "",
                     "thousands": ",",
                     "lengthMenu": "Rodyti _MENU_ įrašų",
@@ -137,23 +244,11 @@ include('functions/selectAdminOrders.php');
                     }
                 }
             });
-            $('.removeBtn').on('click', function() {
-                $('#removeSpecModal').modal('show');
 
-
-                $tr = $(this).closest('tr');
-
-                var data = $tr.children('td').map(function() {
-
-                    return $(this).text();
-                }).get();
-
-                $('#techn_id_remove').val(data[0]);
-
-            });
 
         });
     </script>
+
 
     <!-- 
     <script>

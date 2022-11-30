@@ -122,7 +122,7 @@ include('functions/selectUsers.php');
                     "emptyTable": "Įrašų nėra",
                     "info": "Rodoma nuo _START_ iki _END_ iš _TOTAL_ įrašų",
                     "infoEmpty": "Rodoma nuo 0 iki 0 iš 0 įrašų  ",
-                    "infoFiltered": "(Išfiltruota iš _MAX_ total įrašų)",
+                    "infoFiltered": "(Išfiltruota iš _MAX_ įrašų)",
                     "infoPostFix": "",
                     "thousands": ",",
                     "lengthMenu": "Rodyti _MENU_ įrašų",

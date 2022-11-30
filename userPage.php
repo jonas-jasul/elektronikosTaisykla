@@ -413,8 +413,6 @@
         </div>
     </form>
 
-
-
     <div class="container">
         <h2>Vartotojo panelė</h2>
         <div class="row">
@@ -534,7 +532,7 @@
                             <th scope="col"></th>
                             <th scope="col"></th>
                             <th scope="col"></th>
-                            <th style="display:none;"scope="col"></th>
+                            <th style="display:none;" scope="col"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -557,10 +555,10 @@
                                 <td style="display: none;"><?php echo $user_orders['order_complet_date_est'] ?? ''; ?></td>
                                 <td><?php echo $user_orders['order_amount_to_pay'] ?? ''; ?></td>
                                 <td style="display: none;"><?php echo $user_orders['order_descrip'] ?? ''; ?></td>
-                                <td><button data-bs-toggle="modal" data-bs-target="#cancelOrderUser" class="cancelOrderBtn btn btn-warning">Atšaukti</button></td>
-                                <td><button data-bs-toggle="modal" data-bs-target="#moreInfoUserOrder" class="morInfoBtn btn btn-primary">Daugiau info</button></td>
-                                <td><button class="btn btn-primary">Apmokėti</button></td>
-                                
+                                <td><button data-bs-toggle="modal" data-bs-target="#cancelOrderUser" class="cancelOrderBtn btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i></button></td>
+                                <td><button data-bs-toggle="modal" data-bs-target="#moreInfoUserOrder" class="morInfoBtn btn btn-primary"><i class="fa fa-info-circle" aria-hidden="true"></i></button></td>
+                                <td><button data-bs-toggle="modal" data-bs-target="#payOrderUser" class="btn btn-success"><i class="fa fa-money" aria-hidden="true"></i></button></td>
+
                             </tr>
 
 
@@ -621,62 +619,99 @@
 
 
                 <form action="functions/cancelOrder.php" method="POST" class="form">
-                                <div class="modal fade" id="cancelOrderUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <h5 class="modal-title" id="exampleModalLabel">Atšaukti užsakymą</h5>
-                                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                            </div>
-                                            <div class="modal-body">
-                                                <input type="hidden" name="order_id_cancel" id="order_id_cancel">
-                                                <h4>Ar tikrai norite atšaukti šį užsakymą?</h4>
-                                                <label for="cancelOrderCode">Užsakymo kodas</label>
-                                                <br>
-                                                <input class="form-control modal-input-box" type="text" name="cancelOrderCode" id="cancelOrderCode" readonly>
-                                                <label for="cancelOrderDate">Sukūrimo data</label>
-                                                <br>
-                                                <input class="form-control modal-input-box" type="text" name="cancelOrderDate" id="cancelOrderDate" readonly>
-                                                <label for="cancelOrderManufac">Gamintojas</label>
-                                                <br>
-                                                <input class="form-control modal-input-box" type="text" name="cancelOrderManufac" id="cancelOrderManufac" readonly>
-                                                <label for="cancelOrderModel">Modelis</label>
-                                                <br>
-                                                <input class="form-control modal-input-box" type="text" name="cancelOrderModel" id="cancelOrderModel" readonly>
-                                                <label for="cancelOrderService">Paslauga</label>
-                                                <br>
-                                                <input class="form-control" type="text" name="cancelOrderService" id="cancelOrderService" readonly>
+                    <div class="modal fade" id="cancelOrderUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Atšaukti užsakymą</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="hidden" name="order_id_cancel" id="order_id_cancel">
+                                    <h4>Ar tikrai norite atšaukti šį užsakymą?</h4>
+                                    <label for="cancelOrderCode">Užsakymo kodas</label>
+                                    <br>
+                                    <input class="form-control modal-input-box" type="text" name="cancelOrderCode" id="cancelOrderCode" readonly>
+                                    <label for="cancelOrderDate">Sukūrimo data</label>
+                                    <br>
+                                    <input class="form-control modal-input-box" type="text" name="cancelOrderDate" id="cancelOrderDate" readonly>
+                                    <label for="cancelOrderManufac">Gamintojas</label>
+                                    <br>
+                                    <input class="form-control modal-input-box" type="text" name="cancelOrderManufac" id="cancelOrderManufac" readonly>
+                                    <label for="cancelOrderModel">Modelis</label>
+                                    <br>
+                                    <input class="form-control modal-input-box" type="text" name="cancelOrderModel" id="cancelOrderModel" readonly>
+                                    <label for="cancelOrderService">Paslauga</label>
+                                    <br>
+                                    <input class="form-control" type="text" name="cancelOrderService" id="cancelOrderService" readonly>
 
 
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Grįžti</button>
-                                                <button type="submit" name="acceptOrderCancellationBtn" class="btn btn-primary">Patvirtinti atšaukimą</button>
-                                            </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Grįžti</button>
+                                    <button type="submit" name="acceptOrderCancellationBtn" class="btn btn-primary">Patvirtinti atšaukimą</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+
+
+                <form action="functions/payOrders.php" method="POST" class="form">
+                    <div class="modal fade" id="payOrderUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Užsakymo apmokėjimas</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="hidden" name="order_id_pay" id="order_id_pay">
+                                    <h4>Ar norite apmokėti šį užsakymą?</h4>
+                                    <label for="payOrderCode">Užsakymo kodas</label>
+                                    <br>
+                                    <input class="form-control modal-input-box" type="text" name="payOrderCode" id="payOrderCode" readonly>
+
+                                    <label for="payOrderService">Paslauga</label>
+                                    <br>
+                                    <input class="form-control" type="text" name="payOrderService" id="payOrderService" readonly>
+
+                                    <label for="payOrderPrice">Kaina</label>
+                                    <div class="input-group">
+                                        <input id="payOrderPrice" name="payOrderPrice" type="text" class="form-control" aria-describedby="basic-addon" readonly>
+                                        <div class="input-group-append">
+                                            <span class="input-group-text" id="basic-addon">€</span>
                                         </div>
                                     </div>
+                                
                                 </div>
-                            </form>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Grįžti</button>
+                                    <button type="submit" name="acceptOrderCancellationBtn" class="btn btn-primary">Tęsti apmokėjimą</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
 
                 <!-- <div class="pagination">
                     <?php
                     $pageLink = "";
-                    if($pageNr>=2) {
-                        echo "<a href='userPage.php?pageNr=".($pageNr-1)."'>  Ankstenis </a>";   
+                    if ($pageNr >= 2) {
+                        echo "<a href='userPage.php?pageNr=" . ($pageNr - 1) . "'>  Ankstenis </a>";
                     }
 
-                    for ($i=1; $i<=$total_pages; $i++) {
-                        if($i==$pageNr) {
-                            $pageLink.="<a class='active' href='userPage.php?pageNr=".$i."'>".$i."</a>";
-                        }
-                        else {
-                            $pageLink.= "<a href='userPage.php?pageNr=".$i."'>".$i."</a>"; 
+                    for ($i = 1; $i <= $total_pages; $i++) {
+                        if ($i == $pageNr) {
+                            $pageLink .= "<a class='active' href='userPage.php?pageNr=" . $i . "'>" . $i . "</a>";
+                        } else {
+                            $pageLink .= "<a href='userPage.php?pageNr=" . $i . "'>" . $i . "</a>";
                         }
                     };
                     echo $pageLink;
 
-                    if ($pageNr<$total_pages){
-                        echo "<a href='userPage.php?pageNr=".($pageNr+1)."'>Sekantis</a>";
+                    if ($pageNr < $total_pages) {
+                        echo "<a href='userPage.php?pageNr=" . ($pageNr + 1) . "'>Sekantis</a>";
                     }
                     ?>
                 </div> -->
@@ -840,7 +875,7 @@
 
         });
     </script>
-    <?php include("footer.php")?>
+    <?php include("footer.php") ?>
 </body>
 
 </html>

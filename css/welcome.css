@@ -7,6 +7,10 @@
 
 }
 
+/* position: absolute;
+    top: 60%;
+    left: 50%;
+    transform: translate(-50%, -50%); */
 .centered {
     padding: 3%;
     text-align: center;
@@ -14,10 +18,7 @@
     backdrop-filter: blur(15px);
     border: 2px solid black;
     border-radius: 8px;
-    /* position: absolute;
-    top: 60%;
-    left: 50%;
-    transform: translate(-50%, -50%); */
+    
 }
 
 .flex-wrapper {

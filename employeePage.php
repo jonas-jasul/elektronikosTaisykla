@@ -79,7 +79,7 @@
                             <?php
                             endwhile
                             ?>
-                            
+
                         </tbody>
                     </table>
 
@@ -165,7 +165,7 @@
                                 <th scope="col">Statusas</th>
                                 <th scope="col">Numatoma pabaigimo data</th>
                                 <th scope="col"></th>
-                                <th style="display:none;"scope="col"></th>
+                                <th style="display:none;" scope="col"></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -189,14 +189,14 @@
                                     <td><?php echo $active_techn_orders['order_complet_date_est'] ?? ''; ?></td>
                                     <!-- <td><?php echo $active_techn_orders['order_techn_id'] ?? ''; ?></td> -->
                                     <td><button data-bs-toggle="modal" data-bs-target="#editOrderModal" class="button btn btn-light editBtn">Redaguoti</button></td>
-                                    <td style="display: none;"><?php echo $active_techn_orders['order_descrip']??'';?></td>
+                                    <td style="display: none;"><?php echo $active_techn_orders['order_descrip'] ?? ''; ?></td>
 
                                 </tr>
                             <?php
                             endwhile
                             ?>
 
-                            
+
                         </tbody>
                     </table>
 
@@ -360,9 +360,7 @@
         </script>
 
         <?php
-        // $ordersQuery = "SELECT * FROM orders WHERE order_request_date BETWEEN '2022-01-01 00:00:00' AND '2022-11-23 00:00:00'";
-        // $ordersQuery = "SELECT COUNT(*), MONTH(order_request_date),  YEAR(order_request_date) FROM orders GROUP BY MONTH(order_request_date), YEAR(order_request_date)";
-        // $ordersQuery = "SELECT (DATE_FORMAT(order_request_date, '%M')) AS 'Month', COUNT(*) AS number_of_orders FROM orders GROUP BY (DATE_FORMAT(order_request_date,'%M')) ORDER BY 'Month' ASC";
+
         $ordersQuery = "SELECT derived.mm AS month, count(ord.order_request_date) AS count FROM (
             SELECT 1 mm UNION ALL SELECT 2 UNION ALL SELECT 3 
             UNION ALL SELECT 4 UNION ALL SELECT 5 UNION ALL SELECT 6 UNION ALL SELECT 7  
@@ -371,15 +369,20 @@
         ) derived
         LEFT JOIN orders ord
         ON derived.mm = month(order_request_Date) 
-            AND ord.order_request_date > LAST_DAY(DATE_SUB(curdate(),INTERVAL 1 YEAR))
+        AND YEAR(ord.order_request_date) = year(curdate())
         GROUP BY derived.mm";
-        $executeOrderQuery = mysqli_query($db, $ordersQuery);
+
+        //SQL alternatyva, jei nori, kad rodytu viso laikotarpio uzsakymus (panasu i trenda)
+        //AND ord.order_request_date > LAST_DAY(DATE_SUB(curdate(),INTERVAL 1 YEAR))
+
         // $numRows = mysqli_num_rows($executeOrderQuery);
         //$arrayMonth = mysqli_fetch_array($executeOrderQuery);
+        $executeOrderQuery = mysqli_query($db, $ordersQuery);
         $rows = [];
         while ($row = mysqli_fetch_array($executeOrderQuery)) {
             $rows[] = $row;
         }
+
         $array = json_encode($rows);
 
         ?>

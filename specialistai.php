@@ -257,13 +257,34 @@ include("functions/selectSpecialization.php");
 
     <script>
         $(document).ready(function() {
+           
+            $('.editBtn').on('click', function() {
+                $('#editSpecModal').modal('show');
+
+
+                $tr = $(this).closest('tr');
+
+                var data = $tr.children('td').map(function() {
+
+                    return $(this).text();
+                }).get();
+
+                $('#techn_id_edit').val(data[0]);
+                $('#techn_name_edit').val(data[1]);
+                $('#techn_email_edit').val(data[2]);
+                $('#techn_phone_num_edit').val(data[3]);
+                $('#techn_spec_edit').val(data[4]);
+
+            });
+
+
             $('#adminTechnTable').DataTable({
                 "language": {
                     "decimal": "",
                     "emptyTable": "Įrašų nėra",
                     "info": "Rodoma nuo _START_ iki _END_ iš _TOTAL_ įrašų",
                     "infoEmpty": "Rodoma nuo 0 iki 0 iš 0 įrašų  ",
-                    "infoFiltered": "(Išfiltruota iš _MAX_ total įrašų)",
+                    "infoFiltered": "(Išfiltruota iš _MAX_ įrašų)",
                     "infoPostFix": "",
                     "thousands": ",",
                     "lengthMenu": "Rodyti _MENU_ įrašų",
@@ -284,24 +305,6 @@ include("functions/selectSpecialization.php");
                 }
             });
 
-            $('.editBtn').on('click', function() {
-                $('#editSpecModal').modal('show');
-
-
-                $tr = $(this).closest('tr');
-
-                var data = $tr.children('td').map(function() {
-
-                    return $(this).text();
-                }).get();
-
-                $('#techn_id_edit').val(data[0]);
-                $('#techn_name_edit').val(data[1]);
-                $('#techn_email_edit').val(data[2]);
-                $('#techn_phone_num_edit').val(data[3]);
-                $('#techn_spec_edit').val(data[4]);
-
-            });
         });
     </script>
 </body>
