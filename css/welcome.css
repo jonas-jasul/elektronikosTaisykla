@@ -253,7 +253,7 @@ p {
 }
 
 .paypalLogo {
-    width: 200px;
+    width: 50%;
     display: block;
     margin: auto;
 }
@@ -280,7 +280,11 @@ p {
 #bankCollapse3 h6 {
     text-align: center;
 }
-
+.expirybox {
+    border: 1px solid rgb(195, 195, 195);
+    border-radius: 5px;
+    height: 32px;
+}
 #bankCollapse,
 #bankCollapse1,
 #bankCollapse2,

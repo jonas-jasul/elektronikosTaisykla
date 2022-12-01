@@ -724,14 +724,43 @@
 
                                         <div class="col-4">
                                             <h6 class="paymentPlatform">Mokėjimas per PayPal <i class="fa-brands fa-paypal"></i></h6>
-                                            <a href=""><img class="paypalLogo" src="images/PayPal.svg.png"></a>
-
+                                            <a class="btn" href="#paypal-button-container" role="button" data-bs-parent="#paymentGroup" data-bs-toggle="collapse" data-bs-target="#paypal-button-container" aria-expanded="false" aria-controls="paypal-button-container"><img class="paypalLogo img-fluid" src="images/PayPal.svg.png"></a>
+                                            <script src="https://www.paypal.com/sdk/js?client-id=AULCB_DZ9omjV7nQhkaRZr8NgvC0d_OoY1sb5252K-ytkr2wlwMnOhpbegGRRZU4I-S1PJkZorjcrkKI&currency=USD"></script>
+                                            <!-- Set up a container element for the button -->
+                                            <div class="collapse in" id="paypal-button-container"></div>
+                                            <script>
+                                                paypal.Buttons({
+                                                    // Sets up the transaction when a payment button is clicked
+                                                    createOrder: (data, actions) => {
+                                                        return actions.order.create({
+                                                            purchase_units: [{
+                                                                amount: {
+                                                                    value: '77.44' // Can also reference a variable or function
+                                                                }
+                                                            }]
+                                                        });
+                                                    },
+                                                    // Finalize the transaction after payer approval
+                                                    onApprove: (data, actions) => {
+                                                        return actions.order.capture().then(function(orderData) {
+                                                            // Successful capture! For dev/demo purposes:
+                                                            console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+                                                            const transaction = orderData.purchase_units[0].payments.captures[0];
+                                                            alert(`Transaction ${transaction.status}: ${transaction.id}\n\nSee console for all available details`);
+                                                            // When ready to go live, remove the alert and show a success message within this page. For example:
+                                                            // const element = document.getElementById('paypal-button-container');
+                                                            // element.innerHTML = '<h3>Thank you for your payment!</h3>';
+                                                            // Or go to another URL:  actions.redirect('thank_you.html');
+                                                        });
+                                                    }
+                                                }).render('#paypal-button-container');
+                                            </script>
                                         </div>
 
 
                                         <div class="col-4">
                                             <h6 class="paymentPlatform">Atsiskaitymas grynais <i class="fa-regular fa-handshake"></i></h6>
-                                            <a href=""><img class="paypalLogo" src="images/ten-euro-bank-note-finance-currency-close-up-detail-money-fragment-back-side-red-bill-ten-euro-bank-note-finance-currency-close-up-169586822.jpg"></a>
+                                            <a href=""><img class="paypalLogo img-fluid" src="images/1280px-100-Euro.svg.png"></a>
                                         </div>
 
                                     </div>
@@ -749,72 +778,77 @@
                                                     <input class="form-control" type="text" required>
                                                     <label>Galioja iki</label>
                                                     <br>
-                                                    <input class="form-control" type="text" required>
+                                                    <span class="expiration">
+                                                        <input class="expirybox" type="text" name="month" placeholder="MM" maxlength="2" size="2" required />
+                                                        <span>/</span>
+                                                        <input class="expirybox" type="text" name="year" placeholder="YY" maxlength="2" size="2" required />
+                                                    </span>
+                                                    <br>
                                                     <label>CVC</label>
                                                     <br>
-                                                    <input class="form-control" type="text" required> 
+                                                    <input class="form-control" type="text" required>
                                                 </form>
 
                                             </div>
 
                                             <div class="collapse in" id="bankCollapse1">
-                                                
-                                                    <form>
-                                                        <h6>Maestro kortėlės duomenys:</h6>
-                                                        <label>Vardas ir pavardė</label>
-                                                        <br>
-                                                        <input class="form-control" type="text" required>
-                                                        <label>Kortelės numeris</label>
-                                                        <br>
-                                                        <input class="form-control" type="text" required>
-                                                        <label>Galioja iki</label>
-                                                        <br>
-                                                        <input class="form-control" type="text" required>
-                                                        <label>CVC</label>
-                                                        <br>
-                                                        <input class="form-control" type="text" required>
-                                                    </form>
-                                                
+
+                                                <form>
+                                                    <h6>Maestro kortėlės duomenys:</h6>
+                                                    <label>Vardas ir pavardė</label>
+                                                    <br>
+                                                    <input class="form-control" type="text" required>
+                                                    <label>Kortelės numeris</label>
+                                                    <br>
+                                                    <input class="form-control" type="text" required>
+                                                    <label>Galioja iki</label>
+                                                    <br>
+                                                    <input class="form-control" type="text" required>
+                                                    <label>CVC</label>
+                                                    <br>
+                                                    <input class="form-control" type="text" required>
+                                                </form>
+
                                             </div>
 
                                             <div class="collapse in" id="bankCollapse2">
-                                                
-                                                    <form>
-                                                        <h6>VISA kortėlės duomenys:</h6>
-                                                        <label>Vardas ir pavardė</label>
-                                                        <br>
-                                                        <input class="form-control" type="text" required>
-                                                        <label>Kortelės numeris</label>
-                                                        <br>
-                                                        <input class="form-control" type="text" required>
-                                                        <label>Galioja iki</label>
-                                                        <br>
-                                                        <input class="form-control" type="text" required>
-                                                        <label>CVC</label>
-                                                        <br>
-                                                        <input class="form-control" type="text" required>
-                                                    </form>
-                                                
+
+                                                <form>
+                                                    <h6>VISA kortėlės duomenys:</h6>
+                                                    <label>Vardas ir pavardė</label>
+                                                    <br>
+                                                    <input class="form-control" type="text" required>
+                                                    <label>Kortelės numeris</label>
+                                                    <br>
+                                                    <input class="form-control" type="text" required>
+                                                    <label>Galioja iki</label>
+                                                    <br>
+                                                    <input class="form-control" type="text" required>
+                                                    <label>CVC</label>
+                                                    <br>
+                                                    <input class="form-control" type="text" required>
+                                                </form>
+
                                             </div>
 
                                             <div class="collapse in" id="bankCollapse3">
-                                                
-                                                    <form>
-                                                        <h6>American Express kortėlės duomenys:</h6>
-                                                        <label>Vardas ir pavardė</label>
-                                                        <br>
-                                                        <input class="form-control" type="text" required>
-                                                        <label>Kortelės numeris</label>
-                                                        <br>
-                                                        <input class="form-control" type="text" required> 
-                                                        <label>Galioja iki</label>
-                                                        <br>
-                                                        <input class="form-control" type="text" required>
-                                                        <label>CVC</label>
-                                                        <br>
-                                                        <input class="form-control" type="text" required>
-                                                    </form>
-                                               
+
+                                                <form>
+                                                    <h6>American Express kortėlės duomenys:</h6>
+                                                    <label>Vardas ir pavardė</label>
+                                                    <br>
+                                                    <input class="form-control" type="text" required>
+                                                    <label>Kortelės numeris</label>
+                                                    <br>
+                                                    <input class="form-control" type="text" required>
+                                                    <label>Galioja iki</label>
+                                                    <br>
+                                                    <input class="form-control" type="text" required>
+                                                    <label>CVC</label>
+                                                    <br>
+                                                    <input class="form-control" type="text" required>
+                                                </form>
+
                                             </div>
                                         </div>
                                     </div>
@@ -859,8 +893,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-    <script src="https://www.paypal.com/sdk/js?client-id=sb&enable-funding=venmo&currency=EUR" data-sdk-integration-source="button-factory"></script>
-
+    
     <script>
         $(document).ready(function() {
 
@@ -1027,6 +1060,7 @@
             //         }
             //     });
             // });
+
 
 
         });
