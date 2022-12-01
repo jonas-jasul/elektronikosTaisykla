@@ -49,3 +49,13 @@ LEFT JOIN technicians ON orders.order_techn_id=technicians.techn_id
 
 WHERE orders.order_user_id='$ord_usr_id'";
 $all_user_orders= mysqli_query($cnn, $sql);
+
+$payment_user_order_sql = "SELECT * FROM orders LEFT JOIN services ON orders.order_service_id=services.service_id 
+LEFT JOIN payments ON orders.order_id=payments.order_id
+LEFT JOIN order_detaliz ON orders.order_id=order_detaliz.order_id 
+LEFT JOIN specializations ON services.service_specializ_id=specializations.specializ_id 
+LEFT JOIN technicians ON orders.order_techn_id=technicians.techn_id 
+
+WHERE orders.order_user_id='$ord_usr_id' ";
+
+$user_order_pay=mysqli_query($cnn, $payment_user_order_sql);

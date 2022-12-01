@@ -161,6 +161,7 @@
                                 <th style="display: none;" scope="col">Vartotojas</th>
                                 <th scope="col">Paslauga</th>
                                 <th scope="col">Numatoma pabaigimo data</th>
+                                <th scope="col">Apmokėjimo statusas</th>
                                 <th scope="col"></th>
                                 <th style="display:none;" scope="col"></th>
                             </tr>
@@ -183,7 +184,7 @@
                                     <td><?php echo $active_techn_orders['service_name'] ?? ''; ?></td>
                                     <td style="display: none;"><?php echo $active_techn_orders['order_techn_id'] ?? ''; ?></td>
                                     <td><?php echo $active_techn_orders['order_complet_date_est'] ?? ''; ?></td>
-                                    <!-- <td><?php echo $active_techn_orders['order_techn_id'] ?? ''; ?></td> -->
+                                    <td><?php echo $active_techn_orders['is_paid'] == "1" ? '<span class="badge rounded-pill text-dark bg-info">Apmokėtas</span>' : '<span class="badge rounded-pill bg-warning text-dark">Neapmokėtas</span>'; ?></td>
                                     <td><button data-bs-toggle="modal" data-bs-target="#editOrderModal" class="button btn btn-light editBtn"><i class="fas fa-edit"></i></button></td>
                                     <td style="display: none;"><?php echo $active_techn_orders['order_descrip'] ?? ''; ?></td>
 
@@ -289,7 +290,7 @@
                     $("#editOrderManufac").val(data[3]);
                     $("#editOrderModel").val(data[4]);
                     $("#editOrderService").val(data[6]);
-                    var orderEstComplDatFirst = new Date(data[9]);
+                    var orderEstComplDatFirst = new Date(data[8]);
                     //var correctedDate2 = orderEstComplDatFirst.toLocaleDateString();
                     //console.log(correctedDate2);
                     $("#editOrderEstComplDate").datepicker('update', orderEstComplDatFirst);

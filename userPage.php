@@ -19,6 +19,7 @@
     <?php include_once("functions/functions.php");
     include("functions/selectServiceUser.php");
     include("functions/selectUserOrders.php");
+    include("functions/payOrder.php");
     //include_once("functions/pagination.php");
     if (!isLoggedIn()) {
         $_SESSION['msg'] = "Jūs turite pirmiau prisijungti";
@@ -555,13 +556,13 @@
                                 <td><?php echo $user_orders['order_status'] == "Aktyvus" ? ' <span class="badge bg-success">Aktyvus</span>' : ($user_orders['order_status'] == "Pabaigtas" ? ' <span class="badge bg-secondary">Pabaigtas</span>' : '<span class="badge bg-danger">Neaktyvus</span>') ?></td>
                                 <td style="display: none;"><?php echo $user_orders['order_complet_date_est'] ?? ''; ?></td>
                                 <td><?php echo $user_orders['order_amount_to_pay'] ?? ''; ?></td>
-                                <td><?php 
-                                    echo $user_orders['is_paid'] == "0"? '<span class="badge rounded-pill bg-warning text-dark">Neapmokėtas</span>': '<span class="badge rounded-pill text-dark bg-info">Apmokėtas</span>'; ?>
+                                <td><?php
+                                    echo $user_orders['is_paid'] == "0" ? '<span class="badge rounded-pill bg-warning text-dark">Neapmokėtas</span>' : '<span class="badge rounded-pill text-dark bg-info">Apmokėtas</span>'; ?>
                                 </td>
                                 <td style="display: none;"><?php echo $user_orders['order_descrip'] ?? ''; ?></td>
                                 <td><button data-bs-toggle="modal" data-bs-target="#cancelOrderUser" class="cancelOrderBtn btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i></button></td>
                                 <td><button data-bs-toggle="modal" data-bs-target="#moreInfoUserOrder" class="morInfoBtn btn btn-primary"><i class="fa fa-info-circle" aria-hidden="true"></i></button></td>
-                                <td><button data-bs-toggle="modal" data-bs-target="#payOrderUser" class="btn btn-success"><i class="fas fa-euro-sign"></i></button></td>
+                                <td><button data-bs-toggle="modal" data-bs-target="#payOrderUser" class="payOrderBtn btn btn-success"><i class="fas fa-euro-sign"></i></button></td>
 
                             </tr>
 
@@ -661,41 +662,172 @@
                 </form>
 
 
-                <form action="functions/payOrders.php" method="POST" class="form">
-                    <div class="modal fade" id="payOrderUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title" id="exampleModalLabel">Užsakymo apmokėjimas</h5>
-                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                                </div>
-                                <div class="modal-body">
-                                    <input type="hidden" name="order_id_pay" id="order_id_pay">
-                                    <h4>Ar norite apmokėti šį užsakymą?</h4>
-                                    <label for="payOrderCode">Užsakymo kodas</label>
-                                    <br>
-                                    <input class="form-control modal-input-box" type="text" name="payOrderCode" id="payOrderCode" readonly>
 
-                                    <label for="payOrderService">Paslauga</label>
-                                    <br>
-                                    <input class="form-control" type="text" name="payOrderService" id="payOrderService" readonly>
+                <div class="modal fade" id="payOrderUser" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Užsakymo apmokėjimas</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <input style="display:none;" name="order_id_pay" id="order_id_pay">
+                                <h4>Ar norite apmokėti šį užsakymą?</h4>
+                                <label for="payOrderCode">Užsakymo kodas</label>
+                                <br>
+                                <input class="form-control modal-input-box" type="text" name="payOrderCode" id="payOrderCode" readonly>
 
-                                    <label for="payOrderPrice">Kaina</label>
-                                    <div class="input-group">
-                                        <input id="payOrderPrice" name="payOrderPrice" type="text" class="form-control" aria-describedby="basic-addon" readonly>
-                                        <div class="input-group-append">
-                                            <span class="input-group-text" id="basic-addon">€</span>
-                                        </div>
+                                <label for="payOrderService">Paslauga</label>
+                                <br>
+                                <input class="form-control" type="text" name="payOrderService" id="payOrderService" readonly>
+
+                                <label for="payOrderPrice">Kaina</label>
+                                <div class="input-group">
+                                    <input id="payOrderPrice" name="payOrderPrice" type="text" class="form-control" aria-describedby="basic-addon" readonly>
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" id="basic-addon">€</span>
                                     </div>
-                                
                                 </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Grįžti</button>
-                                    <button type="submit" name="acceptOrderCancellationBtn" class="btn btn-primary">Tęsti apmokėjimą</button>
-                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Grįžti</button>
+                                <button type="button" data-bs-dismiss="modal" data-bs-toggle="modal" data-bs-target="#userPaymentSecond" id="userProceedToPayment" name="userProceedToPayment" class="btn btn-primary">Tęsti apmokėjimą</button>
                             </div>
                         </div>
                     </div>
+                </div>
+
+
+
+                <div class="modal fade" id="userPaymentSecond" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                    <div class="modal-dialog modal-xl">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Mokėjimo būdo pasirinkimas</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="container" id="paymentGroup">
+                                    <div class="row">
+                                        <input type="hidden" name="order_id_pay_2" id="order_id_pay_2">
+                                        <h4 class="modalPayTotal">Iš viso mokėti:</h4>
+                                        <br>
+                                        <h3 id="payOrderPriceH"></h3>
+                                        <div class="col-4">
+                                            <h6 class="paymentPlatform">Mokėjimas banko kortele <i class="fa-regular fa-credit-card"></i></h6>
+                                            <a class="btn" href="#bankCollapse" role="button" data-bs-parent="#paymentGroup" data-bs-toggle="collapse" data-bs-target="#bankCollapse" aria-expanded="false" aria-controls="bankCollapse"><img class="bankCardLogo img-fluid" src="images/Mastercard-logo.svg.png"></a>
+                                            <a class="btn" href="#bankCollapse1" role="button" data-bs-parent="#paymentGroup" data-bs-toggle="collapse" data-bs-target="#bankCollapse1" aria-expanded="false" aria-controls="bankCollapse1"><img class="bankCardLogo img-fluid" src="images/Maestro_2016.svg.png"></a>
+                                            <a class="btn" href="#bankCollapse2" role="button" data-bs-parent="#paymentGroup" data-bs-toggle="collapse" data-bs-target="#bankCollapse2" aria-expanded="false" aria-controls="bankCollapse2"><img class="bankCardLogo img-fluid" src="images/Visa_Inc._logo.svg.png"></a>
+                                            <a class="btn" href="#bankCollapse3" role="button" data-bs-parent="#paymentGroup" data-bs-toggle="collapse" data-bs-target="#bankCollapse3" aria-expanded="false" aria-controls="bankCollapse3"><img class="bankCardLogo img-fluid" src="images/1200px-American_Express_logo_(2018).svg.webp"></a>
+                                        </div>
+
+                                        <div class="col-4">
+                                            <h6 class="paymentPlatform">Mokėjimas per PayPal <i class="fa-brands fa-paypal"></i></h6>
+                                            <a href=""><img class="paypalLogo" src="images/PayPal.svg.png"></a>
+
+                                        </div>
+
+
+                                        <div class="col-4">
+                                            <h6 class="paymentPlatform">Atsiskaitymas grynais <i class="fa-regular fa-handshake"></i></h6>
+                                            <a href=""><img class="paypalLogo" src="images/ten-euro-bank-note-finance-currency-close-up-detail-money-fragment-back-side-red-bill-ten-euro-bank-note-finance-currency-close-up-169586822.jpg"></a>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-4">
+                                            <div class="collapse in" id="bankCollapse">
+
+                                                <form>
+                                                    <h6>Mastercard kortėlės duomenys:</h6>
+                                                    <label>Vardas ir pavardė</label>
+                                                    <br>
+                                                    <input class="form-control" type="text" required>
+                                                    <label>Kortelės numeris</label>
+                                                    <br>
+                                                    <input class="form-control" type="text" required>
+                                                    <label>Galioja iki</label>
+                                                    <br>
+                                                    <input class="form-control" type="text" required>
+                                                    <label>CVC</label>
+                                                    <br>
+                                                    <input class="form-control" type="text" required> 
+                                                </form>
+
+                                            </div>
+
+                                            <div class="collapse in" id="bankCollapse1">
+                                                
+                                                    <form>
+                                                        <h6>Maestro kortėlės duomenys:</h6>
+                                                        <label>Vardas ir pavardė</label>
+                                                        <br>
+                                                        <input class="form-control" type="text" required>
+                                                        <label>Kortelės numeris</label>
+                                                        <br>
+                                                        <input class="form-control" type="text" required>
+                                                        <label>Galioja iki</label>
+                                                        <br>
+                                                        <input class="form-control" type="text" required>
+                                                        <label>CVC</label>
+                                                        <br>
+                                                        <input class="form-control" type="text" required>
+                                                    </form>
+                                                
+                                            </div>
+
+                                            <div class="collapse in" id="bankCollapse2">
+                                                
+                                                    <form>
+                                                        <h6>VISA kortėlės duomenys:</h6>
+                                                        <label>Vardas ir pavardė</label>
+                                                        <br>
+                                                        <input class="form-control" type="text" required>
+                                                        <label>Kortelės numeris</label>
+                                                        <br>
+                                                        <input class="form-control" type="text" required>
+                                                        <label>Galioja iki</label>
+                                                        <br>
+                                                        <input class="form-control" type="text" required>
+                                                        <label>CVC</label>
+                                                        <br>
+                                                        <input class="form-control" type="text" required>
+                                                    </form>
+                                                
+                                            </div>
+
+                                            <div class="collapse in" id="bankCollapse3">
+                                                
+                                                    <form>
+                                                        <h6>American Express kortėlės duomenys:</h6>
+                                                        <label>Vardas ir pavardė</label>
+                                                        <br>
+                                                        <input class="form-control" type="text" required>
+                                                        <label>Kortelės numeris</label>
+                                                        <br>
+                                                        <input class="form-control" type="text" required> 
+                                                        <label>Galioja iki</label>
+                                                        <br>
+                                                        <input class="form-control" type="text" required>
+                                                        <label>CVC</label>
+                                                        <br>
+                                                        <input class="form-control" type="text" required>
+                                                    </form>
+                                               
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Grįžti</button>
+                                <button type="submit" id="userProceedToPayment" name="userProceedToPayment" class="btn btn-primary">Apmokėti</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 </form>
 
                 <!-- <div class="pagination">
@@ -724,10 +856,11 @@
     </div>
     </div>
     <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <script src="https://www.paypal.com/sdk/js?client-id=sb&enable-funding=venmo&currency=EUR" data-sdk-integration-source="button-factory"></script>
+
     <script>
         $(document).ready(function() {
 
@@ -750,7 +883,7 @@
                 $("#order_more_info_service").val(data[6]);
                 $("#order_more_info_techn").val(data[7]);
                 $("#order_more_info_est_compl_date").val(data[9]);
-                $("#order_more_info_descrip").val(data[11]);
+                $("#order_more_info_descrip").val(data[12]);
             });
 
             $('.cancelOrderBtn').on('click', function() {
@@ -765,6 +898,24 @@
                 $("#cancelOrderModel").val(data[5]);
                 $("#cancelOrderService").val(data[6]);
             });
+
+            $('.payOrderBtn').on('click', function() {
+                $tr = $(this).closest('tr');
+                var data = $tr.children('td').map(function() {
+                    return $(this).text();
+                }).get();
+                $("#order_id_pay").val(data[0]);
+                $("#payOrderCode").val(data[1]);
+                $("#payOrderService").val(data[6]);
+                $("#payOrderPrice").val(data[10]);
+                document.getElementById("payOrderPriceH").innerHTML = data[10];
+
+                var $group = $('#paymentGroup');
+                $group.on('show.bs.collapse', '.collapse', function() {
+                    $group.find('.collapse.in').collapse('hide');
+                });
+            });
+
 
             function getPrice(typeId, typePrice) {
                 $(typeId).on('change', function() {
@@ -876,6 +1027,7 @@
             //         }
             //     });
             // });
+
 
         });
     </script>

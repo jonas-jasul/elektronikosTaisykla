@@ -18,7 +18,7 @@
     backdrop-filter: blur(15px);
     border: 2px solid black;
     border-radius: 8px;
-    
+
 }
 
 .flex-wrapper {
@@ -236,21 +236,76 @@ p {
     display: none;
 }
 
-#userTableTitleRow th{
+#userTableTitleRow th {
     background-color: #ebf1f1 !important;
     border: 1px solid black;
 }
 
-#userTableDataRow td {
-background-color: rgb(217, 229, 229 !important;
-}
-.pagination a {
-    text-decoration: none;
-    padding: 10px;
-    border: 2px solid black;
-    color: black;
+.modalPayTotal {
+    text-align: center;
+
 }
 
-.pagination .active {
-    background-color: rgb(217, 229, 229);
+#payOrderPriceH {
+    text-align: center;
+    font-weight: bold;
+    border-bottom: 2px solid black;
 }
+
+.paypalLogo {
+    width: 200px;
+    display: block;
+    margin: auto;
+}
+
+.bankCardLogo {
+    width: 80px;
+    padding: 4px;
+}
+
+#bankCollapse,
+#bankCollapse1,
+#bankCollapse2,
+#bankCollapse3 {
+    margin-top: 20px;
+    padding: 6px;
+    border-radius: 10px;
+    border: 1px solid grey;
+
+}
+
+#bankCollapse h6,
+#bankCollapse1 h6,
+#bankCollapse2 h6,
+#bankCollapse3 h6 {
+    text-align: center;
+}
+
+#bankCollapse,
+#bankCollapse1,
+#bankCollapse2,
+#bankCollapse3 input[type='text'] {
+    text-align: left;
+}
+#payOrderPriceH::after {
+    content: "€";
+}
+
+.paymentPlatform {
+    text-align: center;
+}
+
+#userTableDataRow td {
+    background-color: rgb(217, 229, 229 !important;
+    }
+
+    .pagination a {
+        text-decoration: none;
+        padding: 10px;
+        border: 2px solid black;
+        color: black;
+    }
+
+    .pagination .active {
+        background-color: rgb(217, 229, 229);
+    }

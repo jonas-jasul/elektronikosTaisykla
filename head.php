@@ -29,34 +29,34 @@
         <ul class="nav flex-column bg-white mb-0">
             <li class="nav-item">
                 <a href="index.php" class="nav-link text-dark bg-light">
-                    Skydelis
+                <i class="fa-solid fa-gauge"></i> Skydelis
                 </a>
             </li>
             <li class="nav-item">
                 <a href="specialistai.php" class="nav-link text-dark ">
-                    Specialistai
+                <i class="fa-solid fa-helmet-safety"></i> Specialistai
                 </a>
             </li>
             <li class="nav-item">
                 <a href="services.php" class="nav-link text-dark">
-                    Paslaugos
+                <i class="fa-solid fa-gears"></i> Paslaugos
                 </a>
             </li>
             <li class="nav-item">
                 <a href="adminUsers.php" class="nav-link text-dark">
-                    Vartotojai
+                <i class="fa-solid fa-user"></i> Vartotojai
                 </a>
             </li>
 
             <li class="nav-item">
                 <a href="adminOrders.php" class="nav-link text-dark">
-                    Taisymai
+                <i class="fa-solid fa-screwdriver-wrench"></i> Taisymai
                 </a>
             </li>
 
             <li class="nav-item">
                 <a href="adminPayments.php" class="nav-link text-dark">
-                    Apmokėjimai
+                <i class="fa-solid fa-euro-sign"></i> Apmokėjimai
                 </a>
             </li>
 <!-- 
