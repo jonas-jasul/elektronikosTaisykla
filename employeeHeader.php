@@ -26,13 +26,14 @@
                 <ul class="navbar-nav ml-auto">
 
                     <li class="nav-item"><a href="employeePage.php" class="nav-link">Darbuotojo panelė</a></li>
+                    <!-- <li class="nav-item"><a href="employeePageSettings.php" class="nav-link">Darbuotojo nustatymai</a></li> -->
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">
                         <div class="profile-info">
                             <div>
                                 <?php if (isEmployee()) : ?>
-                                    <strong style="color:white;"><?php echo $_SESSION['user']['name']; ?></strong>
+                                    <a href="employeePageSettings.php"><strong style="color:white;"><?php echo $_SESSION['user']['name']; ?></strong></a>
 
                                     <small>
                                         <i style="color: white;">(<?php echo ucfirst($_SESSION['user']['user_type']); ?>)</i>

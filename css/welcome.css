@@ -258,6 +258,16 @@ p {
     margin: auto;
 }
 
+#cashCollapse {
+    padding: 6px;
+    border: 1px solid grey;
+    border-radius: 10px;
+    margin-top: 20px;
+}
+#cashCollapse h6 {
+    text-align: center;
+}
+
 .bankCardLogo {
     width: 80px;
     padding: 4px;

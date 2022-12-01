@@ -19,7 +19,6 @@
     <?php include_once("functions/functions.php");
     include("functions/selectServiceUser.php");
     include("functions/selectUserOrders.php");
-    include("functions/payOrder.php");
     //include_once("functions/pagination.php");
     if (!isLoggedIn()) {
         $_SESSION['msg'] = "Jūs turite pirmiau prisijungti";
@@ -46,6 +45,7 @@
                     <li class="nav-item"><a href="#" class="nav-link">Apie mus</a></li>
                     <li class="nav-item"><a href="kontaktai.php" class="nav-link">Kontaktai</a></li>
                     <li class="nav-item"><a href="userPage.php" class="nav-link">Vartotojo panelė</a></li>
+
                     <!-- <li class="nav-item"><a href="registration.php" class="nav-link">Registruotis</a></li>
                     <li class="nav-item"><a href="login.php" class="nav-link">Prisijungti</a></li> -->
                 </ul>
@@ -53,7 +53,7 @@
                     <div class="profile-info">
                         <div>
                             <?php if (isset($_SESSION['user'])) : ?>
-                                <strong><?php echo $_SESSION['user']['name']; ?></strong>
+                                <a href="userSettingsPage.php"><strong><?php echo $_SESSION['user']['name']; ?></strong></a>
 
                                 <small>
                                     <i style="color: #888;">(<?php echo ucfirst($_SESSION['user']['user_type']); ?>)</i>
@@ -725,17 +725,21 @@
                                         <div class="col-4">
                                             <h6 class="paymentPlatform">Mokėjimas per PayPal <i class="fa-brands fa-paypal"></i></h6>
                                             <a class="btn" href="#paypal-button-container" role="button" data-bs-parent="#paymentGroup" data-bs-toggle="collapse" data-bs-target="#paypal-button-container" aria-expanded="false" aria-controls="paypal-button-container"><img class="paypalLogo img-fluid" src="images/PayPal.svg.png"></a>
-                                            <script src="https://www.paypal.com/sdk/js?client-id=AULCB_DZ9omjV7nQhkaRZr8NgvC0d_OoY1sb5252K-ytkr2wlwMnOhpbegGRRZU4I-S1PJkZorjcrkKI&currency=USD"></script>
+                                            <script src="https://www.paypal.com/sdk/js?client-id=AULCB_DZ9omjV7nQhkaRZr8NgvC0d_OoY1sb5252K-ytkr2wlwMnOhpbegGRRZU4I-S1PJkZorjcrkKI&currency=EUR&locale=en_LT"></script>
                                             <!-- Set up a container element for the button -->
                                             <div class="collapse in" id="paypal-button-container"></div>
+
+
                                             <script>
                                                 paypal.Buttons({
+
                                                     // Sets up the transaction when a payment button is clicked
                                                     createOrder: (data, actions) => {
                                                         return actions.order.create({
                                                             purchase_units: [{
+                                                                custom_id: paypalOrderPaymentId,
                                                                 amount: {
-                                                                    value: '77.44' // Can also reference a variable or function
+                                                                    value: paypalOrderPrice // Can also reference a variable or function
                                                                 }
                                                             }]
                                                         });
@@ -751,6 +755,30 @@
                                                             // const element = document.getElementById('paypal-button-container');
                                                             // element.innerHTML = '<h3>Thank you for your payment!</h3>';
                                                             // Or go to another URL:  actions.redirect('thank_you.html');
+
+                                                            $.ajax({
+                                                                url: "functions/payOrder.php",
+                                                                type: 'post',
+                                                                data: {
+                                                                    'paymentID': paypalOrderPaymentId,
+                                                                    'amountPaid':paypalOrderPrice
+                                                                },
+                                                                dataType: 'json',
+                                                                cache: false,
+                                                                success: function(msg) {
+                                                                    alert(msg);
+                                                                }
+                                                            });
+                                                            // return fetch('functions/payOrder.php', {
+                                                            //     method: 'post',
+                                                            //     headers: {
+                                                            //         'content-type': 'application/json'
+                                                            //     },
+                                                            //     body: JSON.stringify({
+                                                            //         paymentId: data.custom_id
+                                                            //     })
+                                                            // });
+
                                                         });
                                                     }
                                                 }).render('#paypal-button-container');
@@ -760,7 +788,17 @@
 
                                         <div class="col-4">
                                             <h6 class="paymentPlatform">Atsiskaitymas grynais <i class="fa-regular fa-handshake"></i></h6>
-                                            <a href=""><img class="paypalLogo img-fluid" src="images/1280px-100-Euro.svg.png"></a>
+                                            <a class="btn" href="#cashCollapse" role="button" data-bs-parent="#paymentGroup" data-bs-toggle="collapse" data-bs-target="#cashCollapse" aria-expanded="false" aria-controls="cashCollapse"><img class="paypalLogo img-fluid" src="images/money-svgrepo-com.svg"></a>
+
+                                            <div class="collapse in" id="cashCollapse">
+                                                <form>
+                                                    <h6>Atsiskaitymas grynais taisykloje:</h6>
+                                                    <label>Vardas ir pavardė </label>
+                                                    <br>
+                                                    <input class="form-control" type="text" required>
+                                                </form>
+                                            </div>
+
                                         </div>
 
                                     </div>
@@ -848,9 +886,10 @@
                                                     <br>
                                                     <input class="form-control" type="text" required>
                                                 </form>
-
                                             </div>
                                         </div>
+
+
                                     </div>
                                 </div>
 
@@ -893,9 +932,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-    
+
     <script>
         $(document).ready(function() {
+
 
             $('.morInfoBtn').on('click', function() {
                 //$('#acceptOrderModal').modal('show');
@@ -942,11 +982,15 @@
                 $("#payOrderService").val(data[6]);
                 $("#payOrderPrice").val(data[10]);
                 document.getElementById("payOrderPriceH").innerHTML = data[10];
-
+                window.paypalOrderPrice = data[10];
+                window.paypalOrderPaymentId = data[0];
                 var $group = $('#paymentGroup');
                 $group.on('show.bs.collapse', '.collapse', function() {
                     $group.find('.collapse.in').collapse('hide');
                 });
+
+
+
             });
 
 
@@ -999,6 +1043,8 @@
                 },
                 lengthMenu: [5, 10, 15, 20, 50],
             });
+
+
 
 
             //--Pakeista su getPrice() funkcija (kad nesikartotu)--
