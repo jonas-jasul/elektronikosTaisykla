@@ -69,8 +69,8 @@ include_once('functions/selectTechn.php');
                                 <td><?php echo $admin_orders['order_item_model'] ?? ''; ?></td>
                                 <td><?php echo $admin_orders['service_name'] ?? ''; ?></td>
                                 <td><?php echo $admin_orders['name'] ?? ''; ?></td>
-                                <td><?php echo $admin_orders['techn_name'] ?? ''; ?></td>
-                                <td><?php echo $admin_orders['order_status'] ?? ''; ?></td>
+                                <td><?php echo $admin_orders['techn_name'] ?? '<i>Nėra</i>'; ?></td>
+                                <td><?php echo $admin_orders['order_status'] == "Aktyvus" ? ' <span class="badge bg-success">Aktyvus</span>' : ($admin_orders['order_status'] == "Pabaigtas" ? ' <span class="badge bg-secondary">Pabaigtas</span>' : '<span class="badge bg-danger">Neaktyvus</span>'); ?></td>
                                 <td><?php echo $admin_orders['order_complet_date_est'] ?? ''; ?></td>
                                 <td><?php echo $admin_orders['order_amount_to_pay'] ?? ''; ?></td>
                                 <td style="display: none;"><?php echo $admin_orders['techn_id'] ?? ''; ?></td>

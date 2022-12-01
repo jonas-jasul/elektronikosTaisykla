@@ -38,15 +38,14 @@ include('functions/selectAdminPayments.php');
                             <th scope="col">#</th>
                             <th scope="col">Kodas</th>
                             <th scope="col">Sukūrimo data</th>
-                            <th scope="col">Gamintojas</th>
-                            <th scope="col">Modelis</th>
+                        
                             <th scope="col">Paslauga</th>
                             <th scope="col">Vartotojas</th>
                             <th scope="col">Specialistas</th>
                             <th scope="col">Statusas</th>
-                            <th scope="col">Numatoma pabaigimo data</th>
                             <th scope="col">Mokama kaina</th>
-                            <th style="display: none;" scope="col"></th>
+                            <th scope="col">Apmokėjimo statusas</th>
+
                             <th style="display: none;" scope="col">Aprašas</th>
                             <!-- <th scope="col"></th> -->
                         </tr>
@@ -62,15 +61,13 @@ include('functions/selectAdminPayments.php');
                                 <td><?php echo $admin_payments['order_id'] ?? ''; ?></th>
                                 <td><?php echo $admin_payments['order_code'] ?? ''; ?></td>
                                 <td><?php echo $admin_payments['order_request_date'] ?? ''; ?></td>
-                                <td><?php echo $admin_payments['order_item_manufact'] ?? ''; ?></td>
-                                <td><?php echo $admin_payments['order_item_model'] ?? ''; ?></td>
+
                                 <td><?php echo $admin_payments['service_name'] ?? ''; ?></td>
                                 <td><?php echo $admin_payments['name'] ?? ''; ?></td>
-                                <td><?php echo $admin_payments['techn_name'] ?? ''; ?></td>
-                                <td><?php echo $admin_payments['order_status'] ?? ''; ?></td>
-                                <td><?php echo $admin_payments['order_complet_date_est'] ?? ''; ?></td>
-                                <td><?php echo $admin_payments['order_amount_to_pay'] ?? ''; ?></td>
-                                <td style="display: none;"><?php echo $admin_payments['techn_id'] ?? ''; ?></td>
+                                <td><?php echo $admin_payments['techn_name'] ?? '<i>Nėra</i>'; ?></td>
+                                <td><?php echo $admin_payments['order_status'] == "Aktyvus" ? ' <span class="badge bg-success">Aktyvus</span>' : ($admin_payments['order_status'] == "Pabaigtas" ? ' <span class="badge bg-secondary">Pabaigtas</span>' : '<span class="badge bg-danger">Neaktyvus</span>'); ?></td>
+                                <td><?php echo $admin_payments['total_amount_paid'] ?? ''; ?></td>
+                                <td><?php echo $admin_payments['is_paid'] == '1'?'<span class="badge rounded-pill text-dark bg-info">Apmokėtas</span>':'<span class="badge rounded-pill bg-warning text-dark">Neapmokėtas</span>'; ?></td>
                                 <td style="display: none;"><?php echo $admin_payments['order_descrip'] ?? ''; ?></td>
 
                                 <!-- <td data-bs-toggle="modal" data-bs-target="#editOrderModal"><button class="btn btn-primary editBtn">Redaguoti</button></td> -->

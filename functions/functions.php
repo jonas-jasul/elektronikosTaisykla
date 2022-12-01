@@ -134,6 +134,9 @@ if (isset($_POST['login-btn'])) {
                         header('location: userPage.php');
                     }
                 }
+                else {
+                    array_push($errors, "Netinkamas el. paštas/slaptažodis");
+                }
             }
         } else {
             array_push($errors, "Netinkamas el. paštas/slaptažodis");
