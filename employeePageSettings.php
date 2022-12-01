@@ -23,8 +23,8 @@
         <div class="row">
             <h2>Darbuotojo panelės nustatymai</h2>
             <div class="col-4 mx-auto">
-                <form class="form">
-
+                <form class="form" method="POST" action="functions/updateTechn.php">
+                    <input style="display: none;" name="employeeSettingsId" value="<?php echo $_SESSION['user']['id']?>">
                     <label for="employeeSettingsName">Vardas ir pavardė</label>
                     <input class="form-control" name="employeeSettingsName" id="employeeSettingsName" value="<?php echo $_SESSION['user']['name'] ?>">
                     <label for="employeeSettingsEmail">Email</label>
@@ -38,7 +38,7 @@
                     }
                     ?>
 
-                    <select class="form-select">
+                    <select name="employeeSettingsSpecializ" class="form-select">
                         <?php while ($row = mysqli_fetch_array($all_specializations)) { ?>
                             <option value="<?= $row['specializ_id']; ?>" <?= $row['specializ_id'] == $id ? ' selected' : ''; ?>>
                                 <?= $row['specializ_name']; ?>
@@ -46,7 +46,7 @@
                         <?php } ?>
                     </select>
 
-                    <button class="mt-2 btn btn-primary submit" type="submit">Išsaugoti</button>
+                    <button class="mt-2 btn btn-primary submit" type="submit" name="employeeSettingsSave">Išsaugoti</button>
                 </form>
             </div>
         </div>

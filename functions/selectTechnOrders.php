@@ -39,9 +39,18 @@ $total_pages = ceil($total_rows / $records_per_page);
 // INNER JOIN order_detaliz ON orders.order_id=order_detaliz.order_id 
 // INNER JOIN users ON orders.order_user_id=users.id WHERE orders.order_status='Neaktyvus' LIMIT $offset, $records_per_page";
 
+$employeeSettingsId=$_SESSION['user']['id'];
+
+$sql = "SELECT techn_spec_id FROM technicians INNER JOIN users ON technicians.user_techn_id=users.id WHERE user_techn_id='$employeeSettingsId'";
+
+$settings_specializ=mysqli_query($cnn, $sql);
+
+while ($row = $settings_specializ->fetch_assoc()) {
+    $loggedInEmployeeSpec = $row['techn_spec_id'];
+}
 $sql1 = "SELECT * FROM orders INNER JOIN services ON orders.order_service_id=services.service_id 
 INNER JOIN order_detaliz ON orders.order_id=order_detaliz.order_id 
-INNER JOIN users ON orders.order_user_id=users.id WHERE orders.order_status='Neaktyvus'";
+INNER JOIN users ON orders.order_user_id=users.id WHERE orders.order_status='Neaktyvus' AND services.service_specializ_id='$loggedInEmployeeSpec'";
 $all_inactive_techn_orders = mysqli_query($cnn, $sql1);
 
 $techn_id = $_SESSION['user']['id'];

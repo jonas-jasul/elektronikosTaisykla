@@ -22,3 +22,6 @@ h3 {
     height: 40%;
 }
 
+.inactive-bg {
+    background-color: rgb(242, 243, 243) !important;
+}

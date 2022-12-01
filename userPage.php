@@ -562,7 +562,7 @@
                                 <td style="display: none;"><?php echo $user_orders['order_descrip'] ?? ''; ?></td>
                                 <td><button data-bs-toggle="modal" data-bs-target="#cancelOrderUser" class="cancelOrderBtn btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i></button></td>
                                 <td><button data-bs-toggle="modal" data-bs-target="#moreInfoUserOrder" class="morInfoBtn btn btn-primary"><i class="fa fa-info-circle" aria-hidden="true"></i></button></td>
-                                <td><button data-bs-toggle="modal" data-bs-target="#payOrderUser" class="payOrderBtn btn btn-success"><i class="fas fa-euro-sign"></i></button></td>
+                                <td> <?php echo $user_orders['is_paid'] == "1" ? '<button data-bs-toggle="modal" disabled data-bs-target="#payOrderUser" class="payOrderBtn btn btn-success"><i class="fas fa-euro-sign"></i></button>': '<button data-bs-toggle="modal" data-bs-target="#payOrderUser" class="payOrderBtn btn btn-success"><i class="fas fa-euro-sign"></i></button>';?> </td>
 
                             </tr>
 

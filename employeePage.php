@@ -94,19 +94,19 @@
                                         <h4>Ar tikrai norite priimti šį užsakymą?</h4>
                                         <label for="acceptOrderCode">Užsakymo kodas</label>
                                         <br>
-                                        <input class="form-control modal-input-box" type="text" name="acceptOrderCode" id="acceptOrderCode" readonly>
+                                        <input class="inactive-bg form-control modal-input-box" type="text" name="acceptOrderCode" id="acceptOrderCode" readonly>
                                         <label for="acceptOrderDate">Sukūrimo data</label>
                                         <br>
-                                        <input data-date-format="yyyy/mm/dd" data-provide="datepicker" class="form-control" type="text" name="acceptOrderDate" id="acceptOrderDate" readonly>
+                                        <input data-date-format="yyyy/mm/dd" data-provide="datepicker" class="inactive-bg form-control" type="text" name="acceptOrderDate" id="acceptOrderDate" readonly>
                                         <label for="acceptOrderManufac">Gamintojas</label>
                                         <br>
-                                        <input class="form-control modal-input-box" type="text" name="acceptOrderManufac" id="acceptOrderManufac" readonly>
+                                        <input class="inactive-bg form-control modal-input-box" type="text" name="acceptOrderManufac" id="acceptOrderManufac" readonly>
                                         <label for="acceptOrderModel">Modelis</label>
                                         <br>
-                                        <input class="form-control modal-input-box" type="text" name="acceptOrderModel" id="acceptOrderModel" readonly>
+                                        <input class="inactive-bg form-control modal-input-box" type="text" name="acceptOrderModel" id="acceptOrderModel" readonly>
                                         <label for="acceptOrderService">Paslauga</label>
                                         <br>
-                                        <input class="form-control" type="text" name="acceptOrderService" id="acceptOrderService" readonly>
+                                        <input class="inactive-bg form-control" type="text" name="acceptOrderService" id="acceptOrderService" readonly>
                                         <label for="acceptOrderEstComplDate">Numatoma pabaigimo data</label>
                                         <br>
                                         <input data-date-format="yyyy/mm/dd" data-provide="datepicker" class="form-control" type="text" name="acceptOrderEstComplDate" id="acceptOrderEstComplDate" min="2000-01-01" required>
@@ -209,19 +209,19 @@
                                         <input type="hidden" name="order_id_edit" id="order_id_edit">
                                         <label for="editOrderCode">Užsakymo kodas</label>
                                         <br>
-                                        <input class="form-control modal-input-box" type="text" name="editOrderCode" id="editOrderCode" readonly>
+                                        <input class="inactive-bg form-control modal-input-box" type="text" name="editOrderCode" id="editOrderCode" readonly>
                                         <label for="editOrderDate">Sukūrimo data</label>
                                         <br>
-                                        <input data-date-format="yyyy/mm/dd" data-provide="datepicker" class="form-control" type="text" name="editOrderDate" id="editOrderDate" readonly>
+                                        <input data-date-format="yyyy/mm/dd" data-provide="datepicker" class="inactive-bg form-control" type="text" name="editOrderDate" id="editOrderDate" readonly>
                                         <label for="editOrderManufac">Gamintojas</label>
                                         <br>
-                                        <input class="form-control modal-input-box" type="text" name="editOrderManufac" id="editOrderManufac" readonly>
+                                        <input class="inactive-bg form-control modal-input-box" type="text" name="editOrderManufac" id="editOrderManufac" readonly>
                                         <label for="editOrderModel">Modelis</label>
                                         <br>
-                                        <input class="form-control modal-input-box" type="text" name="editOrderModel" id="editOrderModel" readonly>
+                                        <input class="inactive-bg form-control modal-input-box" type="text" name="editOrderModel" id="editOrderModel" readonly>
                                         <label for="editOrderService">Paslauga</label>
                                         <br>
-                                        <input class="form-control" type="text" name="editOrderService" id="editOrderService" readonly>
+                                        <input class="inactive-bg form-control" type="text" name="editOrderService" id="editOrderService" readonly>
                                         <label for="editOrderEstComplDate">Numatoma pabaigimo data</label>
                                         <br>
                                         <input data-date-format="yyyy/mm/dd" data-provide="datepicker" class="form-control" type="text" name="editOrderEstComplDate" id="editOrderEstComplDate" min="2000-01-01" required>
