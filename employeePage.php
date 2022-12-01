@@ -49,8 +49,7 @@
                                 <th scope="col">Modelis</th>
                                 <th scope="col">Vartotojas</th>
                                 <th scope="col">Paslauga</th>
-                                <th scope="col">Statusas</th>
-                                <th scope="col">Numatoma pabaigimo data</th>
+
                                 <th scope="col"></th>
 
                             </tr>
@@ -70,8 +69,7 @@
                                     <td><?php echo $inactive_techn_orders['order_item_model'] ?? ''; ?></td>
                                     <td><?php echo $inactive_techn_orders['name'] ?? ''; ?></td>
                                     <td><?php echo $inactive_techn_orders['service_name'] ?? ''; ?></td>
-                                    <td><?php echo $inactive_techn_orders['order_status'] ?? ''; ?></td>
-                                    <td><?php echo $inactive_techn_orders['order_complet_date_est'] ?? ''; ?></td>
+
                                     <!-- <td><?php echo $inactive_techn_orders['order_techn_id'] ?? ''; ?></td> -->
                                     <td><button data-bs-toggle="modal" data-bs-target="#acceptOrderModal" class="acceptBtn button btn btn-light"><i class="fa-solid fa-circle-check"></i></button></td>
 
@@ -162,7 +160,6 @@
                                 <th scope="col">Vartotojas</th>
                                 <th style="display: none;" scope="col">Vartotojas</th>
                                 <th scope="col">Paslauga</th>
-                                <th scope="col">Statusas</th>
                                 <th scope="col">Numatoma pabaigimo data</th>
                                 <th scope="col"></th>
                                 <th style="display:none;" scope="col"></th>
@@ -185,7 +182,6 @@
                                     <td><?php echo $active_techn_orders['name'] ?? ''; ?></td>
                                     <td><?php echo $active_techn_orders['service_name'] ?? ''; ?></td>
                                     <td style="display: none;"><?php echo $active_techn_orders['order_techn_id'] ?? ''; ?></td>
-                                    <td><?php echo $active_techn_orders['order_status'] ?? ''; ?></td>
                                     <td><?php echo $active_techn_orders['order_complet_date_est'] ?? ''; ?></td>
                                     <!-- <td><?php echo $active_techn_orders['order_techn_id'] ?? ''; ?></td> -->
                                     <td><button data-bs-toggle="modal" data-bs-target="#editOrderModal" class="button btn btn-light editBtn"><i class="fas fa-edit"></i></button></td>

@@ -38,7 +38,6 @@ include('functions/selectAdminPayments.php');
                             <th scope="col">#</th>
                             <th scope="col">Kodas</th>
                             <th scope="col">Sukūrimo data</th>
-                            <th scope="col">Specializacija</th>
                             <th scope="col">Gamintojas</th>
                             <th scope="col">Modelis</th>
                             <th scope="col">Paslauga</th>
@@ -63,7 +62,6 @@ include('functions/selectAdminPayments.php');
                                 <td><?php echo $admin_payments['order_id'] ?? ''; ?></th>
                                 <td><?php echo $admin_payments['order_code'] ?? ''; ?></td>
                                 <td><?php echo $admin_payments['order_request_date'] ?? ''; ?></td>
-                                <td><?php echo $admin_payments['specializ_name'] ?? ''; ?></td>
                                 <td><?php echo $admin_payments['order_item_manufact'] ?? ''; ?></td>
                                 <td><?php echo $admin_payments['order_item_model'] ?? ''; ?></td>
                                 <td><?php echo $admin_payments['service_name'] ?? ''; ?></td>
