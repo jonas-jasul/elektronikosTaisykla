@@ -1,3 +1,9 @@
+<?php
+$page="Skydelis";
+include_once("head.php"); 
+include("functions/functions.php");
+
+?>
 <!DOCTYPE html>
 <html lang="lt">
 
@@ -12,9 +18,9 @@
 </head>
 
 <body>
-    <?php include("head.php"); ?>
+  
     <div class="page-content p-5" id="content">
-        <?php include("dashboard.php"); ?>
+        <?php include_once("dashboard.php"); ?>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.1/js/bootstrap.min.js"></script>

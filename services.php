@@ -1,8 +1,10 @@
 <?php
 session_start();
+
 $_SESSION['userSelectRepairID'] = null;
 include("functions/selectService.php");
 include("functions/selectSpecialization.php");
+$page = "Paslaugos";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -28,7 +30,7 @@ include("functions/selectSpecialization.php");
             <div class="col">
                 <h1>Paslaugos</h1>
                 <br>
-                <button id="btn-show" class="mb-2">Rodyti formą</button>
+                <button id="btn-show" class="btn button btn-warning mb-2">Rodyti formą</button>
             </div>
         </div>
 
@@ -93,8 +95,8 @@ include("functions/selectSpecialization.php");
                                 <td><?php echo $service['specializ_name'] ?? ''; ?></td>
                                 <td><?php echo $service['price'] ?? ''; ?></td>
                                 <td><?php echo $service['description'] ?? ''; ?></td>
-                                <td><button type="button" data-bs-toggle="modal" data-bs-target="#editSpecModal" class="editBtn btn btn-primary"><i class="fas fa-edit"></i></button></td>
-                                <td><button type="button" data-bs-toggle="modal" data-bs-target="#removeServiceModal" class="removeBtn btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
+                                <td><button type="button" data-bs-toggle="modal" data-bs-target="#editSpecModal" class="editBtn btn btn-sm btn-primary"><i class="fas fa-edit"></i></button></td>
+                                <td><button type="button" data-bs-toggle="modal" data-bs-target="#removeServiceModal" class="removeBtn btn btn-sm btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
 
                             </tr>
                         <?php

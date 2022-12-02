@@ -114,6 +114,14 @@ f
     color: black;
 }
 
-.pagination .active {
+/* .pagination .active {
     background-color: rgb(217, 229, 229)
+} */
+
+.active {
+    background-color: rgb(181, 197, 197);
+}
+
+.nav > li > a:hover{
+    background-color: rgb(200, 220, 220);
 }

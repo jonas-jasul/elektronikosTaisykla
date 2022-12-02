@@ -1,6 +1,7 @@
 <?php
 include('functions/selectAdminOrders.php');
 include_once('functions/selectTechn.php');
+$page = "Taisymai";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -70,7 +71,7 @@ include_once('functions/selectTechn.php');
                                 <td><?php echo $admin_orders['service_name'] ?? ''; ?></td>
                                 <td><?php echo $admin_orders['name'] ?? ''; ?></td>
                                 <td><?php echo $admin_orders['techn_name'] ?? '<i>Nėra</i>'; ?></td>
-                                <td><?php echo $admin_orders['order_status'] == "Aktyvus" ? ' <span class="badge bg-success">Aktyvus</span>' : ($admin_orders['order_status'] == "Pabaigtas" ? ' <span class="badge bg-secondary">Pabaigtas</span>' : '<span class="badge bg-danger">Neaktyvus</span>'); ?></td>
+                                <td><?php echo $admin_orders['order_status'] == "Aktyvus" ? '<span class="badge bg-success">Aktyvus</span>' : ($admin_orders['order_status'] == "Pabaigtas" ? '<span class="badge bg-secondary">Pabaigtas</span>' : '<span class="badge bg-danger">Neaktyvus</span>'); ?></td>
                                 <td><?php echo $admin_orders['order_complet_date_est'] ?? ''; ?></td>
                                 <td><?php echo $admin_orders['order_amount_to_pay'] ?? ''; ?></td>
                                 <td style="display: none;"><?php echo $admin_orders['techn_id'] ?? ''; ?></td>
@@ -118,7 +119,7 @@ include_once('functions/selectTechn.php');
                                     <textarea class="form-control" name="editOrderDesc" id="editOrderDesc"></textarea>
                                     <label for="editOrderAdminTechn">Specialistas</label>
                                     <br>
-                                    <select class="js-example-responsive form-select" style="width: 100%;" id="editOrderAdminTechn" name="editOrderAdminTechn">
+                                    <select class="js-example-responsive form-select" style="width: 100%;" id="editOrderAdminTechn" name="editOrderAdminTechn" required>
                                         <?php foreach ($all_technicians as $techn_select) { ?>
                                             <option value="<?php echo $techn_select["techn_id"] ?>"><?php echo $techn_select["techn_name"] ?></option>
                                         <?php } ?>

@@ -1,4 +1,5 @@
 <?php
+$page = "Specialistai";
 include("functions/selectTechn.php");
 include("functions/selectSpecialization.php");
 ?>
@@ -53,7 +54,7 @@ include("functions/selectSpecialization.php");
             <div class="col">
                 <h1>Specialistai</h1>
                 <br>
-                <button id="btn-show" class="mb-2">Rodyti formą</button>
+                <button id="btn-show" class="button btn btn-warning mb-2">Rodyti formą</button>
             </div>
         </div>
 
@@ -151,8 +152,8 @@ include("functions/selectSpecialization.php");
                                 <td><?php echo $techn['techn_phone_num'] ?? ''; ?></td>
                                 <td style="display: none;"><?php echo $techn['specializ_id'] ?? ''; ?></td>
                                 <td><?php echo $techn['specializ_name'] ?? ''; ?></td>
-                                <td><button type="button" data-bs-toggle="modal" data-bs-target="#editSpecModal" class="editBtn btn btn-primary"><i class="fas fa-edit"></i></button></td>
-                                <td><button type="button" data-bs-toggle="modal" data-bs-target="#removeSpecModal" class="removeBtn btn btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
+                                <td><button type="button" data-bs-toggle="modal" data-bs-target="#editSpecModal" class="editBtn btn btn-sm btn-primary"><i class="fas fa-edit"></i></button></td>
+                                <td><button type="button" data-bs-toggle="modal" data-bs-target="#removeSpecModal" class="removeBtn btn btn-sm btn-danger"><i class="fa fa-trash" aria-hidden="true"></i></button></td>
 
                             </tr>
                         <?php

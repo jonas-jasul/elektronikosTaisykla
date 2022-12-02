@@ -1,6 +1,6 @@
 <?php
 include('functions/selectAdminPayments.php');
-
+$page="Apmokėjimai";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,7 +37,6 @@ include('functions/selectAdminPayments.php');
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Kodas</th>
-                            <th scope="col">Sukūrimo data</th>
                         
                             <th scope="col">Paslauga</th>
                             <th scope="col">Vartotojas</th>
@@ -57,10 +56,9 @@ include('functions/selectAdminPayments.php');
                             MYSQLI_ASSOC
                         )) :;
                         ?>
-                            <tr class="clickable-row" data-bs-toggle="modal" data-bs-target="#editOrderModal">
+                            <tr class="clickable-row" data-bs-toggle="modal" data-bs-target="#editPaymentModal">
                                 <td><?php echo $admin_payments['order_id'] ?? ''; ?></th>
                                 <td><?php echo $admin_payments['order_code'] ?? ''; ?></td>
-                                <td><?php echo $admin_payments['order_request_date'] ?? ''; ?></td>
 
                                 <td><?php echo $admin_payments['service_name'] ?? ''; ?></td>
                                 <td><?php echo $admin_payments['name'] ?? ''; ?></td>
@@ -78,6 +76,42 @@ include('functions/selectAdminPayments.php');
                     </tbody>
 
                 </table>
+
+                <form action="functions/editPaymentAdmin.php" method="POST" class="form">
+                    <div class="modal fade" id="editPaymentModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="exampleModalLabel">Redaguoti apmokėjimą</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    <input type="hidden" name="payment_id_edit" id="payment_id_edit">
+                                    <label for="editPaymentCode">Užsakymo kodas</label>
+                                    <br>
+                                    
+                                    <br>
+                                    <input data-date-format="yyyy/mm/dd" data-provide="datepicker" class="form-control" type="text" name="editPaymentDate" id="editPaymentDate">
+                                    <!-- <label for="editOrderManufac">Gamintojas</label>
+                                    <br>
+                                    <input class="form-control modal-input-box" type="text" name="editOrderManufac" id="editOrderManufac" readonly> -->
+                                    <label for="editPaymentModel">Modelis</label>
+                                    <br>
+                                    <input class="form-control modal-input-box" type="text" name="editPaymentModel" id="editPaymentModel" readonly>
+                                    <label for="editPaymentService">Paslauga</label>
+                                    <br>
+                                    <input class="form-control" type="text" name="editPaymentService" id="editPaymentService" readonly>
+                                    
+                                    
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Atšaukti</button>
+                                    <button type="submit" name="editOrderBtn" class="btn btn-primary">Redaguoti</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -95,7 +129,7 @@ include('functions/selectAdminPayments.php');
 
 
             $('.clickable-row').on('click', function() {
-                $('#editOrderModal').modal('show');
+                $('#editPaymentModal').modal('show');
 
                 $tr = $(this).closest('tr');
                 var data = $tr.children('td').map(function() {
@@ -124,7 +158,7 @@ include('functions/selectAdminPayments.php');
                 $('.js-example-responsive').select2();
                 console.log(testing);
                 $('.js-example-responsive').select2({
-                    dropdownParent: $('#editOrderModal'),
+                    dropdownParent: $('#editPaymentModal'),
                     language: {
                         noResults: function() {
                             return "Specialistų nerasta";
