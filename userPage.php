@@ -12,7 +12,10 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="css/welcome.css" type="text/css">
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.6.15/sweetalert2.all.js" integrity="sha512-HKvssviZjuAw/ZSnp0DC8SK7yYGxv9SslEBTe/+kNfe97fpmx7UTNQsj5JG9NOqYGz8M/vJSiosTvr3AAKT0cw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <title>Vartotojo panelė</title>
+
 </head>
 
 <body>
@@ -168,7 +171,6 @@
     </form>
 
     <form action="functions/insertOrder.php" method="POST">
-
         <div class="modal fade" id="desktopRepairModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
@@ -560,9 +562,9 @@
                                     echo $user_orders['is_paid'] == "0" ? '<span class="badge rounded-pill bg-warning text-dark">Neapmokėtas</span>' : '<span class="badge rounded-pill text-dark bg-info">Apmokėtas</span>'; ?>
                                 </td>
                                 <td style="display: none;"><?php echo $user_orders['order_descrip'] ?? ''; ?></td>
-                                <td> <?php echo $user_orders['order_status'] != "Aktyvus" ? '<button data-bs-toggle="modal" data-bs-target="#cancelOrderUser" class="cancelOrderBtn btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i></button></td>' : '<button disabled data-bs-toggle="modal" data-bs-target="#cancelOrderUser" class="cancelOrderBtn btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i></button>';?> </td>
+                                <td> <?php echo $user_orders['order_status'] != "Aktyvus" ? '<button data-bs-toggle="modal" data-bs-target="#cancelOrderUser" class="cancelOrderBtn btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i></button></td>' : '<button disabled data-bs-toggle="modal" data-bs-target="#cancelOrderUser" class="cancelOrderBtn btn btn-danger"><i class="fa fa-times" aria-hidden="true"></i></button>'; ?> </td>
                                 <td><button data-bs-toggle="modal" data-bs-target="#moreInfoUserOrder" class="morInfoBtn btn btn-primary"><i class="fa fa-info-circle" aria-hidden="true"></i></button></td>
-                                <td> <?php echo $user_orders['is_paid'] == "1" ? '<button data-bs-toggle="modal" disabled data-bs-target="#payOrderUser" class="payOrderBtn btn btn-success"><i class="fas fa-euro-sign"></i></button>': '<button data-bs-toggle="modal" data-bs-target="#payOrderUser" class="payOrderBtn btn btn-success"><i class="fas fa-euro-sign"></i></button>';?> </td>
+                                <td> <?php echo $user_orders['is_paid'] == "1" ? '<button data-bs-toggle="modal" disabled data-bs-target="#payOrderUser" class="payOrderBtn btn btn-success"><i class="fas fa-euro-sign"></i></button>' : '<button data-bs-toggle="modal" data-bs-target="#payOrderUser" class="payOrderBtn btn btn-success"><i class="fas fa-euro-sign"></i></button>'; ?> </td>
 
                             </tr>
 
@@ -714,7 +716,7 @@
                                         <h4 class="modalPayTotal">Iš viso mokėti:</h4>
                                         <br>
                                         <h3 id="payOrderPriceH"></h3>
-                                        <div class="col-4">
+                                        <div class="col-3">
                                             <h6 class="paymentPlatform">Mokėjimas banko kortele <i class="fa-regular fa-credit-card"></i></h6>
                                             <a class="btn" href="#bankCollapse" role="button" data-bs-parent="#paymentGroup" data-bs-toggle="collapse" data-bs-target="#bankCollapse" aria-expanded="false" aria-controls="bankCollapse"><img class="bankCardLogo img-fluid" src="images/Mastercard-logo.svg.png"></a>
                                             <a class="btn" href="#bankCollapse1" role="button" data-bs-parent="#paymentGroup" data-bs-toggle="collapse" data-bs-target="#bankCollapse1" aria-expanded="false" aria-controls="bankCollapse1"><img class="bankCardLogo img-fluid" src="images/Maestro_2016.svg.png"></a>
@@ -722,11 +724,10 @@
                                             <a class="btn" href="#bankCollapse3" role="button" data-bs-parent="#paymentGroup" data-bs-toggle="collapse" data-bs-target="#bankCollapse3" aria-expanded="false" aria-controls="bankCollapse3"><img class="bankCardLogo img-fluid" src="images/1200px-American_Express_logo_(2018).svg.webp"></a>
                                         </div>
 
-                                        <div class="col-4">
+                                        <div class="col-3">
                                             <h6 class="paymentPlatform">Mokėjimas per PayPal <i class="fa-brands fa-paypal"></i></h6>
                                             <a class="btn" href="#paypal-button-container" role="button" data-bs-parent="#paymentGroup" data-bs-toggle="collapse" data-bs-target="#paypal-button-container" aria-expanded="false" aria-controls="paypal-button-container"><img class="paypalLogo img-fluid" src="images/PayPal.svg.png"></a>
                                             <script src="https://www.paypal.com/sdk/js?client-id=AULCB_DZ9omjV7nQhkaRZr8NgvC0d_OoY1sb5252K-ytkr2wlwMnOhpbegGRRZU4I-S1PJkZorjcrkKI&currency=EUR&locale=en_LT"></script>
-                                            <!-- Set up a container element for the button -->
                                             <div class="collapse in" id="paypal-button-container"></div>
 
 
@@ -750,24 +751,26 @@
                                                             // Successful capture! For dev/demo purposes:
                                                             console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
                                                             const transaction = orderData.purchase_units[0].payments.captures[0];
-                                                            
-                                                            // When ready to go live, remove the alert and show a success message within this page. For example:
-                                                            // const element = document.getElementById('paypal-button-container');
-                                                            // element.innerHTML = '<h3>Thank you for your payment!</h3>';
-                                                            // Or go to another URL:  actions.redirect('thank_you.html');
-                                                            alert("Užsakymas apmokėtas sėkmingai!");
+
+                                                            Swal.fire({
+                                                                title: 'Apmokėjimas sėkmingas!',
+                                                                text: "Ačiū, jog naudojatės mūsų paslaugomis!",
+                                                                icon: 'success',
+                                                                confirmButtonText: 'Gerai'
+                                                            });
+                                                            setTimeout(function() {
+                                                                location.reload();
+                                                            }, 4000);
                                                             $.ajax({
                                                                 url: "functions/payOrder.php",
                                                                 type: 'post',
                                                                 data: {
                                                                     'paymentID': paypalOrderPaymentId,
-                                                                    'amountPaid':paypalOrderPrice
+                                                                    'amountPaid': paypalOrderPrice
                                                                 },
                                                                 dataType: 'json',
                                                                 cache: false,
-                                                                success: function(msg) {
-                                                                    alert(msg);
-                                                                }
+
                                                             });
                                                             // return fetch('functions/payOrder.php', {
                                                             //     method: 'post',
@@ -786,7 +789,7 @@
                                         </div>
 
 
-                                        <div class="col-4">
+                                        <div class="col-3">
                                             <h6 class="paymentPlatform">Atsiskaitymas grynais <i class="fa-regular fa-handshake"></i></h6>
                                             <a class="btn" href="#cashCollapse" role="button" data-bs-parent="#paymentGroup" data-bs-toggle="collapse" data-bs-target="#cashCollapse" aria-expanded="false" aria-controls="cashCollapse"><img class="paypalLogo img-fluid" src="images/money-svgrepo-com.svg"></a>
 
@@ -801,6 +804,24 @@
 
                                         </div>
 
+                                        <div class="col-3">
+                                            <h6 class="paymentPlatform">Mokėjimas per Paysera<i class="fa-solid fa-building-columns"></i></h6>
+                                            <!-- <a class="btn" href="#intBankCollapse" role="button" data-bs-parent="#paymentGroup" data-bs-toggle="collapse" data-bs-target="#intBankCollapse" aria-expanded="false" aria-controls="intBankCollapse"><img class="paypalLogo img-fluid" src="images/money-svgrepo-com.svg"></a> -->
+
+                                            <!-- <div class="collapse in" id="intBankCollapse">
+                                                <form>
+                                                    <h6>Atsiskaitymas internetiniu banku:</h6>
+                                                    <label>Vardas ir pavardė </label>
+                                                    <br>
+                                                    <input class="form-control" type="text" required>
+                                                </form>
+                                            </div> -->
+                                            <!-- <a class="btn"><img class="paypalLogo img-fluid" src="./images/swed.png"></a>
+                                            <a class="btn"><img class="paypalLogo img-fluid" src="./images/seb_k_45mm150dpi.jpg"></a>
+                                            <a class="btn"><img class="paypalLogo img-fluid" src="./images/luminor.png"></a> -->
+                                            <a class="btn"><img class="paypalLogo img-fluid" src="./images/Paysera_logo_2022.png" alt=""></a>
+
+                                        </div>
                                     </div>
                                     <div class="row">
                                         <div class="col-4">
@@ -932,12 +953,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.13.1/sp-2.1.0/sl-1.5.0/datatables.min.css" />
 
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/jq-3.6.0/dt-1.13.1/sp-2.1.0/sl-1.5.0/datatables.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/7.0.96/css/materialdesignicons.min.css" integrity="sha512-fXnjLwoVZ01NUqS/7G5kAnhXNXat6v7e3M9PhoMHOTARUMCaf5qNO84r5x9AFf5HDzm3rEZD8sb/n6dZ19SzFA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <script type="text/javascript" src="//cdn.datatables.net/plug-ins/1.13.1/pagination/ellipses.js"></script>
     <script>
         $(document).ready(function() {
 
 
             $('.morInfoBtn').on('click', function() {
+
                 //$('#acceptOrderModal').modal('show');
 
                 $tr = $(this).closest('tr');
@@ -1017,7 +1043,66 @@
             getPrice('#order_service_id_laptop', '#order_item_price_laptop');
 
             $("#userOrdersTable").DataTable({
-                "language": {
+
+                stateSave: true,
+                lengthMenu: [5, 10, 15, 20, 50],
+
+
+                dom: 'Plfrtip',
+                searchPanes: {
+                    columns: [3, 7, 8, 10],
+                    initCollapsed: true,
+                    threshold: 1,
+
+                },
+                columnDefs: [
+
+                    {
+                        searchPanes: {
+                            initCollapsed: true,
+                            options: [{
+                                    label: '< 10',
+                                    value: function(rowData, rowIdx) {
+                                        return rowData[10] < 10;
+                                    }
+                                },
+                                {
+                                    label: '10 - 20',
+                                    value: function(rowData, rowIdx) {
+                                        return rowData[10] <= 20 && rowData[10] >= 10;
+                                    }
+                                },
+                                {
+                                    label: '20 - 30',
+                                    value: function(rowData, rowIdx) {
+                                        return rowData[10] <= 30 && rowData[10] >= 20;
+                                    }
+                                },
+                                {
+                                    label: '30 - 40',
+                                    value: function(rowData, rowIdx) {
+                                        return rowData[10] <= 40 && rowData[10] >= 30;
+                                    }
+                                },
+                                {
+                                    label: '40 - 50',
+                                    value: function(rowData, rowIdx) {
+                                        return rowData[10] <= 50 && rowData[10] >= 40;
+                                    }
+                                },
+                                {
+                                    label: '> 50',
+                                    value: function(rowData, rowIdx) {
+                                        return rowData[10] > 50;
+                                    }
+                                }
+                            ]
+                        },
+                        targets: [10]
+                    },
+
+                ],
+                language: {
                     "decimal": "",
                     "emptyTable": "Įrašų nėra",
                     "info": "Rodoma nuo _START_ iki _END_ iš _TOTAL_ įrašų",
@@ -1033,15 +1118,26 @@
                     "paginate": {
                         "first": '<i class="fa fa-step-backward"></i>',
                         "last": '<i class="fa fa-step-forward"></i>',
-                        "next": '<i class="fa fa-forward"></i>',
-                        "previous": '<i class="fa fa-backward"></i>'
+                        "next": '<i class="fa-solid fa-angles-right"></i>',
+                        "previous": '<i class="fa-solid fa-angles-left"></i>'
                     },
                     "aria": {
                         "sortAscending": ": activate to sort column ascending",
                         "sortDescending": ": activate to sort column descending"
+                    },
+                    searchPanes: {
+                        clearMessage: '<span class="material-symbols-outlined">filter_alt_off</span>',
+                        showMessage: 'Rodyti filtrus',
+                        collapseMessage: 'Suskleisti filtrus',
+                        title: {
+                            _: 'Pasirinkta filtrų - %d',
+                            0: 'Filtras nepasirinktas',
+                            1: 'Pasirinktas vienas filtras',
+                        }
+
                     }
                 },
-                lengthMenu: [5, 10, 15, 20, 50],
+
             });
 
 

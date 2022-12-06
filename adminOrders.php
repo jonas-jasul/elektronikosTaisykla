@@ -13,7 +13,6 @@ $page = "Taisymai";
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="stylesheet" href="css/style.css" type="text/css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css" integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.1/css/jquery.dataTables.min.css">
     <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
     <title>Visi taisymai</title>
 </head>
@@ -48,7 +47,7 @@ $page = "Taisymai";
                             <th scope="col">Specialistas</th>
                             <th scope="col">Statusas</th>
                             <th scope="col">Numatoma pabaigimo data</th>
-                            <th scope="col">Mokama kaina</th>
+                            <!-- <th scope="col">Mokama kaina</th> -->
                             <th style="display: none;" scope="col"></th>
                             <th style="display: none;" scope="col">Aprašas</th>
                             <!-- <th scope="col"></th> -->
@@ -73,7 +72,7 @@ $page = "Taisymai";
                                 <td><?php echo $admin_orders['techn_name'] ?? '<i>Nėra</i>'; ?></td>
                                 <td><?php echo $admin_orders['order_status'] == "Aktyvus" ? '<span class="badge bg-success">Aktyvus</span>' : ($admin_orders['order_status'] == "Pabaigtas" ? '<span class="badge bg-secondary">Pabaigtas</span>' : '<span class="badge bg-danger">Neaktyvus</span>'); ?></td>
                                 <td><?php echo $admin_orders['order_complet_date_est'] ?? ''; ?></td>
-                                <td><?php echo $admin_orders['order_amount_to_pay'] ?? ''; ?></td>
+                                <!-- <td><?php echo $admin_orders['order_amount_to_pay'] ?? ''; ?></td> -->
                                 <td style="display: none;"><?php echo $admin_orders['techn_id'] ?? ''; ?></td>
                                 <td style="display: none;"><?php echo $admin_orders['order_descrip'] ?? ''; ?></td>
 
@@ -107,7 +106,7 @@ $page = "Taisymai";
                                     <input class="form-control modal-input-box" type="text" name="editOrderManufac" id="editOrderManufac" readonly> -->
                                     <label for="editOrderModel">Modelis</label>
                                     <br>
-                                    <input class="form-control modal-input-box" type="text" name="editOrderModel" id="editOrderModel" readonly>
+                                    <input class="form-control modal-input-box" type="text" name="editOrderModel" id="editOrderModel">
                                     <label for="editOrderService">Paslauga</label>
                                     <br>
                                     <input class="form-control" type="text" name="editOrderService" id="editOrderService" readonly>
@@ -168,12 +167,15 @@ $page = "Taisymai";
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.1/js/bootstrap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.standalone.min.css" integrity="sha512-TQQ3J4WkE/rwojNFo6OJdyu6G8Xe9z8rMrlF9y7xpFbQfW5g8aSWcygCQ4vqRiJqFsDsE1T6MoAOMJkFXlrI9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="scripts/showHideForm.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.13.1/date-1.2.0/r-2.4.0/sp-2.1.0/sl-1.5.0/datatables.css" />
 
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.13.1/date-1.2.0/r-2.4.0/sp-2.1.0/sl-1.5.0/datatables.js"></script>
     <script>
         $(document).ready(function() {
 
@@ -200,11 +202,12 @@ $page = "Taisymai";
                 //var correctedDate2 = orderEstComplDatFirst.toLocaleDateString();
                 //console.log(correctedDate2);
                 $("#editOrderEstComplDate").datepicker('update', orderEstComplDatFirst);
-                $("#editOrderDesc").val(data[13]);
+                $("#editOrderDesc").val(data[12]);
                 $("#editOrderAdminStatus").val(data[9]);
                 //$("#editOrderAdminTechn").val(data[12]);
                 var testing = data[12];
-                $('.js-example-responsive').val(data[12]);
+                //console.log(data[11]);
+                $('.js-example-responsive').val(data[11]);
                 $('.js-example-responsive').select2();
                 console.log(testing);
                 $('.js-example-responsive').select2({
@@ -220,6 +223,15 @@ $page = "Taisymai";
 
 
             $("#adminOrdersTable").DataTable({
+                dom: 'Plfrtip',
+                searchPanes: {
+                    columns: [3, 4, 7, 8],
+                    initCollapsed: true,
+                    threshold: 1,
+
+                },
+                stateSave: true,
+
                 "language": {
                     "decimal": "",
                     "emptyTable": "Įrašų nėra",
@@ -242,8 +254,21 @@ $page = "Taisymai";
                     "aria": {
                         "sortAscending": ": activate to sort column ascending",
                         "sortDescending": ": activate to sort column descending"
+                    },
+                    searchPanes: {
+                        clearMessage: 'Išvalyti filtrus',
+                        showMessage: 'Rodyti filtrus',
+                        collapseMessage: 'Suskleisti filtrus',
+                        title: {
+                            _: 'Pasirinkta filtrų - %d',
+                            0: 'Filtras nepasirinktas',
+                            1: 'Pasirinktas vienas filtras',
+                        }
+
                     }
-                }
+                },
+
+
             });
 
 

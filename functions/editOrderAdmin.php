@@ -12,6 +12,7 @@ if (isset($_POST['editOrderBtn'])) {
     $set_order_start_date = $_POST['editOrderDate'];
     $est_compl_date = $_POST['editOrderEstComplDate'];
     $techn_id = $_POST['order_edit_techn'];
+    $order_model = $_POST['editOrderModel'];
     $order_description = $_POST['editOrderDesc'];
     $set_techn_id=$_POST['editOrderAdminTechn'];
     $order_status = $_POST['editOrderAdminStatus'];
@@ -20,7 +21,7 @@ if (isset($_POST['editOrderBtn'])) {
 
     mysqli_query($cnn, $query);
 
-    $query2 = "UPDATE order_detaliz SET order_detaliz.order_descrip='$order_description' WHERE order_id='$id' ";
+    $query2 = "UPDATE order_detaliz SET order_detaliz.order_descrip='$order_description', order_detaliz.order_item_model='$order_model' WHERE order_id='$id' ";
 
     mysqli_query($cnn, $query2);
 

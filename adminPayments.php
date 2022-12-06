@@ -1,6 +1,6 @@
 <?php
 include('functions/selectAdminPayments.php');
-$page="Apmokėjimai";
+$page = "Apmokėjimai";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -37,15 +37,18 @@ $page="Apmokėjimai";
                         <tr>
                             <th scope="col">#</th>
                             <th scope="col">Kodas</th>
-                        
+
                             <th scope="col">Paslauga</th>
                             <th scope="col">Vartotojas</th>
                             <th scope="col">Specialistas</th>
-                            <th scope="col">Statusas</th>
+                            <!-- <th scope="col">Statusas</th> -->
                             <th scope="col">Mokama kaina</th>
                             <th scope="col">Apmokėjimo statusas</th>
+                            <th scope="col">Apmokėjimo data</th>
 
                             <th style="display: none;" scope="col">Aprašas</th>
+                            <th style="display: none;" scope="col">Mokėjimo ID</th>
+
                             <!-- <th scope="col"></th> -->
                         </tr>
                     </thead>
@@ -57,18 +60,22 @@ $page="Apmokėjimai";
                         )) :;
                         ?>
                             <tr class="clickable-row" data-bs-toggle="modal" data-bs-target="#editPaymentModal">
+                                
                                 <td><?php echo $admin_payments['order_id'] ?? ''; ?></th>
                                 <td><?php echo $admin_payments['order_code'] ?? ''; ?></td>
 
                                 <td><?php echo $admin_payments['service_name'] ?? ''; ?></td>
                                 <td><?php echo $admin_payments['name'] ?? ''; ?></td>
                                 <td><?php echo $admin_payments['techn_name'] ?? '<i>Nėra</i>'; ?></td>
-                                <td><?php echo $admin_payments['order_status'] == "Aktyvus" ? ' <span class="badge bg-success">Aktyvus</span>' : ($admin_payments['order_status'] == "Pabaigtas" ? ' <span class="badge bg-secondary">Pabaigtas</span>' : '<span class="badge bg-danger">Neaktyvus</span>'); ?></td>
-                                <td><?php echo $admin_payments['total_amount_paid'] ?? ''; ?></td>
-                                <td><?php echo $admin_payments['is_paid'] == '1'?'<span class="badge rounded-pill text-dark bg-info">Apmokėtas</span>':'<span class="badge rounded-pill bg-warning text-dark">Neapmokėtas</span>'; ?></td>
+                                <!-- <td><?php echo $admin_payments['order_status'] == "Aktyvus" ? ' <span class="badge bg-success">Aktyvus</span>' : ($admin_payments['order_status'] == "Pabaigtas" ? ' <span class="badge bg-secondary">Pabaigtas</span>' : '<span class="badge bg-danger">Neaktyvus</span>'); ?></td> -->
+                                <td><?php echo $admin_payments['total_amount_to_pay'] ?? ''; ?></td>
+                                <td><?php echo $admin_payments['is_paid'] == '1' ? '<span class="badge rounded-pill text-dark bg-info">Apmokėtas</span>' : '<span class="badge rounded-pill bg-warning text-dark">Neapmokėtas</span>'; ?></td>
+                                <td><?php echo $admin_payments['payment_date']; ?></td>
                                 <td style="display: none;"><?php echo $admin_payments['order_descrip'] ?? ''; ?></td>
 
                                 <!-- <td data-bs-toggle="modal" data-bs-target="#editOrderModal"><button class="btn btn-primary editBtn">Redaguoti</button></td> -->
+                                <td style="display: none;"><?php echo $admin_payments['payment_id'] ?? ''; ?></th>
+
                             </tr>
                         <?php
                         endwhile;
@@ -88,25 +95,33 @@ $page="Apmokėjimai";
                                 <div class="modal-body">
                                     <input type="hidden" name="payment_id_edit" id="payment_id_edit">
                                     <label for="editPaymentCode">Užsakymo kodas</label>
-                                    <br>
-                                    
-                                    <br>
+                                    <input readonly class="form-control" type="text" id="editPaymentCode" name="editPaymentCode">
+                                    <label for="editPaymentService">Paslauga</label>
+                                    <input class="form-control" type="text" name="editPaymentService" id="editPaymentService" readonly>
+                                    <label for="editPaymentUser">Vartotojas</label>
+                                    <input readonly type="text" class="form-control" id="editPaymentUser" name="editPaymentUser">
+                                    <label for="editPaymentTechn">Specialistas</label>
+                                    <input type="text" class="form-control" id="editPaymentTechn" name="editPaymentTechn">
+                                    <label for="editPaymentTotalSum">Mokama kaina</label>
+                                    <input type="number" class="form-control" id="editPaymentTotalSum" name="editPaymentTotalSum">
+                                    <label for="editPaymentStatus">Apmokėjimo statusas</label>
+                                    <select type="text" class="form-select" id="editPaymentStatus" name="editPaymentStatus">
+                                        <option value="0">Neapmokėtas</option>
+                                        <option value="1">Apmokėtas</option>
+                                    </select>
+                                    <label for="editPaymentDate">Apmokėjimo data</label>
                                     <input data-date-format="yyyy/mm/dd" data-provide="datepicker" class="form-control" type="text" name="editPaymentDate" id="editPaymentDate">
                                     <!-- <label for="editOrderManufac">Gamintojas</label>
                                     <br>
                                     <input class="form-control modal-input-box" type="text" name="editOrderManufac" id="editOrderManufac" readonly> -->
-                                    <label for="editPaymentModel">Modelis</label>
-                                    <br>
-                                    <input class="form-control modal-input-box" type="text" name="editPaymentModel" id="editPaymentModel" readonly>
-                                    <label for="editPaymentService">Paslauga</label>
-                                    <br>
-                                    <input class="form-control" type="text" name="editPaymentService" id="editPaymentService" readonly>
-                                    
-                                    
+
+
+
+
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Atšaukti</button>
-                                    <button type="submit" name="editOrderBtn" class="btn btn-primary">Redaguoti</button>
+                                    <button type="submit" name="editPaymentBtn" class="btn btn-primary">Redaguoti</button>
                                 </div>
                             </div>
                         </div>
@@ -137,39 +152,50 @@ $page="Apmokėjimai";
                     return $(this).text();
                 }).get();
 
-                $("#order_id_edit").val(data[0]);
-                $("#editOrderCode").val(data[1]);
-                var orderCreatDatFirst = new Date(data[2]);
-                var correctedDate = orderCreatDatFirst.toLocaleDateString();
+                $("#payment_id_edit").val(data[9]);
+                $("#editPaymentCode").val(data[1]);
+                $("#editPaymentService").val(data[2]);
+                // var orderCreatDatFirst = new Date(data[2]);
+                // var correctedDate = orderCreatDatFirst.toLocaleDateString();
                 //console.log(correctedDate);
-                $("#editOrderDate").datepicker('update', orderCreatDatFirst);
-                $("#editOrderManufac").val(data[4]);
-                $("#editOrderModel").val(data[5]);
-                $("#editOrderService").val(data[6]);
-                var orderEstComplDatFirst = new Date(data[10]);
+                // $("#editOrderDate").datepicker('update', orderCreatDatFirst);
+                $("#editPaymentUser").val(data[3]);
+                $("#editPaymentTechn").val(data[4]);
+                $("#editPaymentTotalSum").val(data[5]);
+                if (data[6] == 'Neapmokėtas') {
+                    $("#editPaymentStatus").val(0);
+                } else if (data[6] == 'Apmokėtas') {
+                    $("#editPaymentStatus").val(1);
+                }
+                //console.log(paymentStat);
+
+                var orgPayDate = new Date(data[7]);
+                $("#editPaymentDate").datepicker('update', orgPayDate);
+                //var orderEstComplDatFirst = new Date(data[10]);
                 //var correctedDate2 = orderEstComplDatFirst.toLocaleDateString();
                 //console.log(correctedDate2);
-                $("#editOrderEstComplDate").datepicker('update', orderEstComplDatFirst);
-                $("#editOrderDesc").val(data[13]);
-                $("#editOrderAdminStatus").val(data[9]);
-                //$("#editOrderAdminTechn").val(data[12]);
-                var testing = data[12];
-                $('.js-example-responsive').val(data[12]);
-                $('.js-example-responsive').select2();
-                console.log(testing);
-                $('.js-example-responsive').select2({
-                    dropdownParent: $('#editPaymentModal'),
-                    language: {
-                        noResults: function() {
-                            return "Specialistų nerasta";
-                        }
-                    }
-                });
+                //     $("#editOrderEstComplDate").datepicker('update', orderEstComplDatFirst);
+                //     $("#editOrderDesc").val(data[13]);
+                //     $("#editOrderAdminStatus").val(data[9]);
+                //     $("#editOrderAdminTechn").val(data[12]);
+                //     var testing = data[12];
+                //     $('.js-example-responsive').val(data[12]);
+                //     $('.js-example-responsive').select2();
+                //     console.log(testing);
+                //     $('.js-example-responsive').select2({
+                //         dropdownParent: $('#editPaymentModal'),
+                //         language: {
+                //             noResults: function() {
+                //                 return "Specialistų nerasta";
+                //             }
+                //         }
+                //     });
 
             });
 
 
             $("#adminOrdersTable").DataTable({
+                stateSave: true,
                 "language": {
                     "decimal": "",
                     "emptyTable": "Įrašų nėra",
@@ -201,6 +227,6 @@ $page="Apmokėjimai";
     </script>
 
 
-  </body>
+</body>
 
 </html>

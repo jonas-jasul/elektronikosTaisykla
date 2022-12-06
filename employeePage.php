@@ -248,6 +248,8 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.standalone.min.css" integrity="sha512-TQQ3J4WkE/rwojNFo6OJdyu6G8Xe9z8rMrlF9y7xpFbQfW5g8aSWcygCQ4vqRiJqFsDsE1T6MoAOMJkFXlrI9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <script src="https://cdn.datatables.net/1.13.1/js/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="//cdn.datatables.net/plug-ins/1.13.1/pagination/ellipses.js"></script>
+
         <script>
             $(document).ready(function() {
                 $('.datepicker').datepicker({
@@ -299,6 +301,8 @@
 
 
                 $("#employeeInactiveOrders").DataTable({
+                    "pagingType": "ellipses",
+                    stateSave: true,
                     "language": {
                         "decimal": "",
                         "emptyTable": "Įrašų nėra",
@@ -327,6 +331,7 @@
                     lengthMenu: [5, 10, 15, 20, 50],
                 });
                 $("#employeeActiveOrders").DataTable({
+                    stateSave: true,
                     "language": {
                         "decimal": "",
                         "emptyTable": "Įrašų nėra",

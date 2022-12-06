@@ -327,3 +327,27 @@ p {
     .pagination .active {
         background-color: rgb(217, 229, 229);
     }
+
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 500,
+  'GRAD' 0,
+  'opsz' 48
+}
+/* .dataTables_wrapper .dataTables_paginate .paginate_button:hover {
+    color: white !important;
+    border: 1px solid #2980B9!important;
+    background-color: rgb(181, 194, 194)!important;
+}
+.dataTables_wrapper .dataTables_paginate a.paginate_button.current:hover {
+    color: white !important;
+    background-color: rgb(181, 194, 194)!important;
+} */
+
+
+.dataTables_wrapper .dataTables_paginate a.paginate_button.current {
+    color: rgb(0, 0, 0) !important;
+    background-color: rgb(181, 194, 194)!important;
+}

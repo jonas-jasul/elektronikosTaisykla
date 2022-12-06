@@ -118,6 +118,7 @@ $page = "Vartotojai";
     <script>
         $(document).ready(function() {
             $("#adminUsersTable").DataTable({
+                stateSave: true,
                 "language": {
                     "decimal": "",
                     "emptyTable": "Įrašų nėra",

@@ -15,7 +15,9 @@
 <body>
     <?php include_once("functions/functions.php"); ?>
 
-    <?php session_start();
+    <?php if(!isset($_SESSION)) {
+        session_start();
+    }
     if (isLoggedIn(true) && !(isEmployee())) {
         include_once("loggedInHeader.php");
     } else if(isLoggedIn(true) ) {

@@ -174,19 +174,19 @@ include("functions/selectSpecialization.php");
                                 <div class="modal-body">
                                     <input type="hidden" name="techn_id_edit" id="techn_id_edit">
                                     <label for="techn_name_edit">Vardas Pavardė</label>
-                                    <br>
+                                    
                                     <input type="text" name="techn_name_edit" id="techn_name_edit" class="form-control me-3 mb-2 modal-input-box">
-                                    <br>
+                                    
                                     <label for="techn_email_edit">El. paštas</label>
-                                    <br>
+                                    
                                     <input type="text" name="techn_email_edit" id="techn_email_edit" class="form-control me-3 mb-2 modal-input-box">
-                                    <br>
+                                    
                                     <label for="techn_phone_num_edit">Tel. nr.</label>
-                                    <br>
+                                   
                                     <input type="text" name="techn_phone_num_edit" id="techn_phone_num_edit" class="form-control me-3 mb-2 modal-input-box">
-                                    <br>
+                                    
                                     <label for="techn_spec_edit">Specializacija</label>
-                                    <br>
+                                    
                                     <div class="form-group">
                                         <select id="techn_spec_edit" name="techn_spec_edit" class="form-select modal-input-box">
                                             <?php foreach ($all_specializations as $techn_spec_edit) { ?>
@@ -280,6 +280,7 @@ include("functions/selectSpecialization.php");
 
 
             $('#adminTechnTable').DataTable({
+                stateSave: true,
                 "language": {
                     "decimal": "",
                     "emptyTable": "Įrašų nėra",

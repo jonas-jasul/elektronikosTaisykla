@@ -116,11 +116,8 @@ $page = "Paslaugos";
                                 <div class="modal-body">
                                     <input type="hidden" name="service_id_edit" id="service_id_edit">
                                     <label for="service_name_edit">Paslauga</label>
-                                    <br>
                                     <input type="text" name="service_name_edit" id="service_name_edit" class="form-control me-3 mb-2 modal-input-box">
-                                    <br>
                                     <label for="service_spec_edit">Specializacija</label>
-                                    <br>
 
                                     <select id="service_spec_edit" name="service_spec_edit" class="form-select modal-input-box">
                                         <?php foreach ($all_specializations as $service_spec_edit) { ?>
@@ -129,16 +126,13 @@ $page = "Paslaugos";
                                         <?php } ?>
 
                                     </select>
-                                    <br>
                                     <label for="servicePriceEdit">Paslaugos kaina (Eur)</label>
-                                    <br>
                                     <input type="text" name="servicePriceEdit" id="servicePriceEdit" class="form-control me-3 mb-2 modal-input-box">
-                                    <br>
+                                    
                                     <label for="service_desc_edit">Aprašymas</label>
-                                    <br>
+                                    
                                     <input type="text" name="service_desc_edit" id="service_desc_edit" class="form-control me-3 mb-2 modal-input-box">
-                                    <br>
-                                </div>
+                                    </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Uždaryti</button>
                                     <button type="submit" name="updateServiceBtn" class="btn btn-primary">Išsaugoti</button>
@@ -265,6 +259,7 @@ $page = "Paslaugos";
             });
 
             $("#adminServicesTable").DataTable({
+                stateSave: true,
                 "language": {
                     "decimal": "",
                     "emptyTable": "Įrašų nėra",
