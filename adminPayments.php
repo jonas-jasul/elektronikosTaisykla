@@ -1,6 +1,10 @@
 <?php
+session_start();
 include('functions/selectAdminPayments.php');
 $page = "Apmokėjimai";
+if(!($_SESSION['admin'])) {
+    header("location: welcome.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -138,6 +142,9 @@ $page = "Apmokėjimai";
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.standalone.min.css" integrity="sha512-TQQ3J4WkE/rwojNFo6OJdyu6G8Xe9z8rMrlF9y7xpFbQfW5g8aSWcygCQ4vqRiJqFsDsE1T6MoAOMJkFXlrI9A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <script src="scripts/showHideForm.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.13.1/date-1.2.0/r-2.4.0/sp-2.1.0/sl-1.5.0/datatables.css"/>
+ 
+<script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.13.1/date-1.2.0/r-2.4.0/sp-2.1.0/sl-1.5.0/datatables.js"></script>
 
     <script>
         $(document).ready(function() {
@@ -195,6 +202,7 @@ $page = "Apmokėjimai";
 
 
             $("#adminOrdersTable").DataTable({
+               
                 stateSave: true,
                 "language": {
                     "decimal": "",

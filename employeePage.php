@@ -1,3 +1,4 @@
+<?php $puslapis="DarbuotojoPanele";?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -301,7 +302,6 @@
 
 
                 $("#employeeInactiveOrders").DataTable({
-                    "pagingType": "ellipses",
                     stateSave: true,
                     "language": {
                         "decimal": "",

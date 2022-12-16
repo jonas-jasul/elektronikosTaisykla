@@ -7,9 +7,6 @@ $phone = "";
 $name = "";
 $errors = array();
 
-// if (isset($_POST['register-btn'])) {
-//     register();
-// }
 
 if (isset($_POST['register-btn'])) {
     global $db, $errors, $email, $phone, $name;

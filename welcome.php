@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php $puslapis = "Pagrindinis" ?>
 
 <head>
     <meta charset="UTF-8">
@@ -15,15 +16,14 @@
 <body>
     <?php include_once("functions/functions.php"); ?>
 
-    <?php if(!isset($_SESSION)) {
+    <?php if (!isset($_SESSION)) {
         session_start();
     }
     if (isLoggedIn(true) && !(isEmployee())) {
         include_once("loggedInHeader.php");
-    } else if(isLoggedIn(true) ) {
+    } else if (isLoggedIn(true)) {
         include_once("employeeHeader.php");
-    }
-    else {
+    } else {
         include_once("welcomeHeader.php");
     }
     ?>
@@ -217,7 +217,7 @@
                 <div class="col">
                     <div id="aboutUsDiv">
                         <div id="aboutUsH">
-                            <h3>Apie mus:</h3>
+                            <h3>Apie mus</h3>
                         </div>
 
                         <p>Mes esame elektronikos taisyklų tinklas, turintis padalinius visoje Lietuvoje!</p>
@@ -258,13 +258,15 @@
                                     <b>Marijampolė</b>
                                     <button class="btn btn-primary" id="btn-show-map3"><i class="fa-fw fa-solid fa-location-dot"></i></button></p>
                                     <div id="gmap3">
-                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7084.56144620135!2d23.338407103244272!3d54.559430627310064!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46e12a2f31e11b97%3A0x90ca391779c771c3!2sDar%C5%BEo%2C%20Mi%C5%A1ko%20technika%20ir%20remontas!5e0!3m2!1sen!2slt!4v1669575830093!5m2!1sen!2slt" width="300" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>                                    </div>
+                                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d7084.56144620135!2d23.338407103244272!3d54.559430627310064!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46e12a2f31e11b97%3A0x90ca391779c771c3!2sDar%C5%BEo%2C%20Mi%C5%A1ko%20technika%20ir%20remontas!5e0!3m2!1sen!2slt!4v1669575830093!5m2!1sen!2slt" width="300" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                    </div>
                                 </div>
                                 <div class="col-sm-3">
                                     <b>Vilkaviškis</b>
                                     <button class="btn btn-primary" id="btn-show-map4"><i class="fa-fw fa-solid fa-location-dot"></i></button></p>
                                     <div id="gmap4">
-                                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2056.6839996463636!2d23.010726277070244!3d54.64715091678666!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46e135efbef6d739%3A0x3704e18c9b8ae00f!2sKOMPIUTERI%C5%B2%20TELEFON%C5%B2%20AUDIO%20APARAT%C5%AAROS%20GPS%20NAVIGACIJ%C5%B2%20REMONTAS!5e0!3m2!1sen!2slt!4v1669575953573!5m2!1sen!2slt" width="300" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>                                    </div>
+                                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2056.6839996463636!2d23.010726277070244!3d54.64715091678666!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x46e135efbef6d739%3A0x3704e18c9b8ae00f!2sKOMPIUTERI%C5%B2%20TELEFON%C5%B2%20AUDIO%20APARAT%C5%AAROS%20GPS%20NAVIGACIJ%C5%B2%20REMONTAS!5e0!3m2!1sen!2slt!4v1669575953573!5m2!1sen!2slt" width="300" height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -273,9 +275,19 @@
                 </div>
             </div>
         </div>
-        <script type="text/javascript" src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
         <script src="scripts/showHideMap.js"></script>
         <script src="scripts/welcome.js">
+        </script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.1.0/js/bootstrap.bundle.min.js" integrity="sha512-PqRelaJGXVuQ81N6wjUrRQelCDR7z8RvKGiR9SbSxKHPIt15eJDmIVv9EJgwq0XvgylszsjzvQ0+VyI2WtIshQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js" integrity="sha512-aVKKRRi/Q/YV+4mjoKBsE4x3H+BkegoM/em46NNlCqNTmUYADjBbeNefNxYV7giUp0VxICtqdrbqU7iVaeZNXA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+        <script>
+            $(document).ready(function() {
+                $('.navbar-nav li').click(function() {
+                    $('.navbar-nav li').removeClass('active');
+                    $(this).addClass('active');
+                })
+            })
         </script>
         <?php include("footer.php"); ?>
     </div>

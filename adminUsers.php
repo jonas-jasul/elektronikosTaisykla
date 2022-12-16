@@ -1,6 +1,11 @@
 <?php
+session_start();
 include('functions/selectUsers.php');
 $page = "Vartotojai";
+if(!($_SESSION['admin'])) {
+    header("location: welcome.php");
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

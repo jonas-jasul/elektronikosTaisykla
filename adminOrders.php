@@ -1,7 +1,12 @@
 <?php
+session_start();
 include('functions/selectAdminOrders.php');
 include_once('functions/selectTechn.php');
 $page = "Taisymai";
+if(!($_SESSION['admin'])) {
+    header("location: welcome.php");
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -71,7 +76,7 @@ $page = "Taisymai";
                                 <td><?php echo $admin_orders['name'] ?? ''; ?></td>
                                 <td><?php echo $admin_orders['techn_name'] ?? '<i>Nėra</i>'; ?></td>
                                 <td><?php echo $admin_orders['order_status'] == "Aktyvus" ? '<span class="badge bg-success">Aktyvus</span>' : ($admin_orders['order_status'] == "Pabaigtas" ? '<span class="badge bg-secondary">Pabaigtas</span>' : '<span class="badge bg-danger">Neaktyvus</span>'); ?></td>
-                                <td><?php echo $admin_orders['order_complet_date_est'] ?? ''; ?></td>
+                                <td><?php echo $admin_orders['order_complet_date_est'] == '0000-00-00' ? "<i>Nėra</i>" : $admin_orders['order_complet_date_est']; ?></td>
                                 <!-- <td><?php echo $admin_orders['order_amount_to_pay'] ?? ''; ?></td> -->
                                 <td style="display: none;"><?php echo $admin_orders['techn_id'] ?? ''; ?></td>
                                 <td style="display: none;"><?php echo $admin_orders['order_descrip'] ?? ''; ?></td>
@@ -113,7 +118,7 @@ $page = "Taisymai";
                                     <label for="editOrderEstComplDate">Numatoma pabaigimo data</label>
                                     <br>
                                     <input data-date-format="yyyy/mm/dd" data-provide="datepicker" class="form-control" type="text" name="editOrderEstComplDate" id="editOrderEstComplDate" min="2000-01-01" required>
-                                    <input type="hidden" name="order_edit_techn" id="order_edit_techn" value="<?php echo $_SESSION['user']['id'] ?>">
+                                    <!-- <input type="hidden" name="order_edit_techn" id="order_edit_techn" value="<?php echo $_SESSION['user']['id'] ?>"> -->
                                     <label for="editOrderDesc">Pastabos/Aprašymas</label>
                                     <textarea class="form-control" name="editOrderDesc" id="editOrderDesc"></textarea>
                                     <label for="editOrderAdminTechn">Specialistas</label>
@@ -234,7 +239,7 @@ $page = "Taisymai";
 
                 "language": {
                     "decimal": "",
-                    "emptyTable": "Įrašų nėra",
+                    "emptyTable": "Įrašų nerasta",
                     "info": "Rodoma nuo _START_ iki _END_ iš _TOTAL_ įrašų",
                     "infoEmpty": "Rodoma nuo 0 iki 0 iš 0 įrašų  ",
                     "infoFiltered": "(Išfiltruota iš _MAX_ įrašų)",

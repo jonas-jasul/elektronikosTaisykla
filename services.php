@@ -5,6 +5,10 @@ $_SESSION['userSelectRepairID'] = null;
 include("functions/selectService.php");
 include("functions/selectSpecialization.php");
 $page = "Paslaugos";
+if(!($_SESSION['admin'])) {
+    header("location: welcome.php");
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -59,7 +63,7 @@ $page = "Paslaugos";
             </select>
 
             <label for="servicePrice">Paslaugos kaina</label>
-            <input required type="text" name="servicePrice" id="servicePrice" class="me-3 form-control w-auto">
+            <input required type="number" min="0" name="servicePrice" id="servicePrice" class="me-3 form-control w-auto">
             <label for="description">Aprašymas</label>
             <input type="text" name="description" id="description" class="me-3 form-control w-auto">
 

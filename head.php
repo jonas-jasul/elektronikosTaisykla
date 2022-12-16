@@ -16,13 +16,13 @@
 
     <div class="vertical-nav bg-white" id="sidebar">
 
-        <div class="media d-flex align-items-center"><img src="images/logo.png" alt="..." width="100">
+        <div class="media d-flex align-items-center"><a href="welcome.php"><img src="images/logo.png" alt="..." width="100"></a>
             <div class="dropdown">
                 <button class="btn btn-secondary dropdown-toggle pe-1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     Admin
                 </button>
                 <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="login.php">Atsijungti</a></li>
+                    <li><a class="dropdown-item" href="functions/logout.php">Atsijungti</a></li>
 
                 </ul>
             </div>

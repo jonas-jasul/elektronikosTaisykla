@@ -1,7 +1,12 @@
 <?php
+session_start();
 $page = "Specialistai";
 include("functions/selectTechn.php");
 include("functions/selectSpecialization.php");
+if(!($_SESSION['admin'])) {
+    header("location: welcome.php");
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">

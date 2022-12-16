@@ -2,7 +2,9 @@
 $page="Skydelis";
 include_once("head.php"); 
 include("functions/functions.php");
-
+if(!($_SESSION['admin'])) {
+    header("location: welcome.php");
+}
 ?>
 <!DOCTYPE html>
 <html lang="lt">

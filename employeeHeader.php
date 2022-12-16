@@ -25,8 +25,8 @@
             <div id="navbarSupportedContent" class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
 
-                    <li class="nav-item"><a href="employeePage.php" class="nav-link">Darbuotojo panelė</a></li>
-                    <!-- <li class="nav-item"><a href="employeePageSettings.php" class="nav-link">Darbuotojo nustatymai</a></li> -->
+                    <li class="nav-item <?php if ($puslapis=="DarbuotojoPanele"){echo 'activeEmp';}?>"><a href="employeePage.php" class="nav-link">Darbuotojo panelė</a></li>
+                    <li class="nav-item <?php if($puslapis=="DarbuotojoPanelNustatymai"){echo 'activeEmp';}?>"><a href="employeePageSettings.php" class="nav-link">Darbuotojo nustatymai</a></li>
                 </ul>
                 <ul class="navbar-nav ms-auto">
                     <li class="nav-item">

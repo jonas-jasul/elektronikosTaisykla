@@ -54,7 +54,7 @@
     top: 0;
     max-width: 90%;
     overflow: auto;
-    padding: 1em 2em;
+    padding: 0em 2em;
     display: table;
     border-radius: 10px;
     border: 2px solid rgb(130, 153, 153);
@@ -350,4 +350,16 @@ p {
 .dataTables_wrapper .dataTables_paginate a.paginate_button.current {
     color: rgb(0, 0, 0) !important;
     background-color: rgb(181, 194, 194)!important;
+}
+
+.active {
+    background-color: rgb(166, 194, 194);
+    color: black;
+    font-weight: bold;
+}
+
+.activeEmp {
+    background-color: rgb(72, 104, 104);
+    color:black !important;
+    font-weight: bold;
 }

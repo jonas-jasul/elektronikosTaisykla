@@ -1,3 +1,5 @@
+<?php  $puslapis="VartotojoPanele";
+?>
 <!DOCTYPE html>
 <html lang="lt">
 
@@ -20,8 +22,9 @@
 
 <body>
     <?php include_once("functions/functions.php");
-    include("functions/selectServiceUser.php");
-    include("functions/selectUserOrders.php");
+   
+    include_once("functions/selectServiceUser.php");
+    include_once("functions/selectUserOrders.php");
     //include_once("functions/pagination.php");
     if (!isLoggedIn()) {
         $_SESSION['msg'] = "Jūs turite pirmiau prisijungti";
@@ -43,11 +46,11 @@
 
             <div id="navbarSupportedContent" class="collapse navbar-collapse">
                 <ul class="navbar-nav ml-auto">
-                    <li class="nav-item active"><a href="welcome.php" class="nav-link">Pagrindinis puslapis</a></li>
+                    <li class="nav-item"><a href="welcome.php" class="nav-link">Pagrindinis puslapis</a></li>
                     <li class="nav-item"><a href="welcome.php#paslaugos-div" class="nav-link">Paslaugos</a></li>
                     <li class="nav-item"><a href="#" class="nav-link">Apie mus</a></li>
-                    <li class="nav-item"><a href="kontaktai.php" class="nav-link">Kontaktai</a></li>
-                    <li class="nav-item"><a href="userPage.php" class="nav-link">Vartotojo panelė</a></li>
+                    <li class="nav-item <?php if($puslapis=="Kontaktai"){echo 'active';}?>"><a href="kontaktai.php" class="nav-link">Kontaktai</a></li>
+                    <li class="nav-item <?php if($puslapis=="VartotojoPanele"){echo 'active';}?>"><a href="userPage.php" class="nav-link">Vartotojo panelė</a></li>
 
                     <!-- <li class="nav-item"><a href="registration.php" class="nav-link">Registruotis</a></li>
                     <li class="nav-item"><a href="login.php" class="nav-link">Prisijungti</a></li> -->
@@ -980,8 +983,22 @@
                 $("#order_more_info_manufac").val(data[4]);
                 $("#order_more_info_model").val(data[5]);
                 $("#order_more_info_service").val(data[6]);
-                $("#order_more_info_techn").val(data[7]);
-                $("#order_more_info_est_compl_date").val(data[9]);
+                var techn = '';
+                if(data[7] == "") {
+                    techn= "Nėra";
+                }
+                 else {
+                    techn = data[7];
+                 }
+                $("#order_more_info_techn").val(techn);
+                var estDate ='';
+                if(data[9] == "0000-00-00") {
+                    estDate="Nėra";
+                }
+                else {
+                    estDate=data[9];
+                }
+                $("#order_more_info_est_compl_date").val(estDate);
                 $("#order_more_info_descrip").val(data[12]);
             });
 
@@ -1043,7 +1060,7 @@
             getPrice('#order_service_id_laptop', '#order_item_price_laptop');
 
             $("#userOrdersTable").DataTable({
-
+                
                 stateSave: true,
                 lengthMenu: [5, 10, 15, 20, 50],
 

@@ -1,4 +1,5 @@
-<?php include("functions/functions.php"); ?>
+<?php include("functions/functions.php");
+$puslapis="Prisijungimas" ?>
 <!DOCTYPE html>
 <html lang="lt">
 
@@ -29,7 +30,7 @@ include("welcomeHeader.php");
             <br>
             <button type="submit" class="button btn btn-primary login-btn" name="login-btn">Prisijungti</button>
             <br>
-            <p id="noReg">Neturite paskyros? <a id="noRegRegister" href="registration.php">Registruokitės!</a></p>
+            <p id="noReg">Neturite paskyros? <button type="button" class="btn btn-secondary"><a id="noRegRegister" href="registration.php">Registruokitės!</a></button></p>
         </div>
     </form>
 

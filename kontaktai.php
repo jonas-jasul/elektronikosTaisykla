@@ -1,4 +1,5 @@
-<?php include('functions/functions.php') ?>
+<?php include('functions/functions.php'); 
+$puslapis="Kontaktai"?>
 <!DOCTYPE html>
 <html lang="en">
 

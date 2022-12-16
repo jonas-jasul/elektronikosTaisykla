@@ -1,3 +1,4 @@
+<?php $puslapis="DarbuotojoPanelNustatymai";?>
 <!DOCTYPE html>
 <html lang="en">
 

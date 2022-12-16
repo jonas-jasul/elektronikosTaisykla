@@ -12,7 +12,7 @@ if (isset($_POST['editPaymentBtn'])) {
     $paySum = $_POST['editPaymentTotalSum'];
     $payStatus = $_POST['editPaymentStatus'];
     $payDate = $_POST['editPaymentDate'];
-    $query = "UPDATE payments SET payments.total_amount_paid='$paySum', payments.payment_date='$payDate', payments.is_paid='$payStatus' WHERE payments.payment_id='$id' ";
+    $query = "UPDATE payments SET payments.total_amount_to_pay='$paySum', payments.payment_date='$payDate', payments.is_paid='$payStatus' WHERE payments.payment_id='$id' ";
 
     mysqli_query($cnn, $query);
 
